@@ -41,10 +41,20 @@ namespace ms {
             bool operator == (const Vector & v) const;
             bool operator != (const Vector & v) const;
             
+            float dot(const Vector & v) const;
+            Vector cross(const Vector & v) const;
+            
+            
+            Vector& operator *= (float value);
+            
+            Vector operator * (float value) const;
+            
             Vector operator + (const Vector & v) const;
             Vector operator - (const Vector & v) const;
             
-            double precise_length() const;
+            Vector & operator += (const Vector & v);
+            Vector & operator -= (const Vector & v);
+            
             float length() const;
             
             std::string to_string() const;
@@ -117,6 +127,45 @@ bool ms::math::Vector<Type, Dimension>::operator != (const Vector & v) const {
 }
 
 template <typename Type, std::uint16_t Dimension>
+float ms::math::Vector<Type, Dimension>::dot(const Vector & v) const {
+    float dotProduct = 0.0f;
+    
+    for(std::uint16_t i = 0; i < Dimension; ++i)
+        dotProduct += (*this).components[i] * v.components[i];
+    
+    return dotProduct;
+}
+
+
+template <typename Type, std::uint16_t Dimension>
+ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator *= (float value) {
+    
+    for(std::uint16_t i = 0; i < Dimension; ++i)
+        (*this).components[i] *= value;
+    
+    return *this;
+    
+}
+
+template <typename Type, std::uint16_t Dimension>
+ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator * (float value) const {
+    
+    Vector vec;
+    
+    for(std::uint16_t i = 0; i < Dimension; ++i)
+        vec.components[i] = (*this).components[i] * value;
+    
+    return vec;
+    
+}
+
+template <typename Type, std::uint16_t Dimension>
+ms::math::Vector<Type, Dimension> operator * (float value, const ms::math::Vector<Type, Dimension> & v) {
+    ms::math::Vector<Type, Dimension> vec(v);
+    return vec * value;
+}
+
+template <typename Type, std::uint16_t Dimension>
 ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator + (const Vector & v) const {
     Vector vec;
     
@@ -137,13 +186,23 @@ ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator - 
 }
 
 template <typename Type, std::uint16_t Dimension>
-double ms::math::Vector<Type, Dimension>::precise_length() const {
-    double length = 0.0;
+ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator += (const Vector & v) {
     
     for(std::uint16_t i = 0; i < Dimension; ++i)
-        length += (*this).components[i] * (*this).components[i];
+        (*this).components[i] += v.components[i];
     
-    return std::sqrt(length);
+    return *this;
+    
+}
+
+template <typename Type, std::uint16_t Dimension>
+ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator -= (const Vector & v) {
+    
+    for(std::uint16_t i = 0; i < Dimension; ++i)
+        (*this).components[i] -= v.components[i];
+    
+    return *this;
+    
 }
 
 template <typename Type, std::uint16_t Dimension>

@@ -87,7 +87,6 @@ void VectorTest::testLength() {
     math::Vector<float, 4> vec1(3);
     
     CPPUNIT_ASSERT(vec1.length() == 6);
-    CPPUNIT_ASSERT(vec1.precise_length() == 6);
     
 }
 
@@ -102,6 +101,12 @@ void VectorTest::testAddition() {
     
     for (int i = 0; i < 3; ++ i) {
         CPPUNIT_ASSERT(vec3.c_array()[i] == 4);
+    }
+    
+    vec3 += vec1;
+    
+    for (int i = 0; i < 3; ++ i) {
+        CPPUNIT_ASSERT(vec3.c_array()[i] == 6);
     }
     
 }
@@ -119,7 +124,43 @@ void VectorTest::testSubtraction() {
         CPPUNIT_ASSERT(vec3.c_array()[i] == 0);
     }
     
+    vec3 -= vec1;
+    
+    for (int i = 0; i < 3; ++ i) {
+        CPPUNIT_ASSERT(vec3.c_array()[i] == -2);
+    }
+    
 }
 
+void VectorTest::testScalarMultiplication() {
+    
+    math::Vector<float, 3> vec1(2);
+    math::Vector<float, 3> vec3;
+    
+    vec3 = vec1 * 2;
+    
+    for (int i = 0; i < 3; ++ i) {
+        CPPUNIT_ASSERT(vec3.c_array()[i] == 4);
+    }
+    
+    vec3 = 3.0f * vec1;
+
+    for (int i = 0; i < 3; ++ i) {
+        CPPUNIT_ASSERT(vec3.c_array()[i] == 6);
+    }
+    
+    vec3 = operator*(2.0f, vec1);
+    
+    for (int i = 0; i < 3; ++ i) {
+        CPPUNIT_ASSERT(vec3.c_array()[i] == 4);
+    }
+    
+    vec3 *= 2;
+    
+    for (int i = 0; i < 3; ++ i) {
+        CPPUNIT_ASSERT(vec3.c_array()[i] == 8);
+    }
+    
+}
 
 
