@@ -134,7 +134,7 @@ void VectorTest::testSubtraction() {
 
 void VectorTest::testComponentsAccess() {
     
-    constexpr unsigned int dim = 50;
+    constexpr int dim = 50;
     
     math::Vector<float, dim> vec1(2);
     for (int i = 0; i < dim; ++ i) {
