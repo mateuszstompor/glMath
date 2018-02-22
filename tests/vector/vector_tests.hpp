@@ -2,10 +2,8 @@
 #define VECTOR_TEST_H
 
 #include <cppunit/extensions/HelperMacros.h>
-#include <string>
-#include <memory>
 
-#include "../source/vector.h"
+#include "../../source/vector.h"
 
 namespace ms {
     
