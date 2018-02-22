@@ -82,6 +82,44 @@ void VectorTest::testEquals() {
     
 }
 
+void VectorTest::testLength() {
+    
+    math::Vector<float, 4> vec1(3);
+    
+    CPPUNIT_ASSERT(vec1.length() == 6);
+    CPPUNIT_ASSERT(vec1.precise_length() == 6);
+    
+}
+
+void VectorTest::testAddition() {
+    
+    math::Vector<float, 3> vec1(2);
+    math::Vector<float, 3> vec2(2);
+    
+    math::Vector<float, 3> vec3;
+    
+    vec3 = vec1 + vec2;
+    
+    for (int i = 0; i < 3; ++ i) {
+        CPPUNIT_ASSERT(vec3.c_array()[i] == 4);
+    }
+    
+}
+
+void VectorTest::testSubtraction() {
+   
+    math::Vector<float, 3> vec1(2);
+    math::Vector<float, 3> vec2(2);
+    
+    math::Vector<float, 3> vec3;
+    
+    vec3 = vec1 - vec2;
+    
+    for (int i = 0; i < 3; ++ i) {
+        CPPUNIT_ASSERT(vec3.c_array()[i] == 0);
+    }
+    
+}
 
 
 

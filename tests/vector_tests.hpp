@@ -18,6 +18,9 @@ namespace ms {
     CPPUNIT_TEST( testCopyAssignment );
     CPPUNIT_TEST( testMoveAssignment );
       
+    CPPUNIT_TEST( testLength );
+    CPPUNIT_TEST( testAddition );
+    CPPUNIT_TEST( testSubtraction );
     CPPUNIT_TEST( testEquals );
       
     CPPUNIT_TEST_SUITE_END();
@@ -32,6 +35,12 @@ namespace ms {
       
     void testMoveAssignment();
     void testCopyAssignment();
+      
+    void testLength();
+      
+    void testAddition();
+      
+    void testSubtraction();
       
     void testEquals();
 

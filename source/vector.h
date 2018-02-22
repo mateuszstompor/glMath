@@ -11,6 +11,8 @@
 
 #include <string>
 #include <sstream>
+#include <cmath>
+#include <cstring>
 
 namespace ms {
     
@@ -39,6 +41,11 @@ namespace ms {
             bool operator == (const Vector & v) const;
             bool operator != (const Vector & v) const;
             
+            Vector operator + (const Vector & v) const;
+            Vector operator - (const Vector & v) const;
+            
+            double precise_length() const;
+            float length() const;
             
             std::string to_string() const;
             
@@ -107,6 +114,46 @@ bool ms::math::Vector<Type, Dimension>::operator == (const Vector & v) const {
 template <typename Type, std::uint16_t Dimension>
 bool ms::math::Vector<Type, Dimension>::operator != (const Vector & v) const {
     return !( *this == v );
+}
+
+template <typename Type, std::uint16_t Dimension>
+ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator + (const Vector & v) const {
+    Vector vec;
+    
+    for(std::uint16_t i = 0; i < Dimension; ++i)
+        vec.components[i] = (*this).components[i] + v.components[i];
+    
+    return vec;
+}
+
+template <typename Type, std::uint16_t Dimension>
+ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator - (const Vector & v) const {
+    Vector vec;
+    
+    for(std::uint16_t i = 0; i < Dimension; ++i)
+        vec.components[i] = (*this).components[i] - v.components[i];
+    
+    return vec;
+}
+
+template <typename Type, std::uint16_t Dimension>
+double ms::math::Vector<Type, Dimension>::precise_length() const {
+    double length = 0.0;
+    
+    for(std::uint16_t i = 0; i < Dimension; ++i)
+        length += (*this).components[i] * (*this).components[i];
+    
+    return std::sqrt(length);
+}
+
+template <typename Type, std::uint16_t Dimension>
+float ms::math::Vector<Type, Dimension>::length() const {
+    float length = 0.0;
+    
+    for(std::uint16_t i = 0; i < Dimension; ++i)
+        length += (*this).components[i] * (*this).components[i];
+    
+    return std::sqrt(length);
 }
 
 template <typename Type, std::uint16_t Dimension>
