@@ -132,6 +132,22 @@ void VectorTest::testSubtraction() {
     
 }
 
+void VectorTest::testComponentsAccess() {
+    
+    constexpr unsigned int dim = 50;
+    
+    math::Vector<float, dim> vec1(2);
+    for (int i = 0; i < dim; ++ i) {
+        CPPUNIT_ASSERT(vec1[i] == 2);
+        vec1[i] = i;
+    }
+    
+    for (int i = 0; i < dim; ++ i) {
+        CPPUNIT_ASSERT(vec1[i] == i);
+    }
+    
+}
+
 void VectorTest::testScalarMultiplication() {
     
     math::Vector<float, 3> vec1(2);
@@ -161,6 +177,52 @@ void VectorTest::testScalarMultiplication() {
         CPPUNIT_ASSERT(vec3.c_array()[i] == 8);
     }
     
+}
+
+void VectorTest::testDot() {
+	
+	float tab1 [] = { 1.0f, 0.0f, 0.0f };
+	float tab2 [] = { 0.0f, 1.0f, 0.0f };
+	
+	math::Vector<float, 3> vec1(tab1);
+	math::Vector<float, 3> vec2(tab2);
+	
+	CPPUNIT_ASSERT(vec2.dot(vec1) == 0);
+	
+}
+
+void VectorTest::testCross() {
+	
+	float tab1 [] = { 1.0f, 2.0f, 3.0f };
+	float tab2 [] = { 4.0f, 5.0f, 6.0f };
+	
+	math::Vector<float, 3> vec1(tab1);
+	math::Vector<float, 3> vec2(tab2);
+	
+	math::Vector<float, 3> result;
+	result = vec1.cross(vec2);
+	
+	CPPUNIT_ASSERT(vec2.dot(vec1) != 0);
+	
+	CPPUNIT_ASSERT(result[0] == -3);
+	CPPUNIT_ASSERT(result[1] == 6);
+	CPPUNIT_ASSERT(result[2] == -3);
+
+	
+}
+
+void VectorTest::testNormalization() {
+	
+	float tab2 [] = { 1.0f, 1.0f, 1.0f };
+	
+	math::Vector<float, 3> vec1(tab2);
+	
+	CPPUNIT_ASSERT(vec1.length() != 1);
+	
+	vec1.normalize();
+	
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, vec1.length(), 0.0001);
+	
 }
 
 

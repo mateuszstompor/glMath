@@ -16,58 +16,52 @@
 
 namespace ms {
     
-    namespace math {
-        
-        template <typename Type, std::uint16_t Dimension>
-        class Vector {
-        
-        public:
-            
-            //constructors
-            //create and do not initialize memory
-            Vector();
-            //create and initialize memory with value
-            Vector(Type value);
-            //move constructor
-            Vector(Vector && v);
-            //copy constructor
-            Vector(const Vector & v);
-            
-            virtual Vector& operator=(const Vector & v);
-            virtual Vector& operator=(Vector && v);
-
-            virtual ~Vector();
-            
-            bool operator == (const Vector & v) const;
-            bool operator != (const Vector & v) const;
-            
-            float dot(const Vector & v) const;
-            Vector cross(const Vector & v) const;
-            
-            
-            Vector& operator *= (float value);
-            
-            Vector operator * (float value) const;
-            
-            Vector operator + (const Vector & v) const;
-            Vector operator - (const Vector & v) const;
-            
-            Vector & operator += (const Vector & v);
-            Vector & operator -= (const Vector & v);
-            
-            float length() const;
-            
-            std::string to_string() const;
-            
-            const Type * c_array() const;
-            
-        protected:
-            
-            Type* components;
-            
-        };
-        
-    }
+	namespace math {
+		
+		template <typename Type, std::uint16_t Dimension>
+		class Vector {
+		
+		public:
+			
+							Vector				();
+							Vector				(Type value);
+							Vector				(Vector && v);
+							Vector				(const Vector & v);
+							Vector				(const Type array [Dimension]);
+			
+							~Vector();
+			
+			Vector &		operator	=		(const Vector & v);
+			Vector &		operator	=		(Vector && v);
+			bool			operator	==		(const Vector & v) const;
+			bool			operator	!=		(const Vector & v) const;
+			Vector			operator	+		(const Vector & v) const;
+			Vector & 		operator 	+= 		(const Vector & v);
+			Vector 			operator 	- 		(const Vector & v) const;
+			Vector & 		operator 	-= 		(const Vector & v);
+			Vector 			operator 	* 		(float value) const;
+			Vector& 		operator 	*= 		(float value);
+			
+			Type & 			operator 	[] 		(std::uint16_t position);
+			Type & 			at					(std::uint16_t position);
+			float 			dot					(const Vector & v) const;
+			Vector 			cross				(const Vector & v) const;
+			
+			float	 		length				() const;
+			
+			void	 		normalize			();
+			
+			std::string 	to_string			() const;
+			
+			const Type * 	c_array				() const;
+			
+		private:
+			
+			Type * 			components;
+			
+		};
+		
+	}
     
 }
 
@@ -90,6 +84,11 @@ ms::math::Vector<Type, Dimension>::Vector(Vector && v) : components(v.components
 template <typename Type, std::uint16_t Dimension>
 ms::math::Vector<Type, Dimension>::Vector(const Vector & v) : components( new Type[Dimension] ) {
     memcpy((*this).components, v.components, Dimension * sizeof(Type));
+}
+
+template <typename Type, std::uint16_t Dimension>
+ms::math::Vector<Type, Dimension>::Vector(const Type array [Dimension]) : components( new Type[Dimension] ) {
+	memcpy((*this).components, array, Dimension * sizeof(Type));
 }
 
 template <typename Type, std::uint16_t Dimension>
@@ -136,6 +135,15 @@ float ms::math::Vector<Type, Dimension>::dot(const Vector & v) const {
     return dotProduct;
 }
 
+template <typename Type, std::uint16_t Dimension>
+ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::cross(const Vector & v) const {
+	static_assert(Dimension == 3, "Cross product exists only for dimension of three");
+	Vector vec;
+	vec[0] = this->components[1] * v.components[2] - this->components[2] * v.components[1];
+	vec[1] = this->components[2] * v.components[0] - this->components[0] * v.components[2];
+	vec[2] = this->components[0] * v.components[1] - this->components[1] * v.components[0];
+	return vec;
+}
 
 template <typename Type, std::uint16_t Dimension>
 ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator *= (float value) {
@@ -157,6 +165,16 @@ ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator * 
     
     return vec;
     
+}
+
+template <typename Type, std::uint16_t Dimension>
+Type& ms::math::Vector<Type, Dimension>::at(std::uint16_t position) {
+    return (*this).components[position];
+}
+
+template <typename Type, std::uint16_t Dimension>
+Type& ms::math::Vector<Type, Dimension>::operator [] (std::uint16_t position) {
+    return (*this).components[position];
 }
 
 template <typename Type, std::uint16_t Dimension>
@@ -213,6 +231,13 @@ float ms::math::Vector<Type, Dimension>::length() const {
         length += (*this).components[i] * (*this).components[i];
     
     return std::sqrt(length);
+}
+
+template <typename Type, std::uint16_t Dimension>
+void ms::math::Vector<Type, Dimension>::normalize() {
+	float len = length();
+	for(std::uint16_t i = 0; i < Dimension; ++i)
+		components[i] /= len;
 }
 
 template <typename Type, std::uint16_t Dimension>

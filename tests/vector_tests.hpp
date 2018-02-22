@@ -20,6 +20,10 @@ namespace ms {
       
     CPPUNIT_TEST( testLength );
     CPPUNIT_TEST( testAddition );
+	CPPUNIT_TEST( testDot );
+	CPPUNIT_TEST( testCross );
+	CPPUNIT_TEST( testNormalization );
+    CPPUNIT_TEST( testComponentsAccess );
     CPPUNIT_TEST( testScalarMultiplication );
     CPPUNIT_TEST( testSubtraction );
     CPPUNIT_TEST( testEquals );
@@ -40,6 +44,12 @@ namespace ms {
     void testLength();
       
     void testAddition();
+	  
+	void testDot();
+	void testCross();
+	void testNormalization();
+      
+    void testComponentsAccess();
       
     void testScalarMultiplication();
       

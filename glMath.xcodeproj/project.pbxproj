@@ -49,6 +49,7 @@
 			);
 			path = source;
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		56085052203E49F300BDD00C /* tests */ = {
 			isa = PBXGroup;
@@ -68,6 +69,7 @@
 				56443A86203E48A000A801A7 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		56443A86203E48A000A801A7 /* Products */ = {
 			isa = PBXGroup;
