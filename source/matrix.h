@@ -20,39 +20,52 @@ namespace ms {
 	
 		template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 		class Matrix {
+		
+		public:
+			
+			//static functions
+			
+			static Matrix 				identity			();
+			static Matrix 				diagonal			(Type value);
+			
 			
 		public:
 			
-							Matrix				();
-							Matrix				(Type value);
-							Matrix				(const Matrix & m);
-							Matrix				(Matrix && m);
-							Matrix				(const Type array [Rows * Columns]);
+										Matrix				();
+										Matrix				(Type value);
+										Matrix				(const Matrix & m);
+										Matrix				(Matrix && m);
+										Matrix				(const Type array [Rows * Columns]);
 			
-							~Matrix				();
+										~Matrix				();
 			
-			Matrix &		operator =			(const Matrix & m);
-			Matrix &		operator =			(Matrix && m);
+			Matrix &					operator =			(const Matrix & m);
+			Matrix &					operator =			(Matrix && m);
 			
-			Matrix 			operator - 			(const Matrix & m) const;
-			Matrix & 		operator -= 		(const Matrix & m);
+			Matrix 						operator - 			(const Matrix & m) const;
+			Matrix & 					operator -= 		(const Matrix & m);
 			
-			Matrix 			operator + 			(const Matrix & m) const;
-			Matrix & 		operator += 		(const Matrix & m);
+			Matrix 						operator + 			(const Matrix & m) const;
+			Matrix & 					operator += 		(const Matrix & m);
 			
-			Matrix & 		operator *= 		(const Matrix & m);
-			Matrix	 		operator *	 		(const Matrix & m) const;
-			Matrix & 		operator *= 		(Type value);
-			Matrix	 		operator *	 		(Type value) const;
+			Matrix & 					operator *= 		(const Matrix & m);
 			
-			bool	 		operator ==	 		(const Matrix & m);
-			bool	 		operator !=	 		(const Matrix & m);
+			template <UNSIGNED_TYPE C>
+			Matrix<Type, Rows, C> 		operator * 			(const Matrix<Type, Columns, C> & m) const;
+
+			Matrix & 					operator *= 		(Type value);
+			Matrix	 					operator *	 		(Type value) const;
 			
-			Type & 			operator []			(UNSIGNED_TYPE index);
+			bool	 					operator ==	 		(const Matrix & m);
+			bool	 					operator !=	 		(const Matrix & m);
 			
-			std::string 	to_string			() const;
+			Matrix<Type, Columns, Rows> transposition 		() const;
 			
-			const Type * 	c_array				() const;
+			Type & 						operator []			(UNSIGNED_TYPE index);
+			
+			std::string 				to_string			() const;
+			
+			const Type * 				c_array				() const;
 			
 		private:
 			
@@ -64,6 +77,20 @@ namespace ms {
 	
 }
 
+template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: identity () {
+	return diagonal(Type(1.0));
+}
+
+template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: diagonal (Type value) {
+	static_assert(Rows == Columns, "Diagonal matrix needs to be square");
+	Matrix m;
+	for(UNSIGNED_TYPE row = 0; row < Rows; ++row)
+		for(UNSIGNED_TYPE column = 0; column < Columns; ++column)
+			m[column * Rows + row] = row == column ? value : 0;
+	return m;
+}
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> :: Matrix() : components(new Type[ Columns * Rows ]) { }
@@ -137,11 +164,27 @@ ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> ::
 	return (*this);
 }
 
-//TODO
-//Matrix & 		operator *= 		(const Matrix & m);
+template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator *= (const Matrix & m) {
+	(*this) = (*this) * m;
+	return (*this);
+}
 
-//TODO
-//Matrix	 		operator *	 		(const Matrix & m);
+template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+template <UNSIGNED_TYPE C>
+ms::math::Matrix<Type, Rows, C> ms::math::Matrix<Type, Rows, Columns> :: operator * (const Matrix<Type, Columns, C> & m) const {
+	Matrix <Type, Rows, C> result;
+
+	for(UNSIGNED_TYPE outerIterator = 0; outerIterator < Rows; ++outerIterator)
+		for (UNSIGNED_TYPE innerIterator = 0; innerIterator < C; ++innerIterator) {
+			Type sum = 0;
+			for (UNSIGNED_TYPE i = 0; i < Columns; ++i)
+				sum += *((*this).components + Rows*i + outerIterator) * *(m.c_array() + Rows*innerIterator + i);
+			result[Rows * innerIterator + outerIterator] = sum;
+		}
+	
+	return result;
+}
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator *= (Type value) {
@@ -173,13 +216,31 @@ bool ms::math::Matrix<Type, Rows, Columns> :: operator != (const Matrix & m) {
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+ms::math::Matrix<Type, Columns, Rows> ms::math::Matrix<Type, Rows, Columns> :: transposition () const {
+	Matrix<Type, Columns, Rows> mat;
+	for (UNSIGNED_TYPE row = 0; row < Rows; ++row)
+		for (UNSIGNED_TYPE column = 0; column < Columns; ++column)
+			mat[row * Columns + column] = (*this).c_array()[row + column * Rows];
+	return mat;
+}
+
+template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (UNSIGNED_TYPE index) {
 	return (*this).components[index];
 }
 
-
-//TODO
-//std::string 	to_string			() const;
+template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+std::string ms::math::Matrix<Type, Rows, Columns> :: to_string() const {
+	std::ostringstream output;
+	
+	for (UNSIGNED_TYPE column = 0; column < Columns; ++column)
+		for (UNSIGNED_TYPE row = 0; row < Rows; ++row) {
+			if (column % Columns == 0 && column != 0) { output << std::endl; }
+			output << components[column * Rows + row] << " ";
+		}
+	
+	return output.str();
+}
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 const Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() const {
