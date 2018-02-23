@@ -104,12 +104,12 @@ void MatrixTest::testTransposition() {
 	auto identity = ms::math::Matrix<float, 2, 2>::identity().transposition();
 	CPPUNIT_ASSERT(identity == (ms::math::Matrix<float, 2, 2>::identity()));
 
-	auto mat24 = ms::math::Matrix<float, 2, 4>::Matrix(2);
-	auto mat42 = ms::math::Matrix<float, 4, 2>::Matrix(1);
+	auto mat24 = ms::math::Matrix<float, 2, 4>(2);
+	auto mat42 = ms::math::Matrix<float, 4, 2>(1);
 	
 	CPPUNIT_ASSERT((mat42*2) == mat24.transposition());
 	
-	ms::math::Matrix<float, 2, 2>::Matrix mat;
+	ms::math::Matrix<float, 2, 2> mat;
 	mat[0] = 1;
 	mat[1] = 3;
 	mat[2] = 2;
