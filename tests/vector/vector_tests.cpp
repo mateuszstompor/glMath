@@ -240,6 +240,7 @@ void VectorTest::testMatrixMult() {
 	math::mat3 mat2 = math::mat3::identity() * 2;
 
 	CPPUNIT_ASSERT(vec1 * 2 == vec1 * mat2);
+	CPPUNIT_ASSERT(vec1 * 2 ==  mat2 * vec1);
 	
 	vec1 *= mat2;
 	CPPUNIT_ASSERT(vec1 == vec2 * mat2);
