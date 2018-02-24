@@ -9,8 +9,20 @@
 #ifndef definitions_h
 #define definitions_h
 
-#include "matrix.h"
-#include "vector.h"
+#include "common.h"
+
+namespace ms {
+	
+	namespace math {
+		
+		template <typename T, UNSIGNED_TYPE Dimension>
+		class Vector;
+
+		template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+		class Matrix;
+		
+	}
+}
 
 namespace ms {
 	

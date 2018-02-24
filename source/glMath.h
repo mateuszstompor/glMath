@@ -10,5 +10,7 @@
 #define glMath_h
 
 #include "definitions.h"
+#include "matrix.h"
+#include "vector.h"
 
 #endif /* glMath_h */
