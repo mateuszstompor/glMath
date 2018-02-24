@@ -11,7 +11,7 @@ all:
 	make tests
 	make mem_check
 
-tests:
+tests: link
 	make test_matrix
 	make test_vector
 
@@ -38,7 +38,7 @@ mem_check_matrix: link
 mem_check_vector: link
 	valgrind $(VALGRIND_FLAGS) ./$(VECTOR_TESTS)
 
-mem_check:
+mem_check: link
 	make mem_check_matrix
 	make mem_check_vector
 

@@ -17,7 +17,6 @@ addons:
 jobs:
   include:
     - stage: Unit Tests
-
       script:
         - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
         - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
@@ -30,7 +29,6 @@ jobs:
         - make tests
 
     - stage: Memory Check
-
       script:
         - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
         - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
