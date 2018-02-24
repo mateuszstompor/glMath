@@ -16,18 +16,30 @@ addons:
 
 jobs:
   include:
-    - stage: build
+    - stage: Unit Tests
+
       script:
         - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
         - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
-        - sudo apt-get install valgrind
+
         - export CC=/usr/bin/gcc-6
         - export CXX=/usr/bin/g++-6
 
         - sudo apt-get install libcppunit-dev
 
-        - make
+        - make tests
 
-    - stage: unit tests
+    - stage: Memory Check
+
       script:
-        - echo 22
+        - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+        - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
+
+        - sudo apt-get install valgrind
+
+        - export CC=/usr/bin/gcc-6
+        - export CXX=/usr/bin/g++-6
+
+        - sudo apt-get install libcppunit-dev
+
+        - make mem_check

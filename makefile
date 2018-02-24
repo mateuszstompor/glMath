@@ -7,11 +7,13 @@ MATRIX_TESTS = matrix_tests.x
 VECTOR_TESTS = vector_tests.x
 VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=1 --show-leak-kinds=definite --errors-for-leak-kinds=definite
 
-all: link
+all:
+	make tests
+	make mem_check
+
+tests:
 	make test_matrix
 	make test_vector
-	make mem_check_vector
-	make mem_check_matrix
 
 link: compile
 	$(CXX) $(CXX_FLAGS) -o $(VECTOR_TESTS) ./$(BUILD_FOLDER)/vector_tests.o ./$(BUILD_FOLDER)/vector_testing_program.o -lcppunit
@@ -24,18 +26,23 @@ compile:
 	$(CXX) $(CXX_FLAGS) -c -O3 ./tests/vector/*.cpp
 	mv ./*.o ./$(BUILD_FOLDER)
 
-test_matrix: compile
+test_matrix: link
 	./$(MATRIX_TESTS)
 
-test_vector: compile
+test_vector: link
 	./$(VECTOR_TESTS)
 
-mem_check_matrix:
+mem_check_matrix: link
 	valgrind $(VALGRIND_FLAGS) ./$(MATRIX_TESTS)
 
-mem_check_vector:
+mem_check_vector: link
 	valgrind $(VALGRIND_FLAGS) ./$(VECTOR_TESTS)
+
+mem_check:
+	make mem_check_matrix
+	make mem_check_vector
 
 clean:
 	rm -rf ./$(BUILD_FOLDER)
 	rm -f *.x
+	rm -rf *.dSYM
