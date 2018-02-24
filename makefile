@@ -5,13 +5,13 @@ MEMORY_DEBUG_FLAGS = -m32 -g -fno-inline -fno-omit-frame-pointer
 
 MATRIX_TESTS = matrix_tests.x
 VECTOR_TESTS = vector_tests.x
-VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all
+VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=1 --show-leak-kinds=definite --errors-for-leak-kinds=definite
 
 all: link
 	make test_matrix
 	make test_vector
-	make mem_check_matrix
 	make mem_check_vector
+	make mem_check_matrix
 
 link: compile
 	$(CXX) $(CXX_FLAGS) -o $(VECTOR_TESTS) ./$(BUILD_FOLDER)/vector_tests.o ./$(BUILD_FOLDER)/vector_testing_program.o -lcppunit
