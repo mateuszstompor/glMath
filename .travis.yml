@@ -17,7 +17,7 @@ addons:
 script:
   - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
   - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
-  - apt install valgrind
+  - sudo apt-get install valgrind
   - export CC=/usr/bin/gcc-6
   - export CXX=/usr/bin/g++-6
 
