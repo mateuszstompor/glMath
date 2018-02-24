@@ -117,7 +117,9 @@ ms::math::Matrix<Type, Rows, Columns> :: Matrix(const Matrix & m) : Matrix() {
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-ms::math::Matrix<Type, Rows, Columns> :: Matrix(Matrix && m) : components(m.components) {
+ms::math::Matrix<Type, Rows, Columns> :: Matrix(Matrix && m) {
+	delete [] (*this).components;
+	(*this).components = m.components;
 	m.components = nullptr;
 }
 
@@ -139,6 +141,7 @@ ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> ::
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator = (Matrix && m) {
+	delete [] (*this).components;
 	(*this).components = m.components;
 	m.components = nullptr;
 	return (*this);
