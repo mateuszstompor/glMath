@@ -3,7 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-#include "../../source/vector.h"
+#include "../../source/glMath.h"
 
 namespace ms {
     
@@ -25,7 +25,7 @@ namespace ms {
     CPPUNIT_TEST( testScalarMultiplication );
     CPPUNIT_TEST( testSubtraction );
     CPPUNIT_TEST( testEquals );
-      
+	CPPUNIT_TEST( testMatrixMult );
     CPPUNIT_TEST_SUITE_END();
 
   public:
@@ -40,7 +40,9 @@ namespace ms {
     void testCopyAssignment();
       
     void testLength();
-      
+	  
+	void testMatrixMult();
+	  
     void testAddition();
 	  
 	void testDot();

@@ -14,6 +14,7 @@
 #include <cmath>
 #include <cstring>
 
+#include "matrix.h"
 #include "common.h"
 
 namespace ms {
@@ -23,43 +24,55 @@ namespace ms {
 		template <typename Type, UNSIGNED_TYPE Dimension>
 		class Vector {
 		
+		template <typename T, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+		friend class Matrix;
+			
 		public:
 			
-							Vector				();
-							Vector				(Type value);
-							Vector				(Vector && v);
-							Vector				(const Vector & v);
-							Vector				(const Type array [Dimension]);
+									Vector				();
+									Vector				(Type value);
+									Vector				(Vector && v);
+									Vector				(const Vector & v);
+									Vector				(const Type array [Dimension]);
 			
-							~Vector();
+									~Vector();
 			
-			Vector &		operator	=		(const Vector & v);
-			Vector &		operator	=		(Vector && v);
-			bool			operator	==		(const Vector & v) const;
-			bool			operator	!=		(const Vector & v) const;
-			Vector			operator	+		(const Vector & v) const;
-			Vector & 		operator 	+= 		(const Vector & v);
-			Vector 			operator 	- 		(const Vector & v) const;
-			Vector & 		operator 	-= 		(const Vector & v);
-			Vector 			operator 	* 		(float value) const;
-			Vector& 		operator 	*= 		(float value);
+			Vector &				operator	=		(const Vector & v);
+			Vector &				operator	=		(Vector && v);
+			bool					operator	==		(const Vector & v) const;
+			bool					operator	!=		(const Vector & v) const;
+			Vector					operator	+		(const Vector & v) const;
+			Vector & 				operator 	+= 		(const Vector & v);
+			Vector 					operator 	- 		(const Vector & v) const;
+			Vector & 				operator 	-= 		(const Vector & v);
 			
-			Type & 			operator 	[] 		(UNSIGNED_TYPE position);
-			Type & 			at					(UNSIGNED_TYPE position);
-			float 			dot					(const Vector & v) const;
-			Vector 			cross				(const Vector & v) const;
+			Vector 					operator 	* 		(float value) const;
+			Vector& 				operator 	*= 		(float value);
 			
-			float	 		length				() const;
+			template <UNSIGNED_TYPE Columns>
+			Vector<Type, Columns>	operator	*		(const Matrix<Type, Dimension, Columns>) const;
 			
-			void	 		normalize			();
+			template <UNSIGNED_TYPE Columns>
+			Vector<Type, Columns> &	operator	*=		(const Matrix<Type, Dimension, Columns>);
 			
-			std::string 	to_string			() const;
+			Type & 					operator 	[] 		(UNSIGNED_TYPE position);
+			Type const & 			operator 	[] 		(UNSIGNED_TYPE position) const;
 			
-			const Type * 	c_array				() const;
+			float 					dot					(const Vector & v) const;
+			Vector 					cross				(const Vector & v) const;
+			
+			float	 				length				() const;
+			
+			void	 				normalize			();
+			
+			std::string 			to_string			() const;
+			
+			Type *		 			c_array				();
+			const Type * 			c_array				() const;
 			
 		private:
 			
-			Type * 			components;
+			Type * 					components;
 			
 		};
 		
@@ -167,13 +180,35 @@ ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator * 
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type& ms::math::Vector<Type, Dimension>::at(UNSIGNED_TYPE position) {
-    return (*this).components[position];
+template <UNSIGNED_TYPE Columns>
+ms::math::Vector<Type, Columns> ms::math::Vector<Type, Dimension> :: operator * (const Matrix<Type, Dimension, Columns> m) const {
+	Vector<Type, Columns> result;
+	for(UNSIGNED_TYPE row = 0; row < Dimension; ++row) {
+		Type sum = 0.0;
+		for(UNSIGNED_TYPE column = 0; column < Columns; ++column)
+			sum += (*this).components[column] * m[Dimension * column + row];
+		result[row] = sum;
+	}
+	return result;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+template <UNSIGNED_TYPE Columns>
+ms::math::Vector<Type, Columns> & ms::math::Vector<Type, Dimension> :: operator *= (const Matrix<Type, Dimension, Columns> m) {
+	Vector<Type, Columns> result;
+	result = (*this) * m;
+	(*this) = result;
+	return (*this);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE position) {
     return (*this).components[position];
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+const Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE position) const {
+	return (*this).components[position];
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -252,6 +287,11 @@ std::string ms::math::Vector<Type, Dimension>::to_string() const {
 template <typename Type, UNSIGNED_TYPE Dimension>
 const Type * ms::math::Vector<Type, Dimension>::c_array() const {
     return components;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type * ms::math::Vector<Type, Dimension>::c_array() {
+	return components;
 }
 
 #endif /* vector_h */

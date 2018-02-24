@@ -225,4 +225,24 @@ void VectorTest::testNormalization() {
 	
 }
 
+void VectorTest::testMatrixMult() {
+	
+	float tab2 [] = { 1.0f, 1.0f, 1.0f };
+	
+	math::Vector<float, 3> vec1(tab2);
+	math::Vector<float, 3> vec2(tab2);
+	math::mat3 mat = math::mat3::identity();
+	
+	auto result = vec1 * mat;
+	
+	CPPUNIT_ASSERT(result == vec1);
+	
+	math::mat3 mat2 = math::mat3::identity() * 2;
+
+	CPPUNIT_ASSERT(vec1 * 2 == vec1 * mat2);
+	
+	vec1 *= mat2;
+	CPPUNIT_ASSERT(vec1 == vec2 * mat2);
+	
+}
 
