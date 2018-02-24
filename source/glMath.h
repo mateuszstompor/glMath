@@ -12,7 +12,8 @@
 #include "definitions.h"
 #include "matrix.h"
 #include "vector.h"
-#include "spherical_coordinates/sc_degrees.h"
 #include "common.h"
+#include "spherical_coordinates/sc_degrees.h"
+#include "spherical_coordinates/sc_radians.h"
 
 #endif /* glMath_h */

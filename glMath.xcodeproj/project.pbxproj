@@ -49,6 +49,7 @@
 		568BCA1F203F192800E02F23 /* matrix_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matrix_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		568BCA28203F1E6400E02F23 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
 		568BCA29203F1E7E00E02F23 /* glMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glMath.h; sourceTree = "<group>"; };
+		56D35DBF2042274C00450EDF /* sc_radians.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sc_radians.h; path = source/spherical_coordinates/sc_radians.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +96,7 @@
 		560D53E92042119B00E83FF4 /* spherical_coordinates */ = {
 			isa = PBXGroup;
 			children = (
+				56D35DBF2042274C00450EDF /* sc_radians.h */,
 				560D53EB204211AB00E83FF4 /* sc_degrees.h */,
 			);
 			name = spherical_coordinates;

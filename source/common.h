@@ -38,6 +38,14 @@ namespace ms {
 			return radiansf * 180.0f / M_PI;
 		}
 		
+		inline double radians(double degrees) {
+			return M_PI * (degrees / 180.0);
+		}
+		
+		inline float radiansf(float degreesf) {
+			return M_PI * (degreesf / 180.0f);
+		}
+		
 	}
 	
 }

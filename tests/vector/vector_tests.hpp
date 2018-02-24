@@ -27,7 +27,8 @@ namespace ms {
     CPPUNIT_TEST( testEquals );
 	CPPUNIT_TEST( testMatrixMult );
 	CPPUNIT_TEST( testSphericalCoordinatesConversionDegrees );
-	  
+	CPPUNIT_TEST( testSphericalCoordinatesConversionRadians );
+
     CPPUNIT_TEST_SUITE_END();
 
   public:
@@ -52,6 +53,7 @@ namespace ms {
 	void testNormalization();
 	  
 	void testSphericalCoordinatesConversionDegrees();
+	void testSphericalCoordinatesConversionRadians();
 	  
     void testComponentsAccess();
       

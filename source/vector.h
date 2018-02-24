@@ -24,6 +24,9 @@ namespace ms {
 			
 			template <typename Type>
 			struct DegreesSpherical;
+			
+			template <typename Type>
+			struct RadiansSpherical;
 		
 		}
 		
@@ -41,6 +44,7 @@ namespace ms {
 									Vector				(const Vector & v);
 									Vector				(const Type array [Dimension]);
 									Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
+									Vector				(const spco::RadiansSpherical<Type> sphericalCoordinates);
 			
 									~Vector();
 			
@@ -127,7 +131,12 @@ ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> sphericalCoordinates) : components( new Type[Dimension] ) {
+ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> sphericalCoordinates) : Vector( spco::RadiansSpherical <Type> ( sphericalCoordinates ) ) {
+	static_assert(Dimension == 3, "Spherical system requires dimension of three");
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> sphericalCoordinates) : components( new Type[Dimension] ) {
 	static_assert(Dimension == 3, "Spherical system requires dimension of three");
 	(*this).components[0] = sphericalCoordinates.radius * cosf(sphericalCoordinates.azimuthAngle) * sinf(sphericalCoordinates.inclination);
 	(*this).components[1] = sphericalCoordinates.radius * sinf(sphericalCoordinates.azimuthAngle) * sinf(sphericalCoordinates.inclination);

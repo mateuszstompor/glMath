@@ -6,8 +6,6 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-//convention: ANGLES ARE STORED IN DEGRESS;
-
 #ifndef sc_degrees_h
 #define sc_degrees_h
 
@@ -26,12 +24,16 @@ namespace ms {
 		namespace spco {
 			
 			template <typename Type>
+			struct RadiansSpherical;
+			
+			template <typename Type>
 			struct DegreesSpherical {
 				
 			public:
 				
 				DegreesSpherical(Type inclination, Type azimuthAngle, Type radius);
 				DegreesSpherical(ms::math::Vector<Type, 3> v);
+				DegreesSpherical(RadiansSpherical<Type> radiansSpherical);
 				DegreesSpherical();
 				
 				// measured from azimuth
@@ -51,6 +53,10 @@ namespace ms {
 template <typename Type>
 ms::math::spco::DegreesSpherical<Type>::DegreesSpherical(Type inclination, Type azimuthAngle, Type radius)
 : inclination(inclination), azimuthAngle(azimuthAngle), radius(radius) { }
+
+template <typename Type>
+ms::math::spco::DegreesSpherical<Type>::DegreesSpherical(RadiansSpherical<Type> radiansSpherical)
+: DegreesSpherical(ms::math::degreesf(radiansSpherical.inclination), ms::math::degreesf(radiansSpherical.azimuthAngle), radiansSpherical.radius) { }
 
 template <typename Type>
 ms::math::spco::DegreesSpherical<Type>::DegreesSpherical(ms::math::Vector<Type, 3> v) {
