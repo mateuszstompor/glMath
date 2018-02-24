@@ -10,6 +10,9 @@
 #define common_h
 
 #include <cstdint>
+#include <cmath>
+
+// CONSTANS
 
 namespace ms {
 	
@@ -20,5 +23,24 @@ namespace ms {
 	}
 
 }
+
+// FUNCTIONS
+
+namespace ms {
+	
+	namespace math {
+		
+		inline double degrees(double radians) {
+			return radians * 180.0 / M_PI;
+		}
+		
+		inline float degreesf(float radiansf) {
+			return radiansf * 180.0f / M_PI;
+		}
+		
+	}
+	
+}
+
 
 #endif /* common_h */

@@ -14,12 +14,18 @@
 #include <cmath>
 #include <cstring>
 
-#include "matrix.h"
 #include "common.h"
 
 namespace ms {
     
 	namespace math {
+		
+		namespace spco {
+			
+			template <typename Type>
+			struct DegreesSpherical;
+		
+		}
 		
 		template <typename Type, UNSIGNED_TYPE Dimension>
 		class Vector {
@@ -34,6 +40,7 @@ namespace ms {
 									Vector				(Vector && v);
 									Vector				(const Vector & v);
 									Vector				(const Type array [Dimension]);
+									Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
 			
 									~Vector();
 			
@@ -117,6 +124,14 @@ ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(
     v.components = nullptr;
     
     return *this;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> sphericalCoordinates) : components( new Type[Dimension] ) {
+	static_assert(Dimension == 3, "Spherical system requires dimension of three");
+	(*this).components[0] = sphericalCoordinates.radius * cosf(sphericalCoordinates.azimuthAngle) * sinf(sphericalCoordinates.inclination);
+	(*this).components[1] = sphericalCoordinates.radius * sinf(sphericalCoordinates.azimuthAngle) * sinf(sphericalCoordinates.inclination);
+	(*this).components[2] = sphericalCoordinates.radius * cosf(sphericalCoordinates.inclination);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>

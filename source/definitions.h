@@ -6,10 +6,12 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
+#include "common.h"
+
 #ifndef definitions_h
 #define definitions_h
 
-#include "common.h"
+
 
 namespace ms {
 	
@@ -22,6 +24,7 @@ namespace ms {
 		class Matrix;
 		
 	}
+	
 }
 
 namespace ms {

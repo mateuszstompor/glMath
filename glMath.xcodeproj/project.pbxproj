@@ -36,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		56085058203E4A2200BDD00C /* vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
+		560D53EB204211AB00E83FF4 /* sc_degrees.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sc_degrees.h; path = source/spherical_coordinates/sc_degrees.h; sourceTree = SOURCE_ROOT; };
 		56443A85203E48A000A801A7 /* vector_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vector_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		568BCA0D203F13E600E02F23 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
 		568BCA0E203F14DB00E02F23 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -71,6 +72,7 @@
 		56085051203E49F200BDD00C /* source */ = {
 			isa = PBXGroup;
 			children = (
+				560D53E92042119B00E83FF4 /* spherical_coordinates */,
 				56085058203E4A2200BDD00C /* vector.h */,
 				568BCA0D203F13E600E02F23 /* matrix.h */,
 				568BCA0E203F14DB00E02F23 /* common.h */,
@@ -88,6 +90,15 @@
 				568BCA13203F181900E02F23 /* vector */,
 			);
 			path = tests;
+			sourceTree = "<group>";
+		};
+		560D53E92042119B00E83FF4 /* spherical_coordinates */ = {
+			isa = PBXGroup;
+			children = (
+				560D53EB204211AB00E83FF4 /* sc_degrees.h */,
+			);
+			name = spherical_coordinates;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		56443A7C203E48A000A801A7 = {

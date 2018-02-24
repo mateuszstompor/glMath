@@ -3,7 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-#include "../../source/matrix.h"
+#include "../../source/glMath.h"
 
 namespace ms {
     
