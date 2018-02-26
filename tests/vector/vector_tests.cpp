@@ -249,13 +249,13 @@ void VectorTest::testMatrixMult() {
 
 void VectorTest::testSphericalCoordinatesConversionDegrees() {
 	
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, ms::math::degreesf(0), 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(180, ms::math::degreesf(M_PI), 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(90, ms::math::degreesf(M_PI / 2.0), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, ms::math::degrees<float>(0), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(180, ms::math::degrees<float>(M_PI), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(90, ms::math::degrees<float>(M_PI / 2.0), 0.001);
 	
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, ms::math::radiansf(0), 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI / 2.0, ms::math::radiansf(90), 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI, ms::math::radiansf(180), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, ms::math::radians<float>(0), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI / 2.0, ms::math::radians<float>(90), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI, ms::math::radians<float>(180), 0.001);
 	
 	math::spco::DegreesSpherical<float> co;
 	math::Vector<float, 3> vec1;

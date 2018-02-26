@@ -18,75 +18,96 @@ namespace ms {
 		
 		namespace transform {
 			
-			template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-			Matrix<Type, Rows, Columns> scale (std::initializer_list<Type> scaleFactors) {
-				static_assert(	Rows 	== 	Columns	, "Matrix needs to be square" );
-				static_assert(	Rows	>=	2		, "Matrix needs to at least two - dimensional" );
+			template <typename Type, UNSIGNED_TYPE Dimension>
+			Matrix<Type, Dimension, Dimension> scale (std::initializer_list<Type> scaleFactors) {
+				static_assert(	Dimension	>=	2		, "Matrix needs to at least two - dimensional" );
 				
-				Matrix<Type, Rows, Columns> scale = Matrix<Type, Rows, Columns>::identity();
+				Matrix<Type, Dimension, Dimension> scale = Matrix<Type, Dimension, Dimension>::identity();
 				
 				for (UNSIGNED_TYPE i = 0; i < scaleFactors.size(); ++i) {
-					scale[i * Rows + i] = *(scaleFactors.begin() + i);
+					scale[i * Dimension + i] = *(scaleFactors.begin() + i);
 				}
 				
 				return scale;
 			}
 			
-			template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-			Matrix<Type, Rows, Columns> translate (std::initializer_list<Type> translationFactors) {
-				static_assert(	Rows 	== 	Columns	, "Matrix needs to be square" );
-				static_assert(	Rows	>=	2		, "Matrix needs to at least two - dimensional" );
+			template <typename Type, UNSIGNED_TYPE Dimension>
+			Matrix<Type, Dimension, Dimension> translate (std::initializer_list<Type> translationFactors) {
+				static_assert(	Dimension	>=	2		, "Matrix needs to at least two - dimensional" );
 				
-				Matrix<Type, Rows, Columns> translation = Matrix<Type, Rows, Columns>::identity();
+				Matrix<Type, Dimension, Dimension> translation = Matrix<Type, Dimension, Dimension>::identity();
 				
 				for (UNSIGNED_TYPE i = 0; i < translationFactors.size(); ++i) {
-					translation[(Rows - 1) * Rows + i] = *(translationFactors.begin() + i);
+					translation[(Dimension - 1) * Dimension + i] = *(translationFactors.begin() + i);
 				}
 				
 				return translation;
 			}
 			
-			template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-			Matrix<Type, Rows, Columns> rotateAboutXRadians (Type radians) {
-				Matrix<Type, Rows, Columns> rotation = Matrix<Type, Rows, Columns>::identity();
-				static_assert(	Rows 	== 	Columns	, "Matrix needs to be square" );
-				static_assert(	Rows	==	3	||	Rows	==	4, "Matrix needs to at three or four - dimensional" );
+			template <typename Type, UNSIGNED_TYPE Dimension>
+			Matrix<Type, Dimension, Dimension> rotateAboutXRadians (Type radians) {
+				Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
+				static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
 				
-				rotation[Rows + 1] = 		cosf(radians);
-				rotation[Rows + 2] = 		sinf(radians);
+				rotation[Dimension + 1] = 		cosine<Type>(radians);
+				rotation[Dimension + 2] = 		sinus<Type>(radians);
 				
-				rotation[2 * Rows + 1] = 	-sinf(radians);
-				rotation[2 * Rows + 2] = 	cosf(radians);
-				
-				return rotation;
-			}
-			
-			template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-			Matrix<Type, Rows, Columns> rotateAboutYRadians (Type radians) {
-				Matrix<Type, Rows, Columns> rotation = Matrix<Type, Rows, Columns>::identity();
-				static_assert(	Rows 	== 	Columns	, "Matrix needs to be square" );
-				static_assert(	Rows	==	3	||	Rows	==	4, "Matrix needs to at three or four - dimensional" );
-				
-				rotation[0] = 				cosf(radians);
-				rotation[2] = 				-sinf(radians);
-				
-				rotation[2 * Rows] = 		sinf(radians);
-				rotation[2 * Rows + 2] = 	cosf(radians);
+				rotation[2 * Dimension + 1] = 	-sinus<Type>(radians);
+				rotation[2 * Dimension + 2] = 	cosine<Type>(radians);
 				
 				return rotation;
 			}
 			
-			template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-			Matrix<Type, Rows, Columns> rotateAboutZRadians (Type radians) {
-				Matrix<Type, Rows, Columns> rotation = Matrix<Type, Rows, Columns>::identity();
-				static_assert(	Rows 	== 	Columns	, "Matrix needs to be square" );
-				static_assert(	Rows	==	3	||	Rows	==	4, "Matrix needs to at three or four - dimensional" );
+			template <typename Type, UNSIGNED_TYPE Dimension>
+			Matrix<Type, Dimension, Dimension> rotateAboutYRadians (Type radians) {
+				Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
+		
+				static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
 				
-				rotation[0] = 			cosf(radians);
-				rotation[1] = 			sinf(radians);
+				rotation[0] = 					cosine<Type>(radians);
+				rotation[2] = 					-sinus<Type>(radians);
 				
-				rotation[Rows] = 		-sinf(radians);
-				rotation[Rows + 1] = 	cosf(radians);
+				rotation[2 * Dimension] = 		sinus<Type>(radians);
+				rotation[2 * Dimension + 2] = 	cosine<Type>(radians);
+				
+				return rotation;
+			}
+			
+			template <typename Type, UNSIGNED_TYPE Dimension>
+			Matrix<Type, Dimension, Dimension> rotateAboutZRadians (Type radians) {
+				Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
+				
+				static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
+				
+				rotation[0] = 				cosine<Type>(radians);
+				rotation[1] = 				sinus<Type>(radians);
+				
+				rotation[Dimension] = 		-sinus<Type>(radians);
+				rotation[Dimension + 1] = 	cosine<Type>(radians);
+				
+				return rotation;
+			}
+			
+			// VECTOR NEEDS TO BE NORMALIZED
+			template <typename Type, UNSIGNED_TYPE Dimension>
+			Matrix<Type, Dimension, Dimension> rotateAboutAxis (Type radians, Vector<Type, Dimension> v) {
+				Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
+				static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
+				
+				// First column
+				rotation[0] = cosine<Type>(radians) + v[0]*v[0]*(1 - cosine<Type>(radians));
+				rotation[1] = v[0]*v[1]*(1 - cosine<Type>(radians)) + v[2] * sinus<Type>(radians);
+				rotation[2] = v[2]*v[1]*(1 - cosine<Type>(radians)) - v[1] * sinus<Type>(radians);
+				
+				// Second column
+				rotation[Dimension] = v[0]*v[1]*(1 - cosine<Type>(radians)) - v[2] * sinus<Type>(radians);
+				rotation[Dimension + 1] = cosine<Type>(radians) + v[1]*v[1]*(1 - cosine<Type>(radians));
+				rotation[Dimension + 2] = v[2]*v[1]*(1 - cosine<Type>(radians)) + v[0] * sinus<Type>(radians);
+				
+				// Third column
+				rotation[2 * Dimension] = v[0]*v[2]*(1 - cosine<Type>(radians)) + v[1] * sinus<Type>(radians);
+				rotation[2 * Dimension + 1] = v[1]*v[2]*(1 - cosine<Type>(radians)) - v[0] * sinus<Type>(radians);
+				rotation[2 * Dimension + 2] = cosine<Type>(radians) + v[2]*v[2]*(1 - cosine<Type>(radians));
 				
 				return rotation;
 			}

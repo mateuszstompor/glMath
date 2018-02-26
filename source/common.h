@@ -30,21 +30,50 @@ namespace ms {
 	
 	namespace math {
 		
+		// function that converts radians to angle in degrees
+		template <typename Type>
+		inline Type degrees(Type radians) {
+			return radians * 180.0f / M_PI;
+		}
+		
+		template <>
 		inline double degrees(double radians) {
 			return radians * 180.0 / M_PI;
 		}
 		
-		inline float degreesf(float radiansf) {
-			return radiansf * 180.0f / M_PI;
+		template <typename Type>
+		inline Type radians(Type degrees) {
+			return M_PI * (degrees / 180.0f);
 		}
 		
+		template <>
 		inline double radians(double degrees) {
 			return M_PI * (degrees / 180.0);
 		}
 		
-		inline float radiansf(float degreesf) {
-			return M_PI * (degreesf / 180.0f);
+		
+		// cosine
+		template <typename Type>
+		inline Type cosine(Type radians) {
+			return cos(radians);
 		}
+		
+		template <>
+		inline float cosine(float radians) {
+			return cosf(radians);
+		}
+		
+		// sinus
+		template <typename Type>
+		inline Type sinus(Type radians) {
+			return sin(radians);
+		}
+		
+		template <>
+		inline float sinus(float radians) {
+			return sinf(radians);
+		}
+		
 		
 	}
 	

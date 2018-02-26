@@ -75,6 +75,7 @@ namespace ms {
 			float	 				length				() const;
 			
 			void	 				normalize			();
+			Vector					normalized			() const;
 			
 			std::string 			to_string			() const;
 			
@@ -138,9 +139,9 @@ ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type>
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> sphericalCoordinates) : components( new Type[Dimension] ) {
 	static_assert(Dimension == 3, "Spherical system requires dimension of three");
-	(*this).components[0] = sphericalCoordinates.radius * cosf(sphericalCoordinates.azimuthAngle) * sinf(sphericalCoordinates.inclination);
-	(*this).components[1] = sphericalCoordinates.radius * sinf(sphericalCoordinates.azimuthAngle) * sinf(sphericalCoordinates.inclination);
-	(*this).components[2] = sphericalCoordinates.radius * cosf(sphericalCoordinates.inclination);
+	(*this).components[0] = sphericalCoordinates.radius * cosine<Type>(sphericalCoordinates.azimuthAngle)	* sinus<Type>(sphericalCoordinates.inclination);
+	(*this).components[1] = sphericalCoordinates.radius * sinus<Type>(sphericalCoordinates.azimuthAngle) 	* sinus<Type>(sphericalCoordinates.inclination);
+	(*this).components[2] = sphericalCoordinates.radius * cosine<Type>(sphericalCoordinates.inclination);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -296,6 +297,13 @@ void ms::math::Vector<Type, Dimension>::normalize() {
 	float len = length();
 	for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
 		components[i] /= len;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension> :: normalized() const {
+	Vector vec(*this);
+	vec.normalize();
+	return vec;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>

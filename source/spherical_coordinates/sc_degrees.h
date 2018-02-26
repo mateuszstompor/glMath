@@ -56,7 +56,7 @@ ms::math::spco::DegreesSpherical<Type>::DegreesSpherical(Type inclination, Type 
 
 template <typename Type>
 ms::math::spco::DegreesSpherical<Type>::DegreesSpherical(RadiansSpherical<Type> radiansSpherical)
-: DegreesSpherical(ms::math::degreesf(radiansSpherical.inclination), ms::math::degreesf(radiansSpherical.azimuthAngle), radiansSpherical.radius) { }
+: DegreesSpherical(ms::math::degrees<Type>(radiansSpherical.inclination), ms::math::degrees<Type>(radiansSpherical.azimuthAngle), radiansSpherical.radius) { }
 
 template <typename Type>
 ms::math::spco::DegreesSpherical<Type>::DegreesSpherical(ms::math::Vector<Type, 3> v) {

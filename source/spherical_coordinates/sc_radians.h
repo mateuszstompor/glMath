@@ -54,7 +54,7 @@ ms::math::spco::RadiansSpherical<Type>::RadiansSpherical(Type inclination, Type 
 
 template <typename Type>
 ms::math::spco::RadiansSpherical<Type>::RadiansSpherical(DegreesSpherical<Type> radiansSpherical)
-: RadiansSpherical(ms::math::radiansf(radiansSpherical.inclination), ms::math::radiansf(radiansSpherical.azimuthAngle), radiansSpherical.radius) { }
+: RadiansSpherical(ms::math::radians<Type>(radiansSpherical.inclination), ms::math::radians<Type>(radiansSpherical.azimuthAngle), radiansSpherical.radius) { }
 
 template <typename Type>
 ms::math::spco::RadiansSpherical<Type>::RadiansSpherical(ms::math::Vector<Type, 3> v) {

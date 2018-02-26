@@ -129,7 +129,7 @@ void MatrixTest::testScaling() {
 	
 	math::Vector<float, 3> vec(tab);
 	
-	auto scale = ms::math::transform::scale<float, 3, 3>({1, 2, 3});
+	auto scale = ms::math::transform::scale<float, 3>({1, 2, 3});
 	
 	auto result = vec * scale;
 	
@@ -141,7 +141,7 @@ void MatrixTest::testScaling() {
 	
 	math::Vector<float, 4> vec2(tab2);
 	
-	auto scale2 = ms::math::transform::scale<float, 4, 4>({1, 2, 3});
+	auto scale2 = ms::math::transform::scale<float, 4>({1, 2, 3});
 	
 	auto result2 = vec2 * scale2;
 	
@@ -158,21 +158,21 @@ void MatrixTest::testTranslation() {
 	
 	math::Vector<float, 3> vec(tab);
 	
-	auto scale = ms::math::transform::translate<float, 3, 3>({2});
+	auto scale = ms::math::transform::translate<float, 3>({2});
 	
 	auto result = vec * scale;
 	
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(3.0, result[0], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[1], 0.001);
 	
-	scale = ms::math::transform::translate<float, 3, 3>({0, 2});
+	scale = ms::math::transform::translate<float, 3>({0, 2});
 	
 	result = result * scale;
 	
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(3.0, result[0], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(3.0, result[1], 0.001);
 	
-	scale = ms::math::transform::translate<float, 3, 3>({0, 2});
+	scale = ms::math::transform::translate<float, 3>({0, 2});
 	
 	result = result * scale;
 	
@@ -183,7 +183,7 @@ void MatrixTest::testTranslation() {
 	
 	math::Vector<float, 4> vec2(tab2);
 	
-	auto scale2 = ms::math::transform::translate<float, 4, 4>({2});
+	auto scale2 = ms::math::transform::translate<float, 4>({2});
 	
 	auto result2 = vec2 * scale2;
 	
@@ -192,7 +192,7 @@ void MatrixTest::testTranslation() {
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result2[2], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result2[3], 0.001);
 	
-	scale2 = ms::math::transform::translate<float, 4, 4>({0, 3, 0.1});
+	scale2 = ms::math::transform::translate<float, 4>({0, 3, 0.1});
 
 	result2 = scale2 * result2;
 	
@@ -209,7 +209,7 @@ void MatrixTest::testRotations() {
 	
 	math::Vector<float, 3> vec(tab);
 	
-	auto rotation = ms::math::transform::rotateAboutXRadians<float, 3, 3>(M_PI);
+	auto rotation = ms::math::transform::rotateAboutXRadians<float, 3>(M_PI);
 	
 	auto result = vec * rotation;
 	
@@ -223,7 +223,7 @@ void MatrixTest::testRotations() {
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[1], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
 	
-	rotation = ms::math::transform::rotateAboutYRadians<float, 3, 3>(M_PI);
+	rotation = ms::math::transform::rotateAboutYRadians<float, 3>(M_PI);
 	
 	result = result * rotation;
 	
@@ -237,13 +237,49 @@ void MatrixTest::testRotations() {
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[1], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
 	
-	rotation = ms::math::transform::rotateAboutZRadians<float, 3, 3>(M_PI);
+	rotation = ms::math::transform::rotateAboutZRadians<float, 3>(M_PI);
 	
 	result = result * rotation;
 	
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, result[0], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, result[1], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
+	
+	result = result * rotation;
+	
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[0], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[1], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
+	
+	float tab3 [] = { 0.0f, 0.0f, 1.0f };
+	
+	rotation = ms::math::transform::rotateAboutAxis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab3));
+	
+	result = result * rotation;
+	
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, result[0], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, result[1], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
+	
+	result = result * rotation;
+	
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[0], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[1], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
+	
+	float tab4 [] = { 1.0f, 0.0f, 0.0f };
+	
+	rotation = ms::math::transform::rotateAboutAxis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab4));
+	
+	result = result * rotation;
+	
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[0], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, result[1], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, result[2], 0.001);
+	
+	float tab5 [] = { 5.0f, 0.0f, 0.0f };
+	
+	rotation = ms::math::transform::rotateAboutAxis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab5).normalized());
 	
 	result = result * rotation;
 	
