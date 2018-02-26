@@ -9,7 +9,7 @@
 #ifndef sc_degrees_h
 #define sc_degrees_h
 
-#include "../common.h"
+#include "common.h"
 
 #include <cmath>
 

@@ -9,12 +9,12 @@
 #ifndef glMath_h
 #define glMath_h
 
-#include "definitions.h"
-#include "matrix.h"
-#include "vector.h"
-#include "common.h"
-#include "transformations.h"
-#include "spherical_coordinates/sc_degrees.h"
-#include "spherical_coordinates/sc_radians.h"
+#include "internal/definitions.h"
+#include "internal/matrix.h"
+#include "internal/vector.h"
+#include "internal/common.h"
+#include "internal/transformations.h"
+#include "internal/sc_radians.h"
+#include "internal/sc_degrees.h"
 
 #endif /* glMath_h */

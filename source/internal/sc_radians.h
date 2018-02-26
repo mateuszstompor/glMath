@@ -9,7 +9,7 @@
 #ifndef sc_radians_h
 #define sc_radians_h
 
-#include "../common.h"
+#include "common.h"
 
 #include <cmath>
 
