@@ -50,6 +50,7 @@
 		568BCA28203F1E6400E02F23 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
 		568BCA29203F1E7E00E02F23 /* glMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glMath.h; sourceTree = "<group>"; };
 		56D35DBF2042274C00450EDF /* sc_radians.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sc_radians.h; path = source/spherical_coordinates/sc_radians.h; sourceTree = SOURCE_ROOT; };
+		56D35DC0204243F900450EDF /* transformations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = transformations.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +79,7 @@
 				568BCA0D203F13E600E02F23 /* matrix.h */,
 				568BCA0E203F14DB00E02F23 /* common.h */,
 				568BCA28203F1E6400E02F23 /* definitions.h */,
+				56D35DC0204243F900450EDF /* transformations.h */,
 				568BCA29203F1E7E00E02F23 /* glMath.h */,
 			);
 			path = source;

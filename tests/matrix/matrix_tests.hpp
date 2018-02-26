@@ -17,7 +17,9 @@ namespace ms {
 	  CPPUNIT_TEST( testEquality );
 	  CPPUNIT_TEST( testMultiplication );
 	  CPPUNIT_TEST( testTransposition );
-
+	  CPPUNIT_TEST( testScaling );
+	  CPPUNIT_TEST( testTranslation );
+	  CPPUNIT_TEST( testRotations );
 	  CPPUNIT_TEST_SUITE_END();
 
   public:
@@ -31,6 +33,9 @@ namespace ms {
 	  void testTransposition();
 	  void testSubtraction();
 	  void testEquality();
+	  void testScaling();
+	  void testRotations();
+	  void testTranslation();
 	  void testMultiplication();
   
   };

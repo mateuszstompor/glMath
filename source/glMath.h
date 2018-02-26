@@ -13,6 +13,7 @@
 #include "matrix.h"
 #include "vector.h"
 #include "common.h"
+#include "transformations.h"
 #include "spherical_coordinates/sc_degrees.h"
 #include "spherical_coordinates/sc_radians.h"
 
