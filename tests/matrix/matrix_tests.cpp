@@ -281,6 +281,8 @@ void MatrixTest::testRotations() {
 	
 	rotation = ms::math::transform::rotateAboutAxis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab5).normalized());
 	
+	ms::math::projection::perspective<float>(0.1, 100, 90, 16.0/9.0);
+	
 	result = result * rotation;
 	
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[0], 0.001);

@@ -16,5 +16,6 @@
 #include "internal/transformations.h"
 #include "internal/sc_radians.h"
 #include "internal/sc_degrees.h"
+#include "internal/projections.h"
 
 #endif /* glMath_h */
