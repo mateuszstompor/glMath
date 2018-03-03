@@ -11,6 +11,7 @@
 
 #include <string>
 #include <cstring>
+#include <sstream>
 
 #include "common.h"
 
