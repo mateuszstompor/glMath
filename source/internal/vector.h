@@ -11,8 +11,13 @@
 
 #include <string>
 #include <sstream>
-#include <cmath>
 #include <cstring>
+
+#ifdef DEBUG
+
+	#include <cassert>
+
+#endif
 
 #include "common.h"
 
@@ -43,6 +48,7 @@ namespace ms {
 									Vector				(Vector && v);
 									Vector				(const Vector & v);
 									Vector				(const Type array [Dimension]);
+									Vector				(const std::initializer_list<Type> components);
 									Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
 									Vector				(const spco::RadiansSpherical<Type> sphericalCoordinates);
 			
@@ -114,6 +120,20 @@ template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(const Type array [Dimension]) : components( new Type[Dimension] ) {
 	std::memcpy((*this).components, array, Dimension * sizeof(Type));
 }
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension>::Vector (const std::initializer_list<Type> comp) : Vector() {
+
+#ifdef DEBUG
+	
+	assert(comp.size() == Dimension);
+	
+#endif
+	
+	std::copy(comp.begin(), comp.end(), components);
+
+}
+
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(const Vector & v) {

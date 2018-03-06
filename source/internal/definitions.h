@@ -43,7 +43,7 @@ namespace ms {
 		
 		//vectors
 		typedef ms::math::Vector<float, 2> vec2;
-		typedef ms::math::Vector<float, 4> vec3;
+		typedef ms::math::Vector<float, 3> vec3;
 		typedef ms::math::Vector<float, 4> vec4;
 		
 		typedef ms::math::Vector<double, 2> vec2d;
