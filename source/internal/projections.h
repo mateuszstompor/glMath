@@ -19,14 +19,14 @@ namespace ms {
 		namespace projection {
 			
 			template <typename Type>
-			Matrix<Type, 4, 4> perspective(Type near, Type far, Type fovDegrees, Type aspectRatio) {
+			Matrix<Type, 4, 4> perspective(Type nearPlane, Type farPlane, Type fovDegrees, Type aspectRatio) {
 				
 				Matrix<Type, 4, 4> p;
 				
 				Type q = Type(1.0) / ms::math::radians<Type>(Type(0.5) * fovDegrees);
 				Type A = q / aspectRatio;
-				Type B = (near + far) / (near - far);
-				Type C = (Type(2.0) * near * far) / (near - far);
+				Type B = (nearPlane + farPlane) / (nearPlane - farPlane);
+				Type C = (Type(2.0) * nearPlane * farPlane) / (nearPlane - farPlane);
 				
 				// First column
 				p[0] 	= A;
