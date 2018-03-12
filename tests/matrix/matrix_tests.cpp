@@ -150,6 +150,11 @@ void MatrixTest::testScaling() {
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(3.0, result2[2], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result2[3], 0.001);
 	
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result2.x(), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(2.0, result2.y(), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(3.0, result2.z(), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result2.w(), 0.001);
+	
 }
 
 void MatrixTest::testTranslation() {

@@ -282,6 +282,10 @@ void VectorTest::testSphericalCoordinatesConversionDegrees() {
 	CPPUNIT_ASSERT(vec1[1] == 0);
 	CPPUNIT_ASSERT(vec1[2] == 1);
 
+	CPPUNIT_ASSERT(vec1.x() == 0);
+	CPPUNIT_ASSERT(vec1.y() == 0);
+	CPPUNIT_ASSERT(vec1.z() == 1);
+	
 	co = math::spco::DegreesSpherical<float>(vec1);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, co.radius, 0.001);

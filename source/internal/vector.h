@@ -75,10 +75,10 @@ namespace ms {
 			Type & 					operator 	[] 		(UNSIGNED_TYPE position);
 			Type const & 			operator 	[] 		(UNSIGNED_TYPE position) const;
 			
-			float 					dot					(const Vector & v) const;
+			Type 					dot					(const Vector & v) const;
 			Vector 					cross				(const Vector & v) const;
 			
-			float	 				length				() const;
+			Type	 				length				() const;
 			
 			void	 				normalize			();
 			Vector					normalized			() const;
@@ -87,6 +87,18 @@ namespace ms {
 			
 			Type *		 			c_array				();
 			const Type * 			c_array				() const;
+			
+			Type const &			x					() const;
+			Type &					x					();
+			
+			Type const &			y					() const;
+			Type &					y					();
+			
+			Type const &			z					() const;
+			Type &					z					();
+			
+			Type const &			w					() const;
+			Type &					w					();
 			
 		private:
 			
@@ -183,8 +195,8 @@ bool ms::math::Vector<Type, Dimension>::operator != (const Vector & v) const {
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-float ms::math::Vector<Type, Dimension>::dot(const Vector & v) const {
-    float dotProduct = 0.0f;
+Type ms::math::Vector<Type, Dimension>::dot(const Vector & v) const {
+    Type dotProduct = Type(0.0);
     
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
         dotProduct += (*this).components[i] * v.components[i];
@@ -303,13 +315,13 @@ ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator 
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-float ms::math::Vector<Type, Dimension>::length() const {
-    float length = 0.0;
+Type ms::math::Vector<Type, Dimension>::length() const {
+    Type length = 0.0;
     
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
         length += (*this).components[i] * (*this).components[i];
     
-    return std::sqrt(length);
+	return ms::math::square_root<Type>(length);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -344,6 +356,54 @@ const Type * ms::math::Vector<Type, Dimension>::c_array() const {
 template <typename Type, UNSIGNED_TYPE Dimension>
 Type * ms::math::Vector<Type, Dimension>::c_array() {
 	return components;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type const & ms::math::Vector<Type, Dimension>::x () const {
+	static_assert(Dimension > 0, "Dimension needs to be greater than zero");
+	return *this->components;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type & ms::math::Vector<Type, Dimension>::x () {
+	static_assert(Dimension > 0, "Dimension needs to be greater than zero");
+	return *this->components;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type const & ms::math::Vector<Type, Dimension>::y () const {
+	static_assert(Dimension > 1, "Dimension needs to be greater than one");
+	return *(this->components + 1);
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type & ms::math::Vector<Type, Dimension>::y () {
+	static_assert(Dimension > 1, "Dimension needs to be greater than one");
+	return *(this->components + 1);
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type const & ms::math::Vector<Type, Dimension>::z () const  {
+	static_assert(Dimension > 2, "Dimension needs to be greater than two");
+	return *(this->components + 2);
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type & ms::math::Vector<Type, Dimension>::z ()  {
+	static_assert(Dimension > 2, "Dimension needs to be greater than two");
+	return *(this->components + 2);
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type const & ms::math::Vector<Type, Dimension>::w () const  {
+	static_assert(Dimension > 3, "Dimension needs to be greater than three");
+	return *(this->components + 3);
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type & ms::math::Vector<Type, Dimension>::w () {
+	static_assert(Dimension > 3, "Dimension needs to be greater than three");
+	return *(this->components + 3);
 }
 
 #endif /* vector_h */

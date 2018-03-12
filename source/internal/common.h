@@ -74,6 +74,16 @@ namespace ms {
 			return sinf(radians);
 		}
 		
+		// sqrt
+		template <typename Type>
+		inline Type square_root(Type number) {
+			return sqrt(static_cast<double>(number));
+		}
+		
+		template <>
+		inline float square_root(float number) {
+			return sqrt(number);
+		}
 		
 	}
 	
