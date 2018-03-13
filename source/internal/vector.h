@@ -63,8 +63,8 @@ namespace ms {
 			Vector 					operator 	- 		(const Vector & v) const;
 			Vector & 				operator 	-= 		(const Vector & v);
 			
-			Vector 					operator 	* 		(float value) const;
-			Vector& 				operator 	*= 		(float value);
+			Vector 					operator 	* 		(Type value) const;
+			Vector& 				operator 	*= 		(Type value);
 			
 			template <UNSIGNED_TYPE Columns>
 			Vector<Type, Columns>	operator	*		(const Matrix<Type, Dimension, Columns>) const;
@@ -215,7 +215,7 @@ ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::cross(const
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator *= (float value) {
+ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator *= (Type value) {
     
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
         (*this).components[i] *= value;
@@ -225,7 +225,7 @@ ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator 
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator * (float value) const {
+ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator * (Type value) const {
     
     Vector vec;
     
@@ -269,7 +269,7 @@ const Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE positi
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension> operator * (float value, const ms::math::Vector<Type, Dimension> & v) {
+ms::math::Vector<Type, Dimension> operator * (Type value, const ms::math::Vector<Type, Dimension> & v) {
     ms::math::Vector<Type, Dimension> vec(v);
     return vec * value;
 }
@@ -316,17 +316,18 @@ ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator 
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 Type ms::math::Vector<Type, Dimension>::length() const {
-    Type length = 0.0;
+    Type length = Type(0.0);
     
-    for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        length += (*this).components[i] * (*this).components[i];
+	for(UNSIGNED_TYPE i = 0; i < Dimension; ++i) {
+		length += (*this).components[i] * (*this).components[i];
+	}
     
 	return ms::math::square_root<Type>(length);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 void ms::math::Vector<Type, Dimension>::normalize() {
-	float len = length();
+	Type len = length();
 	for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
 		components[i] /= len;
 }
