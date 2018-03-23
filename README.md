@@ -1,6 +1,6 @@
 # glMath
 
-<p>Repository which contain math operations and data structures used by graphics engines and optimized for OpenGL</p>
+<p>Repository contains math operations and data structures used by graphics engines and optimized for OpenGL</p>
 
 <b>Project is integrated with Travis. After each commit server runs tests and checks memory footprint using Valgrind</b>
 
