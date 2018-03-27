@@ -48,7 +48,9 @@ namespace ms {
 									Vector				(Vector && v);
 									Vector				(const Vector & v);
 									Vector				(const Type array [Dimension]);
-									Vector				(const std::initializer_list<Type> components);
+									Vector				(Type x, Type y);
+									Vector				(Type x, Type y, Type z);
+									Vector				(Type x, Type y, Type z, Type w);
 									Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
 									Vector				(const spco::RadiansSpherical<Type> sphericalCoordinates);
 			
@@ -100,6 +102,9 @@ namespace ms {
 			Type const &			w					() const;
 			Type &					w					();
 			
+			Vector<Type, 3>			xyz					() const;
+			Vector<Type, 2> 		xy					() const;
+			
 		private:
 			
 			Type * 					components;
@@ -115,7 +120,8 @@ ms::math::Vector<Type, Dimension>::Vector() : components( new Type[Dimension] ) 
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(Type value) : Vector() {
-	std::fill_n((*this).components, Dimension, value);
+	static_assert(Dimension == 1, "Dimension must equal 1");
+	*(components) = value;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -133,19 +139,30 @@ ms::math::Vector<Type, Dimension>::Vector(const Type array [Dimension]) : compon
 	std::memcpy((*this).components, array, Dimension * sizeof(Type));
 }
 
+
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::Vector (const std::initializer_list<Type> comp) : Vector() {
-
-#ifdef DEBUG
-	
-	assert(comp.size() == Dimension);
-	
-#endif
-	
-	std::copy(comp.begin(), comp.end(), components);
-
+ms::math::Vector<Type, Dimension>::Vector (Type x, Type y) : Vector() {
+	static_assert(Dimension == 2, "Dimension must equal 2");
+	*(components) = x;
+	*(components + 1) = y;
 }
 
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension>::Vector (Type x, Type y, Type z) : Vector() {
+	static_assert(Dimension == 3, "Dimension must equal 3");
+	*(components) = x;
+	*(components + 1) = y;
+	*(components + 2) = z;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension>::Vector (Type x, Type y, Type z, Type w) : Vector() {
+	static_assert(Dimension == 4, "Dimension must equal 4");
+	*(components) = x;
+	*(components + 1) = y;
+	*(components + 2) = z;
+	*(components + 3) = w;
+}
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(const Vector & v) {
@@ -405,6 +422,16 @@ template <typename Type, UNSIGNED_TYPE Dimension>
 Type & ms::math::Vector<Type, Dimension>::w () {
 	static_assert(Dimension > 3, "Dimension needs to be greater than three");
 	return *(this->components + 3);
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, 3> ms::math::Vector<Type, Dimension>::xyz () const {
+	return Vector<Type, 3>{this->x(), this->y(), this->z()};
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, 2> ms::math::Vector<Type, Dimension>::xy () const {
+	return Vector<Type, 2>{this->x(), this->y()};
 }
 
 #endif /* vector_h */

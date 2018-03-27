@@ -12,6 +12,7 @@
 #include <string>
 #include <cstring>
 #include <sstream>
+#include <iomanip>
 
 #include "common.h"
 
@@ -262,13 +263,12 @@ const Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (UNSIGNED_TYPE
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 std::string ms::math::Matrix<Type, Rows, Columns> :: to_string() const {
 	std::ostringstream output;
-	
-	for (UNSIGNED_TYPE column = 0; column < Columns; ++column)
-		for (UNSIGNED_TYPE row = 0; row < Rows; ++row) {
-			if (column % Columns == 0 && column != 0) { output << std::endl; }
-			output << components[column * Rows + row] << " ";
+	for (UNSIGNED_TYPE row = 0; row < Rows; ++row) {
+		for (UNSIGNED_TYPE column = 0; column < Columns; ++column) {
+			output << std::setprecision(2) << components[column * Rows + row] << " ";
 		}
-	
+		output << std::endl;
+	}
 	return output.str();
 }
 

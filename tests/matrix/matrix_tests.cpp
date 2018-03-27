@@ -1,6 +1,8 @@
 #include "matrix_tests.hpp"
 
 using namespace ms;
+using namespace ms::math;
+using namespace ms::math::transform;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(MatrixTest);
 
@@ -78,7 +80,6 @@ void MatrixTest::testMultiplication() {
 	identity *= identity;
 	CPPUNIT_ASSERT(identity == (ms::math::Matrix<float, 2, 2>::identity()) * (ms::math::Matrix<float, 2, 2>::identity()));
 
-
 }
 
 void MatrixTest::testDiagonalMatrices() {
@@ -129,13 +130,13 @@ void MatrixTest::testScaling() {
 	
 	math::Vector<float, 3> vec(tab);
 	
-	auto scale = ms::math::transform::scale<float, 3>({1, 2, 3});
+	auto scale = ms::math::transform::scale<float, 3>(vec2(1, 2));
 	
-	auto result = vec * scale;
-	
+	auto result = scale * vec;
+		
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[0], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(2.0, result[1], 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(3.0, result[2], 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
 	
 	float tab2 [] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	
@@ -163,7 +164,7 @@ void MatrixTest::testTranslation() {
 	
 	math::Vector<float, 3> vec(tab);
 	
-	auto scale = ms::math::transform::translate<float, 3>({2});
+	auto scale = ms::math::transform::translate<float, 3>({2, 0});
 	
 	auto result = vec * scale;
 	
@@ -188,7 +189,7 @@ void MatrixTest::testTranslation() {
 	
 	math::Vector<float, 4> vec2(tab2);
 	
-	auto scale2 = ms::math::transform::translate<float, 4>({2});
+	auto scale2 = ms::math::transform::translate<float, 4>({2, 0, 0});
 	
 	auto result2 = vec2 * scale2;
 	
@@ -208,13 +209,26 @@ void MatrixTest::testTranslation() {
 	
 }
 
+void MatrixTest::testTransformationConversion() {
+	mat4 translation = translate<float, 4>({3.0f, 2.0f, 1.0f});
+	mat4 scaleMat = scale<float, 4>(vec3(3.0f, 2.0f, 1.0f));
+	translation = scaleMat * translation;
+	vec3 position = get_position(translation);
+	
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(position[0], 9.0f, 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(position[1], 4.0f, 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(position[2], 1.0f, 0.001);
+
+}
+
+
 void MatrixTest::testRotations() {
 	
 	float tab [] = { 1.0f, 1.0f, 1.0f };
 	
 	math::Vector<float, 3> vec(tab);
 	
-	auto rotation = ms::math::transform::rotateAboutXRadians<float, 3>(M_PI);
+	auto rotation = ms::math::transform::rotate_about_x_radians<float, 3>(M_PI);
 	
 	auto result = vec * rotation;
 	
@@ -228,7 +242,7 @@ void MatrixTest::testRotations() {
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[1], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
 	
-	rotation = ms::math::transform::rotateAboutYRadians<float, 3>(M_PI);
+	rotation = ms::math::transform::rotate_about_y_radians<float, 3>(M_PI);
 	
 	result = result * rotation;
 	
@@ -242,7 +256,7 @@ void MatrixTest::testRotations() {
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[1], 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, result[2], 0.001);
 	
-	rotation = ms::math::transform::rotateAboutZRadians<float, 3>(M_PI);
+	rotation = ms::math::transform::rotate_about_z_radians<float, 3>(M_PI);
 	
 	result = result * rotation;
 	
@@ -258,7 +272,7 @@ void MatrixTest::testRotations() {
 	
 	float tab3 [] = { 0.0f, 0.0f, 1.0f };
 	
-	rotation = ms::math::transform::rotateAboutAxis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab3));
+	rotation = ms::math::transform::rotate_about_axis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab3));
 	
 	result = result * rotation;
 	
@@ -274,7 +288,7 @@ void MatrixTest::testRotations() {
 	
 	float tab4 [] = { 1.0f, 0.0f, 0.0f };
 	
-	rotation = ms::math::transform::rotateAboutAxis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab4));
+	rotation = ms::math::transform::rotate_about_axis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab4));
 	
 	result = result * rotation;
 	
@@ -284,7 +298,7 @@ void MatrixTest::testRotations() {
 	
 	float tab5 [] = { 5.0f, 0.0f, 0.0f };
 	
-	rotation = ms::math::transform::rotateAboutAxis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab5).normalized());
+	rotation = ms::math::transform::rotate_about_axis<float, 3>(M_PI, ms::math::Vector<float, 3>(tab5).normalized());
 	
 	ms::math::projection::perspective<float>(0.1, 100, 90, 16.0/9.0);
 	
