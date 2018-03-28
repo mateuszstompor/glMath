@@ -42,13 +42,13 @@ namespace ms {
 										Matrix				();
 										Matrix				(Type value);
 										Matrix				(const Matrix & m);
-										Matrix				(Matrix && m);
+										Matrix				(Matrix && m) noexcept;
 										Matrix				(const Type array [Rows * Columns]);
 			
 										~Matrix				();
 			
 			Matrix &					operator =			(const Matrix & m);
-			Matrix &					operator =			(Matrix && m);
+			Matrix &					operator =			(Matrix && m) noexcept;
 			
 			Matrix 						operator - 			(const Matrix & m) const;
 			Matrix & 					operator -= 		(const Matrix & m);
@@ -119,7 +119,7 @@ ms::math::Matrix<Type, Rows, Columns> :: Matrix(const Matrix & m) : Matrix() {
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-ms::math::Matrix<Type, Rows, Columns> :: Matrix(Matrix && m) {
+ms::math::Matrix<Type, Rows, Columns> :: Matrix(Matrix && m) noexcept {
 	(*this).components = m.components;
 	m.components = nullptr;
 }
@@ -141,7 +141,7 @@ ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> ::
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator = (Matrix && m) {
+ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator = (Matrix && m) noexcept {
 	delete [] (*this).components;
 	(*this).components = m.components;
 	m.components = nullptr;

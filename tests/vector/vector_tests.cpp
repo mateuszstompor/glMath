@@ -179,6 +179,16 @@ void VectorTest::testScalarMultiplication() {
     
 }
 
+void VectorTest::testDimensionChange() {
+	math::vec2 vec1 (2, 3);
+	math::vec3 vec2 = vec1.expanded(5);
+	
+	CPPUNIT_ASSERT(vec2[0] == 2);
+	CPPUNIT_ASSERT(vec2[1] == 3);
+	CPPUNIT_ASSERT(vec2[2] == 5);
+
+}
+
 void VectorTest::testDot() {
 	
 	float tab1 [] = { 1.0f, 0.0f, 0.0f };

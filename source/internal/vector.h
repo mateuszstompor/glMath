@@ -43,71 +43,73 @@ namespace ms {
 			
 		public:
 			
-									Vector				();
-									Vector				(Type value);
-									Vector				(Vector && v);
-									Vector				(const Vector & v);
-									Vector				(const Type array [Dimension]);
-									Vector				(Type x, Type y);
-									Vector				(Type x, Type y, Type z);
-									Vector				(Type x, Type y, Type z, Type w);
-									Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
-									Vector				(const spco::RadiansSpherical<Type> sphericalCoordinates);
+										Vector				();
+										Vector				(Type value);
+										Vector				(Vector && v) noexcept;
+										Vector				(const Vector & v);
+										Vector				(const Type array [Dimension]);
+										Vector				(Type x, Type y);
+										Vector				(Type x, Type y, Type z);
+										Vector				(Type x, Type y, Type z, Type w);
+										Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
+										Vector				(const spco::RadiansSpherical<Type> sphericalCoordinates);
 			
-									~Vector();
+										~Vector();
 			
-			Vector &				operator	=		(const Vector & v);
-			Vector &				operator	=		(Vector && v);
-			bool					operator	==		(const Vector & v) const;
-			bool					operator	!=		(const Vector & v) const;
-			Vector					operator	+		(const Vector & v) const;
-			Vector & 				operator 	+= 		(const Vector & v);
-			Vector 					operator 	- 		(const Vector & v) const;
-			Vector & 				operator 	-= 		(const Vector & v);
+			Vector &					operator	=		(const Vector & v);
+			Vector &					operator	=		(Vector && v) noexcept;
+			bool						operator	==		(const Vector & v) const;
+			bool						operator	!=		(const Vector & v) const;
+			Vector						operator	+		(const Vector & v) const;
+			Vector & 					operator 	+= 		(const Vector & v);
+			Vector 						operator 	- 		(const Vector & v) const;
+			Vector & 					operator 	-= 		(const Vector & v);
 			
-			Vector 					operator 	* 		(Type value) const;
-			Vector& 				operator 	*= 		(Type value);
+			Vector 						operator 	* 		(Type value) const;
+			Vector& 					operator 	*= 		(Type value);
+			
+			Vector<Type, Dimension + 1>	expanded			(Type value);
 			
 			template <UNSIGNED_TYPE Columns>
-			Vector<Type, Columns>	operator	*		(const Matrix<Type, Dimension, Columns>) const;
+			Vector<Type, Columns>		operator	*		(const Matrix<Type, Dimension, Columns>) const;
 			
 			template <UNSIGNED_TYPE Columns>
-			Vector<Type, Columns> &	operator	*=		(const Matrix<Type, Dimension, Columns>);
+			Vector<Type, Columns> &		operator	*=		(const Matrix<Type, Dimension, Columns>);
 			
-			Type & 					operator 	[] 		(UNSIGNED_TYPE position);
-			Type const & 			operator 	[] 		(UNSIGNED_TYPE position) const;
+			Type & 						operator 	[] 		(UNSIGNED_TYPE position);
+			Type const & 				operator 	[] 		(UNSIGNED_TYPE position) const;
 			
-			Type 					dot					(const Vector & v) const;
-			Vector 					cross				(const Vector & v) const;
+			Type 						dot					(const Vector & v) const;
+			Vector 						cross				(const Vector & v) const;
 			
-			Type	 				length				() const;
+			Type	 					length				() const;
 			
-			void	 				normalize			();
-			Vector					normalized			() const;
+			void	 					normalize			();
+			Vector						normalized			() const;
 			
-			std::string 			to_string			() const;
+			std::string 				to_string			() const;
 			
-			Type *		 			c_array				();
-			const Type * 			c_array				() const;
+			Type *		 				c_array				();
+			const Type * 				c_array				() const;
 			
-			Type const &			x					() const;
-			Type &					x					();
+			Type const &				x					() const;
+			Type &						x					();
 			
-			Type const &			y					() const;
-			Type &					y					();
+			Type const &				y					() const;
+			Type &						y					();
 			
-			Type const &			z					() const;
-			Type &					z					();
+			Type const &				z					() const;
+			Type &						z					();
 			
-			Type const &			w					() const;
-			Type &					w					();
+			Type const &				w					() const;
+			Type &						w					();
 			
-			Vector<Type, 3>			xyz					() const;
-			Vector<Type, 2> 		xy					() const;
+			Vector<Type, 3>				xyz					() const;
+			Vector<Type, 2> 			xy					() const;
 			
 		private:
 			
-			Type * 					components;
+			Type * 						components;
 			
 		};
 		
@@ -125,7 +127,7 @@ ms::math::Vector<Type, Dimension>::Vector(Type value) : Vector() {
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::Vector(Vector && v) : components(v.components) {
+ms::math::Vector<Type, Dimension>::Vector(Vector && v) noexcept : components(v.components) {
     v.components = nullptr;
 }
 
@@ -171,7 +173,7 @@ ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(Vector && v) {
+ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(Vector && v) noexcept {
     delete [] (*this).components;
     
     (*this).components = v.components;
@@ -432,6 +434,15 @@ ms::math::Vector<Type, 3> ms::math::Vector<Type, Dimension>::xyz () const {
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, 2> ms::math::Vector<Type, Dimension>::xy () const {
 	return Vector<Type, 2>{this->x(), this->y()};
+}
+
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension+1> ms::math::Vector<Type, Dimension>::expanded (Type value)  {
+	Vector<Type, Dimension + 1> v;
+	memcpy(v.c_array(), this->components, sizeof(Type) * Dimension);
+	v[Dimension] = value;
+	return v;
 }
 
 #endif /* vector_h */
