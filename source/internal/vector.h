@@ -132,12 +132,12 @@ ms::math::Vector<Type, Dimension>::Vector(Vector && v) noexcept : components(v.c
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::Vector(const Vector & v) : components( new Type[Dimension] ) {
+ms::math::Vector<Type, Dimension>::Vector(const Vector & v) : Vector() {
     std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::Vector(const Type array [Dimension]) : components( new Type[Dimension] ) {
+ms::math::Vector<Type, Dimension>::Vector(const Type array [Dimension]) : Vector() {
 	std::memcpy((*this).components, array, Dimension * sizeof(Type));
 }
 
@@ -188,7 +188,7 @@ ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type>
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> sphericalCoordinates) : components( new Type[Dimension] ) {
+ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> sphericalCoordinates) : Vector() {
 	static_assert(Dimension == 3, "Spherical system requires dimension of three");
 	(*this).components[0] = sphericalCoordinates.radius * cosine<Type>(sphericalCoordinates.azimuthAngle)	* sinus<Type>(sphericalCoordinates.inclination);
 	(*this).components[1] = sphericalCoordinates.radius * sinus<Type>(sphericalCoordinates.azimuthAngle) 	* sinus<Type>(sphericalCoordinates.inclination);
