@@ -10,6 +10,7 @@
 #define common_h
 
 #include <cstdint>
+#include <cassert>
 
 #ifdef __WIN32__
 
@@ -36,7 +37,24 @@ namespace ms {
 // FUNCTIONS
 
 namespace ms {
-
+	
+	template <typename Type>
+	inline bool equal(Type value, Type actualValue, Type precision) {
+		
+		if(actualValue < (value - precision) || actualValue > (value + precision)) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	template <typename Type>
+	inline void assert_equal(Type value, Type actualValue, Type precision) {
+		if(!equal(value, actualValue, precision)) {
+			assert(false);
+		}
+	}
+	
 	namespace math {
 
 		// function that converts radians to angle in degrees
@@ -88,10 +106,24 @@ namespace ms {
 		inline Type square_root(Type number) {
 			return sqrt(static_cast<double>(number));
 		}
-
+		
 		template <>
 		inline float square_root(float number) {
 			return sqrt(number);
+		}
+		
+		namespace point {
+			
+			template <typename Type>
+			inline Type middle(Type p0, Type p1) {
+				return (p0 + p1)/Type(2);
+			}
+			
+			template <typename Type>
+			inline Type distance(Type p0, Type p1) {
+				return abs(p0 - p1);
+			}
+			
 		}
 
 	}

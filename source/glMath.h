@@ -18,4 +18,7 @@
 #include "internal/sc_degrees.h"
 #include "internal/projections.h"
 
+#include "geometry/bounding_box.h"
+#include "geometry/plane.h"
+
 #endif /* glMath_h */

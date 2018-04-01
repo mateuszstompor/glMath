@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		567B5F6A2070249E00855C50 /* boundingbox_testing_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 564F5209207024570009E3EF /* boundingbox_testing_program.cpp */; };
+		567B5F6B2070249E00855C50 /* boundingbox_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 564F5207207024570009E3EF /* boundingbox_tests.cpp */; };
+		567B5F7A20703B3300855C50 /* plane_testing_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567B5F7820703B3300855C50 /* plane_testing_program.cpp */; };
+		567B5F7B20703B3300855C50 /* plane_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567B5F7920703B3300855C50 /* plane_tests.cpp */; };
 		568BCA19203F181900E02F23 /* vector_testing_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568BCA15203F181900E02F23 /* vector_testing_program.cpp */; };
 		568BCA1A203F181900E02F23 /* vector_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568BCA16203F181900E02F23 /* vector_tests.cpp */; };
 		568BCA26203F193000E02F23 /* matrix_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568BCA10203F181900E02F23 /* matrix_tests.cpp */; };
@@ -15,6 +19,24 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		56443A83203E48A000A801A7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		567B5F652070248B00855C50 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		567B5F7220703AF700855C50 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -36,6 +58,16 @@
 
 /* Begin PBXFileReference section */
 		56443A85203E48A000A801A7 /* vector_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vector_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		564F51FF207022080009E3EF /* bounding_box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bounding_box.h; sourceTree = "<group>"; };
+		564F5202207022F00009E3EF /* plane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
+		564F5207207024570009E3EF /* boundingbox_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = boundingbox_tests.cpp; path = tests/bounding_box/boundingbox_tests.cpp; sourceTree = SOURCE_ROOT; };
+		564F5208207024570009E3EF /* boundingbox_tests.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = boundingbox_tests.hpp; path = tests/bounding_box/boundingbox_tests.hpp; sourceTree = SOURCE_ROOT; };
+		564F5209207024570009E3EF /* boundingbox_testing_program.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = boundingbox_testing_program.cpp; path = tests/bounding_box/boundingbox_testing_program.cpp; sourceTree = SOURCE_ROOT; };
+		567B5F692070248B00855C50 /* boundingbox_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = boundingbox_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		567B5F7620703AF700855C50 /* plane_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = plane_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		567B5F7720703B3300855C50 /* plane_tests.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = plane_tests.hpp; sourceTree = "<group>"; };
+		567B5F7820703B3300855C50 /* plane_testing_program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane_testing_program.cpp; sourceTree = "<group>"; };
+		567B5F7920703B3300855C50 /* plane_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane_tests.cpp; sourceTree = "<group>"; };
 		568294972044C7F4003BF4CC /* transformations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = transformations.h; sourceTree = "<group>"; };
 		568294982044C7F4003BF4CC /* matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
 		568294992044C7F4003BF4CC /* sc_radians.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sc_radians.h; sourceTree = "<group>"; };
@@ -62,6 +94,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		567B5F642070248B00855C50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		567B5F7120703AF700855C50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		568BCA1C203F192800E02F23 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,6 +121,7 @@
 		56085051203E49F200BDD00C /* source */ = {
 			isa = PBXGroup;
 			children = (
+				564F51FD2070210F0009E3EF /* geometry */,
 				568294962044C7F4003BF4CC /* internal */,
 				568BCA29203F1E7E00E02F23 /* glMath.h */,
 			);
@@ -85,6 +132,8 @@
 		56085052203E49F300BDD00C /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				567B5F6C20703AD500855C50 /* plane */,
+				564F5206207024330009E3EF /* boundingbox */,
 				568BCA0F203F181900E02F23 /* matrix */,
 				568BCA13203F181900E02F23 /* vector */,
 			);
@@ -106,8 +155,39 @@
 			children = (
 				56443A85203E48A000A801A7 /* vector_tests */,
 				568BCA1F203F192800E02F23 /* matrix_tests */,
+				567B5F692070248B00855C50 /* boundingbox_tests */,
+				567B5F7620703AF700855C50 /* plane_tests */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		564F51FD2070210F0009E3EF /* geometry */ = {
+			isa = PBXGroup;
+			children = (
+				564F51FF207022080009E3EF /* bounding_box.h */,
+				564F5202207022F00009E3EF /* plane.h */,
+			);
+			path = geometry;
+			sourceTree = "<group>";
+		};
+		564F5206207024330009E3EF /* boundingbox */ = {
+			isa = PBXGroup;
+			children = (
+				564F5209207024570009E3EF /* boundingbox_testing_program.cpp */,
+				564F5207207024570009E3EF /* boundingbox_tests.cpp */,
+				564F5208207024570009E3EF /* boundingbox_tests.hpp */,
+			);
+			path = boundingbox;
+			sourceTree = "<group>";
+		};
+		567B5F6C20703AD500855C50 /* plane */ = {
+			isa = PBXGroup;
+			children = (
+				567B5F7820703B3300855C50 /* plane_testing_program.cpp */,
+				567B5F7920703B3300855C50 /* plane_tests.cpp */,
+				567B5F7720703B3300855C50 /* plane_tests.hpp */,
+			);
+			path = plane;
 			sourceTree = "<group>";
 		};
 		568294962044C7F4003BF4CC /* internal */ = {
@@ -165,6 +245,40 @@
 			productReference = 56443A85203E48A000A801A7 /* vector_tests */;
 			productType = "com.apple.product-type.tool";
 		};
+		567B5F5E2070248B00855C50 /* boundingbox_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 567B5F662070248B00855C50 /* Build configuration list for PBXNativeTarget "boundingbox_tests" */;
+			buildPhases = (
+				567B5F5F2070248B00855C50 /* Sources */,
+				567B5F642070248B00855C50 /* Frameworks */,
+				567B5F652070248B00855C50 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = boundingbox_tests;
+			productName = matrix_tests;
+			productReference = 567B5F692070248B00855C50 /* boundingbox_tests */;
+			productType = "com.apple.product-type.tool";
+		};
+		567B5F6D20703AF700855C50 /* plane_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 567B5F7320703AF700855C50 /* Build configuration list for PBXNativeTarget "plane_tests" */;
+			buildPhases = (
+				567B5F6E20703AF700855C50 /* Sources */,
+				567B5F7120703AF700855C50 /* Frameworks */,
+				567B5F7220703AF700855C50 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = plane_tests;
+			productName = matrix_tests;
+			productReference = 567B5F7620703AF700855C50 /* plane_tests */;
+			productType = "com.apple.product-type.tool";
+		};
 		568BCA1E203F192800E02F23 /* matrix_tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 568BCA23203F192800E02F23 /* Build configuration list for PBXNativeTarget "matrix_tests" */;
@@ -195,6 +309,12 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
+					567B5F5E2070248B00855C50 = {
+						ProvisioningStyle = Automatic;
+					};
+					567B5F6D20703AF700855C50 = {
+						ProvisioningStyle = Automatic;
+					};
 					568BCA1E203F192800E02F23 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -215,6 +335,8 @@
 			targets = (
 				56443A84203E48A000A801A7 /* vector_tests */,
 				568BCA1E203F192800E02F23 /* matrix_tests */,
+				567B5F5E2070248B00855C50 /* boundingbox_tests */,
+				567B5F6D20703AF700855C50 /* plane_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -226,6 +348,24 @@
 			files = (
 				568BCA19203F181900E02F23 /* vector_testing_program.cpp in Sources */,
 				568BCA1A203F181900E02F23 /* vector_tests.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		567B5F5F2070248B00855C50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				567B5F6A2070249E00855C50 /* boundingbox_testing_program.cpp in Sources */,
+				567B5F6B2070249E00855C50 /* boundingbox_tests.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		567B5F6E20703AF700855C50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				567B5F7B20703B3300855C50 /* plane_tests.cpp in Sources */,
+				567B5F7A20703B3300855C50 /* plane_testing_program.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +520,42 @@
 			};
 			name = Release;
 		};
+		567B5F672070248B00855C50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R78NEXF6E2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		567B5F682070248B00855C50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R78NEXF6E2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		567B5F7420703AF700855C50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R78NEXF6E2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		567B5F7520703AF700855C50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R78NEXF6E2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		568BCA24203F192800E02F23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -415,6 +591,24 @@
 			buildConfigurations = (
 				56443A8D203E48A000A801A7 /* Debug */,
 				56443A8E203E48A000A801A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		567B5F662070248B00855C50 /* Build configuration list for PBXNativeTarget "boundingbox_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				567B5F672070248B00855C50 /* Debug */,
+				567B5F682070248B00855C50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		567B5F7320703AF700855C50 /* Build configuration list for PBXNativeTarget "plane_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				567B5F7420703AF700855C50 /* Debug */,
+				567B5F7520703AF700855C50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -83,6 +83,7 @@ namespace ms {
 			Vector 						cross				(const Vector & v) const;
 			
 			Type	 					length				() const;
+			Type	 					length2				() const;
 			
 			void	 					normalize			();
 			Vector						normalized			() const;
@@ -342,6 +343,11 @@ Type ms::math::Vector<Type, Dimension>::length() const {
 	}
     
 	return ms::math::square_root<Type>(length);
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+Type ms::math::Vector<Type, Dimension>::length2() const {
+	return dot(*this);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
