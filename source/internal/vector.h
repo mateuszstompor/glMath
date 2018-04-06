@@ -110,9 +110,7 @@ namespace ms {
 			
 			Vector<Type, 3>				xyz					() const;
 			Vector<Type, 2> 			xy					() const;
-			
-		private:
-			
+						
 			Type * 						components;
 			
 		};
