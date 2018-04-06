@@ -9,6 +9,9 @@
 #ifndef boundingBox_hpp
 #define boundingBox_hpp
 
+#include <cassert>
+#include <iostream>
+
 #include "../internal/definitions.h"
 #include "../internal/common.h"
 
@@ -43,6 +46,8 @@ namespace ms {
 							BoundingBox		(Type x, Type X,
 											 Type y, Type Y,
 											 Type z, Type Z);
+			
+			vec3T &			operator []		(size_t index);
 			
 			Type 			get_width_x		() const;
 			Type 			get_height_y	() const;
@@ -111,6 +116,32 @@ template <typename Type>
 Type ms::math::BoundingBox<Type>::get_depth_z () const {
 	return depth_z;
 }
+
+template <typename Type>
+ms::math::Vector<Type, 3> & ms::math::BoundingBox<Type>::operator [] (size_t index) {
+	switch (index) {
+		case 0:
+			return xyz;
+		case 1:
+			return xyZ;
+		case 2:
+			return xYz;
+		case 3:
+			return xYZ;
+		case 4:
+			return Xyz;
+		case 5:
+			return XyZ;
+		case 6:
+			return XYz;
+		case 7:
+			return XYZ;
+		default:
+			std::cerr << "Index out of range" << std::endl;
+			assert(false);
+	}
+}
+
 
 template <typename Type>
 ms::math::Vector<Type, 3> const & ms::math::BoundingBox<Type>::get_origin () const {

@@ -50,8 +50,8 @@ namespace ms {
 			
 			bool				is_in_front		(BoundingBox<Type> boundingBox) const;
 			
+			RelativePosition	get_position	(Matrix<Type, 4, 4> m, BoundingBox<Type> boundingBox) const;
 			RelativePosition	get_position	(BoundingBox<Type> boundingBox) const;
-			
 			vec3T const &		get_normal		() const;
 			vec3T const &		get_origin		() const;
 			
@@ -106,23 +106,29 @@ bool ms::math::Plane<Type>::is_valid(Type errorMargin) const {
 
 template <typename Type>
 bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> boundingBox) const {
-	if((boundingBox.xyz - originPoint).dot(normal) < 0)
-		return false;
-	if((boundingBox.xyZ - originPoint).dot(normal) < 0)
-		return false;
-	if((boundingBox.xYz - originPoint).dot(normal) < 0)
-		return false;
-	if((boundingBox.xYZ - originPoint).dot(normal) < 0)
-		return false;
-	if((boundingBox.Xyz - originPoint).dot(normal) < 0)
-		return false;
-	if((boundingBox.XyZ - originPoint).dot(normal) < 0)
-		return false;
-	if((boundingBox.XYz - originPoint).dot(normal) < 0)
-		return false;
-	if((boundingBox.XYZ - originPoint).dot(normal) < 0)
-		return false;
+	for(int i = 0; i < 8; ++i) {
+		if((boundingBox[i] - originPoint).dot(normal) < 0)
+			return false;
+	}
 	return true;
+}
+
+template <typename Type>
+typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (Matrix<Type, 4, 4> m, BoundingBox<Type> boundingBox) const {
+	bool isInFront = true;
+	bool isBehind = true;
+	
+	bool result = true;
+	
+	for(int i = 0 ; i < 8; ++i) {
+		result = ((m * boundingBox[i].expanded(1.0f)).xyz() - originPoint).dot(normal) > 0;
+		
+		isInFront = isInFront && result;
+		isBehind = isBehind && !result;
+	}
+
+	return isInFront == false && isBehind == false ? RelativePosition::intersects :
+	(isInFront == false ? RelativePosition::behind : RelativePosition::in_front);
 }
 
 template <typename Type>
@@ -131,47 +137,14 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool isInFront = true;
 	bool isBehind = true;
 	
-	bool result = (boundingBox.xyz - originPoint).dot(normal) > 0;
+	bool result = true;
 	
-	isInFront = isInFront && result;
-	isBehind = isBehind && !result;
-	
-	result = (boundingBox.xyZ - originPoint).dot(normal) > 0;
-	
-	isInFront = isInFront && result;
-	isBehind = isBehind && !result;
-	
-	result = (boundingBox.xYz - originPoint).dot(normal) > 0;
-	
-	isInFront = isInFront && result;
-	isBehind = isBehind && !result;
-	
-	result = (boundingBox.xYZ - originPoint).dot(normal) > 0;
-	
-	isInFront = isInFront && result;
-	isBehind = isBehind && !result;
-	
-	//
-	
-	result = (boundingBox.Xyz - originPoint).dot(normal) > 0;
-	
-	isInFront = isInFront && result;
-	isBehind = isBehind && !result;
-	
-	result = (boundingBox.XyZ - originPoint).dot(normal) > 0;
-	
-	isInFront = isInFront && result;
-	isBehind = isBehind && !result;
-	
-	result = (boundingBox.XYz - originPoint).dot(normal) > 0;
-	
-	isInFront = isInFront && result;
-	isBehind = isBehind && !result;
-	
-	result = (boundingBox.XYZ - originPoint).dot(normal) > 0;
-	
-	isInFront = isInFront && result;
-	isBehind = isBehind && !result;
+	for(int i = 0; i < 8; ++i) {
+		result = (boundingBox[i] - originPoint).dot(normal) > 0;
+		
+		isInFront = isInFront && result;
+		isBehind = isBehind && !result;
+	}
 	
 	return isInFront == false && isBehind == false ? RelativePosition::intersects :
 	(isInFront == false ? RelativePosition::behind : RelativePosition::in_front);
