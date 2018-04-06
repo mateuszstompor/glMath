@@ -26,18 +26,24 @@ void VectorTest::testCopyConstructor() {
 }
 
 void VectorTest::testMoveConstructor() {
-    
+	
+#ifndef VECTOR_MAX_DIM
+
     math::Vector<float, 3> vec1(2, 2, 2);
     const float* ptrToComponents = vec1.c_array();
     
     math::Vector<float, 3> vec2(std::move(vec1));
     CPPUNIT_ASSERT(vec2.c_array() == ptrToComponents);
     CPPUNIT_ASSERT(vec1.c_array() == nullptr);
-
+	
+#endif
+	
 }
 
 void VectorTest::testMoveAssignment() {
-    
+
+#ifndef VECTOR_MAX_DIM
+
     math::Vector<float, 3> vec1(2, 2, 2);
     math::Vector<float, 3> vec2;
     
@@ -47,7 +53,9 @@ void VectorTest::testMoveAssignment() {
     
     CPPUNIT_ASSERT(vec2.c_array() == ptrToComponents);
     CPPUNIT_ASSERT(vec1.c_array() == nullptr);
-    
+	
+#endif
+	
 }
 
 void VectorTest::testCopyAssignment() {

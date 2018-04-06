@@ -9,6 +9,8 @@
 #ifndef vector_h
 #define vector_h
 
+#define VECTOR_MAX_DIM 4
+
 #include <string>
 #include <sstream>
 #include <cstring>
@@ -110,8 +112,12 @@ namespace ms {
 			
 			Vector<Type, 3>				xyz					() const;
 			Vector<Type, 2> 			xy					() const;
-						
+			
+			#ifdef VECTOR_MAX_DIM
+			Type 						components [VECTOR_MAX_DIM];
+			#else
 			Type * 						components;
+			#endif
 			
 		};
 		
@@ -119,8 +125,14 @@ namespace ms {
     
 }
 
+#ifdef VECTOR_MAX_DIM
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension>::Vector() {}
+#else
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector() : components( new Type[Dimension] ) { }
+#endif
+
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(Type value) : Vector() {
@@ -128,10 +140,17 @@ ms::math::Vector<Type, Dimension>::Vector(Type value) : Vector() {
 	*(components) = value;
 }
 
+#ifdef VECTOR_MAX_DIM
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension>::Vector(Vector && v) noexcept {
+	std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
+}
+#else
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(Vector && v) noexcept : components(v.components) {
     v.components = nullptr;
 }
+#endif
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(const Vector & v) : Vector() {
@@ -174,6 +193,13 @@ ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(
     return *this;
 }
 
+#ifdef VECTOR_MAX_DIM
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(Vector && v) noexcept {
+	std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
+	return *this;
+}
+#else
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(Vector && v) noexcept {
     delete [] (*this).components;
@@ -183,6 +209,7 @@ ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(
     
     return *this;
 }
+#endif
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> sphericalCoordinates) : Vector( spco::RadiansSpherical <Type> ( sphericalCoordinates ) ) {
@@ -199,7 +226,9 @@ ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type>
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::~Vector() {
+#ifndef VECTOR_MAX_DIM
     delete [] this->components;
+#endif
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
