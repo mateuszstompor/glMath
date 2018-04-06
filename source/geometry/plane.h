@@ -84,8 +84,8 @@ ms::math::Plane<Type>::Plane(const vec3T & normal,
 							 const vec3T & origin,
 							 const vec3T & secondPoint) : normal(normal), originPoint(origin), secondPoint(secondPoint) {
 #if DEBUG
-	assert_equal(Type(1.0), this->normal.length2(), Type(DEBUG_DEFAULT_PRECISION));
-	assert_equal(Type(1.0), (this->secondPoint-this->originPoint).length2(), Type(DEBUG_DEFAULT_PRECISION));
+//	assert_equal(Type(1.0), this->normal.length2(), Type(DEBUG_DEFAULT_PRECISION));
+//	assert_equal(Type(1.0), (this->secondPoint-this->originPoint).length2(), Type(DEBUG_DEFAULT_PRECISION));
 #endif
 	
 }
@@ -95,8 +95,8 @@ ms::math::Plane<Type>::Plane (vec3T && normal,
 							  vec3T && origin,
 							  vec3T && secondPoint) : normal(std::move(normal)), originPoint(std::move(origin)), secondPoint(std::move(secondPoint)){
 #if DEBUG
-	assert_equal(Type(1.0), this->normal.length2(), Type(DEBUG_DEFAULT_PRECISION));
-	assert_equal(Type(1.0), (this->secondPoint-this->originPoint).length2(), Type(DEBUG_DEFAULT_PRECISION));
+//	assert_equal(Type(1.0), this->normal.length2(), Type(DEBUG_DEFAULT_PRECISION));
+//	assert_equal(Type(1.0), (this->secondPoint-this->originPoint).length2(), Type(DEBUG_DEFAULT_PRECISION));
 #endif
 	
 }

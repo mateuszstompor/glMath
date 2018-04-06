@@ -11,6 +11,7 @@
 
 #include <cstdint>
 #include <cassert>
+#include <iostream>
 
 #ifdef __WIN32__
 
@@ -51,6 +52,7 @@ namespace ms {
 	template <typename Type>
 	inline void assert_equal(Type value, Type actualValue, Type precision) {
 		if(!equal(value, actualValue, precision)) {
+			std::cerr << value << " is not equal " << actualValue << '\n';
 			assert(false);
 		}
 	}
