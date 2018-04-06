@@ -65,6 +65,9 @@ namespace ms {
 			Vector 						operator 	- 		(const Vector & v) const;
 			Vector & 					operator 	-= 		(const Vector & v);
 			
+			Vector 						operator 	/ 		(Type value) const;
+			Vector& 					operator 	/= 		(Type value);
+			
 			Vector 						operator 	* 		(Type value) const;
 			Vector& 					operator 	*= 		(Type value);
 			
@@ -231,6 +234,24 @@ ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::cross(const
 	vec[0] = this->components[1] * v.components[2] - this->components[2] * v.components[1];
 	vec[1] = this->components[2] * v.components[0] - this->components[0] * v.components[2];
 	vec[2] = this->components[0] * v.components[1] - this->components[1] * v.components[0];
+	return vec;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator /= (Type value) {
+	for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
+		(*this).components[i] /= value;
+	
+	return *this;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator / (Type value) const {
+	Vector vec;
+	
+	for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
+		vec.components[i] = (*this).components[i] / value;
+	
 	return vec;
 }
 

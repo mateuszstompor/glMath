@@ -154,7 +154,12 @@ void VectorTest::testScalarMultiplication() {
     math::Vector<float, 3> vec3;
     
     vec3 = vec1 * 2;
-    
+	vec3 *= 2;
+	vec3 /= 2;
+	
+	vec3 = vec3 / 2;
+	vec3 = vec3 * 2;
+	
     for (int i = 0; i < 3; ++ i) {
         CPPUNIT_ASSERT(vec3.c_array()[i] == 4);
     }

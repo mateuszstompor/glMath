@@ -1,5 +1,8 @@
 #include "plane_tests.hpp"
 
+using namespace ms;
+using namespace math;
+
 CPPUNIT_TEST_SUITE_REGISTRATION(PlaneTest);
 
 void PlaneTest::setUp() {
@@ -40,4 +43,17 @@ void PlaneTest::testRelativePosition() {
 	CPPUNIT_ASSERT(p0.get_position(bb1) == ms::math::Plane<float>::RelativePosition::intersects);
 	CPPUNIT_ASSERT(p1.get_position(bb0) == ms::math::Plane<float>::RelativePosition::behind);
 
+}
+
+void PlaneTest::testCreationFromThreePoints() {
+	vec3 firstPoint(1.0f, 0.0f, 0.0f);
+	vec3 secondPoint(0.0f, 0.0f, -1.0f);
+	vec3 origin(0.0f, 0.0f, 0.0f);
+	
+	auto plane = Plane<float>::from_points(firstPoint, origin, secondPoint);
+	
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0f, plane.get_normal().x(), 0.001f);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0f, plane.get_normal().y(), 0.001f);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0f, plane.get_normal().z(), 0.001f);
+	
 }

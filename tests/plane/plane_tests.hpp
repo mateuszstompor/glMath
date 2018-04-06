@@ -17,6 +17,7 @@ namespace ms {
 	  CPPUNIT_TEST( testPlaneCorrectness );
 	  CPPUNIT_TEST( testIsInFront );
 	  CPPUNIT_TEST( testRelativePosition );
+	  CPPUNIT_TEST( testCreationFromThreePoints );
 	 
 	  CPPUNIT_TEST_SUITE_END();
 
@@ -27,7 +28,7 @@ namespace ms {
 	  void testPlaneCorrectness();
 	  void testIsInFront();
 	  void testRelativePosition();
-	  
+	  void testCreationFromThreePoints();
 	  
   protected:
 	  

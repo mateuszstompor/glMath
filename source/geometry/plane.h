@@ -55,6 +55,9 @@ namespace ms {
 			vec3T const &		get_normal		() const;
 			vec3T const &		get_origin		() const;
 			
+			//clockwise
+		static Plane from_points(vec3T firstPoint, vec3T origin, vec3T secondPoint);
+			
 			// I don't know how can I name second point which lies on the plane :/
 			// I'll leave it as it is :)
 			
@@ -158,6 +161,16 @@ ms::math::Vector<Type, 3> const & ms::math::Plane<Type>::get_normal () const {
 template <typename Type>
 ms::math::Vector<Type, 3> const & ms::math::Plane<Type>::get_origin () const {
 	return originPoint;
+}
+
+template <typename Type>
+ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T firstPoint, vec3T origin, vec3T secondPoint) {
+	
+	auto firstVector = (firstPoint - origin).normalized();
+	auto secondVector = (secondPoint - origin).normalized();
+	auto normal = firstVector.cross(secondVector).normalized();
+	
+	return ms::math::Plane<Type>(normal, origin, origin + secondVector);
 }
 
 // I don't know how can I name second point which lies on the plane :/
