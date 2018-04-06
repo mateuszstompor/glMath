@@ -50,8 +50,8 @@ namespace ms {
 			
 			bool				is_in_front		(BoundingBox<Type> boundingBox) const;
 			
-			RelativePosition	get_position	(Matrix<Type, 4, 4> m, BoundingBox<Type> boundingBox) const;
-			RelativePosition	get_position	(BoundingBox<Type> boundingBox) const;
+			RelativePosition	get_position	(Matrix<Type, 4, 4> const & m, BoundingBox<Type> const & boundingBox) const;
+			RelativePosition	get_position	(BoundingBox<Type> const & boundingBox) const;
 			vec3T const &		get_normal		() const;
 			vec3T const &		get_origin		() const;
 			
@@ -66,9 +66,11 @@ namespace ms {
 		protected:
 			
 			Vector<Type, 3> 	normal;
+			Vector<Type, 4> 	normal4;
 			
 			//	origin of normal vector	//
 			Vector<Type, 3> 	originPoint;
+			Vector<Type, 4> 	originPoint4;
 			
 			//	second point which is needed (from mathematical point of view) for plane construction	//
 			Vector<Type, 3> 	secondPoint;
@@ -87,7 +89,8 @@ ms::math::Plane<Type>::Plane(const vec3T & normal,
 //	assert_equal(Type(1.0), this->normal.length2(), Type(DEBUG_DEFAULT_PRECISION));
 //	assert_equal(Type(1.0), (this->secondPoint-this->originPoint).length2(), Type(DEBUG_DEFAULT_PRECISION));
 #endif
-	
+	normal4 = normal.expanded(Type(1.0));
+	originPoint4 = originPoint.expanded(Type(1.0));
 }
 
 template <typename Type>
@@ -98,7 +101,8 @@ ms::math::Plane<Type>::Plane (vec3T && normal,
 //	assert_equal(Type(1.0), this->normal.length2(), Type(DEBUG_DEFAULT_PRECISION));
 //	assert_equal(Type(1.0), (this->secondPoint-this->originPoint).length2(), Type(DEBUG_DEFAULT_PRECISION));
 #endif
-	
+	normal4 = normal.expanded(Type(1.0));
+	originPoint4 = originPoint.expanded(Type(1.0));
 }
 
 
@@ -117,14 +121,14 @@ bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> boundingBox) const {
 }
 
 template <typename Type>
-typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (Matrix<Type, 4, 4> m, BoundingBox<Type> boundingBox) const {
+typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (const Matrix<Type, 4, 4> & m, const BoundingBox<Type> & boundingBox) const {
 	bool isInFront = true;
 	bool isBehind = true;
 	
 	bool result = true;
 	
 	for(int i = 0 ; i < 8; ++i) {
-		result = ((m * boundingBox[i].expanded(1.0f)).xyz() - originPoint).dot(normal) > 0;
+		result = ((m * boundingBox.corners[i]) - originPoint4).dot(normal4) > 0;
 		
 		isInFront = isInFront && result;
 		isBehind = isBehind && !result;
@@ -135,14 +139,14 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 }
 
 template <typename Type>
-typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (BoundingBox<Type> boundingBox) const {
+typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (BoundingBox<Type> const & boundingBox) const {
 
 	bool isInFront = true;
 	bool isBehind = true;
 	
 	bool result = true;
 	
-	for(int i = 0; i < 8; ++i) {
+	for(int i = 0; i < 8 && (isInFront || isBehind); ++i) {
 		result = (boundingBox[i] - originPoint).dot(normal) > 0;
 		
 		isInFront = isInFront && result;

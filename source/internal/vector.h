@@ -71,7 +71,7 @@ namespace ms {
 			Vector 						operator 	* 		(Type value) const;
 			Vector& 					operator 	*= 		(Type value);
 			
-			Vector<Type, Dimension + 1>	expanded			(Type value);
+			Vector<Type, Dimension + 1>	expanded			(Type value) const;
 			
 			template <UNSIGNED_TYPE Columns>
 			Vector<Type, Columns>		operator	*		(const Matrix<Type, Dimension, Columns>) const;
@@ -465,7 +465,7 @@ ms::math::Vector<Type, 2> ms::math::Vector<Type, Dimension>::xy () const {
 
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension+1> ms::math::Vector<Type, Dimension>::expanded (Type value)  {
+ms::math::Vector<Type, Dimension+1> ms::math::Vector<Type, Dimension>::expanded (Type value) const {
 	Vector<Type, Dimension + 1> v;
 	memcpy(v.c_array(), this->components, sizeof(Type) * Dimension);
 	v[Dimension] = value;

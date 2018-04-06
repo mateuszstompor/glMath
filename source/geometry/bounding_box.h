@@ -10,6 +10,7 @@
 #define boundingBox_hpp
 
 #include <cassert>
+#include <vector>
 #include <iostream>
 
 #include "../internal/definitions.h"
@@ -40,6 +41,7 @@ namespace ms {
 		protected:
 			
 			typedef Vector<Type, 3> vec3T;
+			typedef Vector<Type, 4> vec4T;
 			
 		public:
 			
@@ -65,15 +67,7 @@ namespace ms {
 			vec3T origin;
 			
 			//corners
-			vec3T xyz;
-			vec3T xyZ;
-			vec3T xYz;
-			vec3T xYZ;
-			
-			vec3T Xyz;
-			vec3T XyZ;
-			vec3T XYz;
-			vec3T XYZ;
+			std::vector<vec4T> corners{ };
 			
 		};
 		
@@ -84,15 +78,17 @@ namespace ms {
 template <typename Type>
 ms::math::BoundingBox<Type>::BoundingBox(Type x, Type X, Type y, Type Y, Type z, Type Z) : minX(x), maxX(X), minY(y), maxY(Y), minZ(z), maxZ(Z) {
 	
-	xyz = vec3T{x, y, z};
-	xyZ = vec3T{x, y, Z};
-	xYz = vec3T{x, Y, z};
-	xYZ = vec3T{x, Y, Z};
+	corners.resize(8);
 	
-	Xyz = vec3T{X, y, z};
-	XyZ = vec3T{X, y, Z};
-	XYz = vec3T{X, Y, z};
-	XYZ = vec3T{X, Y, Z};
+	corners[0] = vec4T{x, y, z, 1.0f};
+	corners[1] = vec4T{x, y, Z, 1.0f};
+	corners[2] = vec4T{x, Y, z, 1.0f};
+	corners[3] = vec4T{x, Y, Z, 1.0f};
+	
+	corners[4] = vec4T{X, y, z, 1.0f};
+	corners[5] = vec4T{X, y, Z, 1.0f};
+	corners[6] = vec4T{X, Y, z, 1.0f};
+	corners[7] = vec4T{X, Y, Z, 1.0f};
 	
 	origin = vec3T{math::point::middle(x, X), math::point::middle(y, Y), math::point::middle(z, Z)};
 	
@@ -116,32 +112,6 @@ template <typename Type>
 Type ms::math::BoundingBox<Type>::get_depth_z () const {
 	return depth_z;
 }
-
-template <typename Type>
-ms::math::Vector<Type, 3> & ms::math::BoundingBox<Type>::operator [] (size_t index) {
-	switch (index) {
-		case 0:
-			return xyz;
-		case 1:
-			return xyZ;
-		case 2:
-			return xYz;
-		case 3:
-			return xYZ;
-		case 4:
-			return Xyz;
-		case 5:
-			return XyZ;
-		case 6:
-			return XYz;
-		case 7:
-			return XYZ;
-		default:
-			std::cerr << "Index out of range" << std::endl;
-			assert(false);
-	}
-}
-
 
 template <typename Type>
 ms::math::Vector<Type, 3> const & ms::math::BoundingBox<Type>::get_origin () const {
