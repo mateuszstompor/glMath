@@ -74,10 +74,10 @@ namespace ms {
 			Vector<Type, Dimension + 1>	expanded			(Type value) const;
 			
 			template <UNSIGNED_TYPE Columns>
-			Vector<Type, Columns>		operator	*		(const Matrix<Type, Dimension, Columns>) const;
+			Vector<Type, Columns>		operator	*		(const Matrix<Type, Dimension, Columns> &) const;
 			
 			template <UNSIGNED_TYPE Columns>
-			Vector<Type, Columns> &		operator	*=		(const Matrix<Type, Dimension, Columns>);
+			Vector<Type, Columns> &		operator	*=		(const Matrix<Type, Dimension, Columns> &);
 			
 			Type & 						operator 	[] 		(UNSIGNED_TYPE position);
 			Type const & 				operator 	[] 		(UNSIGNED_TYPE position) const;
@@ -279,7 +279,7 @@ ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator * 
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 template <UNSIGNED_TYPE Columns>
-ms::math::Vector<Type, Columns> ms::math::Vector<Type, Dimension> :: operator * (const Matrix<Type, Dimension, Columns> m) const {
+ms::math::Vector<Type, Columns> ms::math::Vector<Type, Dimension> :: operator * (const Matrix<Type, Dimension, Columns> & m) const {
 	Vector<Type, Columns> result;
 	for(UNSIGNED_TYPE row = 0; row < Dimension; ++row) {
 		Type sum = 0.0;
@@ -292,7 +292,7 @@ ms::math::Vector<Type, Columns> ms::math::Vector<Type, Dimension> :: operator * 
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 template <UNSIGNED_TYPE Columns>
-ms::math::Vector<Type, Columns> & ms::math::Vector<Type, Dimension> :: operator *= (const Matrix<Type, Dimension, Columns> m) {
+ms::math::Vector<Type, Columns> & ms::math::Vector<Type, Dimension> :: operator *= (const Matrix<Type, Dimension, Columns> & m) {
 	Vector<Type, Columns> result;
 	result = (*this) * m;
 	(*this) = result;

@@ -61,7 +61,7 @@ namespace ms {
 			template <UNSIGNED_TYPE C>
 			Matrix<Type, Rows, C> 		operator * 			(const Matrix<Type, Columns, C> & m) const;
 			
-			Vector<Type, Rows>			operator *			(const Vector<Type, Columns>) const;
+			Vector<Type, Rows>			operator *			(const Vector<Type, Columns> &) const;
 			
 			Matrix & 					operator *= 		(Type value);
 			Matrix	 					operator *	 		(Type value) const;
@@ -201,7 +201,7 @@ ms::math::Matrix<Type, Rows, C> ms::math::Matrix<Type, Rows, Columns> :: operato
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-ms::math::Vector<Type, Rows> ms::math::Matrix<Type, Rows, Columns> :: operator * (const Vector<Type, Columns> v) const {
+ms::math::Vector<Type, Rows> ms::math::Matrix<Type, Rows, Columns> :: operator * (const Vector<Type, Columns> & v) const {
 	Vector<Type, Rows> result;
 	for(UNSIGNED_TYPE row = 0; row < Rows; ++row) {
 		Type sum = 0.0;
