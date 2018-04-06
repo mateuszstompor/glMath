@@ -127,14 +127,14 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	
 	bool result = true;
 	
-	for(int i = 0 ; i < 8; ++i) {
-		result = ((m * boundingBox.corners[i]) - originPoint4).dot(normal4) > 0;
+	for(int i = 0 ; i < 8 && (isInFront || isBehind); ++i) {
+		result = ((m * boundingBox.corners[i]) -= originPoint4).dot(normal4) > 0;
 		
 		isInFront = isInFront && result;
 		isBehind = isBehind && !result;
 	}
 
-	return isInFront == false && isBehind == false ? RelativePosition::intersects :
+	return (isInFront || isBehind) == false ? RelativePosition::intersects :
 	(isInFront == false ? RelativePosition::behind : RelativePosition::in_front);
 }
 

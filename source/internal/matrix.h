@@ -28,7 +28,7 @@ namespace ms {
 			
 		template <typename T, UNSIGNED_TYPE Dimension>
 		friend class Vector;
-
+			
 		public:
 			
 			//static functions
@@ -79,9 +79,9 @@ namespace ms {
 			Type *		 				c_array				();
 			const Type * 				c_array				() const;
 			
-		private:
+//		private:
 			
-			Type * 			components;
+			Type * 						components;
 			
 		};
 		
@@ -100,7 +100,7 @@ ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: d
 	Matrix m;
 	for(UNSIGNED_TYPE row = 0; row < Rows; ++row)
 		for(UNSIGNED_TYPE column = 0; column < Columns; ++column)
-			m[column * Rows + row] = row == column ? value : 0;
+			m.components[column * Rows + row] = row == column ? value : 0;
 	return m;
 }
 
@@ -152,30 +152,30 @@ template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: operator - (const Matrix & m) const {
 	Matrix result;
 	for(UNSIGNED_TYPE i = 0; i < Rows * Columns; ++i)
-		result[i] = (*this).components[i] - m.components[i];
+		result[i] = this->components[i] - m.components[i];
 	return result;
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator -= (const Matrix & m) {
 	for(UNSIGNED_TYPE i = 0; i < Rows * Columns; ++i)
-		(*this).components -= m.components[i];
-	return (*this);
+		this->components -= m.components[i];
+	return *this;
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: operator + (const Matrix & m) const {
 	Matrix result;
 	for(UNSIGNED_TYPE i = 0; i < Rows * Columns; ++i)
-		result[i] = (*this).components[i] + m.components[i];
+		result[i] = this->components[i] + m.components[i];
 	return result;
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator += (const Matrix & m) {
 	for(UNSIGNED_TYPE i = 0; i < Rows * Columns; ++i)
-		(*this).components += m.components[i];
-	return (*this);
+		this->components += m.components[i];
+	return *this;
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
@@ -191,10 +191,9 @@ ms::math::Matrix<Type, Rows, C> ms::math::Matrix<Type, Rows, Columns> :: operato
 
 	for(UNSIGNED_TYPE outerIterator = 0; outerIterator < Rows; ++outerIterator)
 		for (UNSIGNED_TYPE innerIterator = 0; innerIterator < C; ++innerIterator) {
-			Type sum = 0;
+			result.components[Rows * innerIterator + outerIterator] = 0;
 			for (UNSIGNED_TYPE i = 0; i < Columns; ++i)
-				sum += *((*this).components + Rows*i + outerIterator) * *(m.c_array() + Rows*innerIterator + i);
-			result[Rows * innerIterator + outerIterator] = sum;
+				result.components[Rows * innerIterator + outerIterator] += this->components[Rows*i + outerIterator ] * m.components[Rows*innerIterator + i];
 		}
 	
 	return result;
@@ -204,10 +203,9 @@ template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Vector<Type, Rows> ms::math::Matrix<Type, Rows, Columns> :: operator * (const Vector<Type, Columns> & v) const {
 	Vector<Type, Rows> result;
 	for(UNSIGNED_TYPE row = 0; row < Rows; ++row) {
-		Type sum = 0.0;
+		result.components[row] = 0.0;
 		for(UNSIGNED_TYPE column = 0; column < Columns; ++column)
-			sum += v.components[column] * (*this)[Rows * column + row];
-		result[row] = sum;
+			result.components[row] += v.components[column] * this->components[Rows * column + row];
 	}
 	return result;
 }
@@ -246,18 +244,18 @@ ms::math::Matrix<Type, Columns, Rows> ms::math::Matrix<Type, Rows, Columns> :: t
 	Matrix<Type, Columns, Rows> mat;
 	for (UNSIGNED_TYPE row = 0; row < Rows; ++row)
 		for (UNSIGNED_TYPE column = 0; column < Columns; ++column)
-			mat[row * Columns + column] = (*this).c_array()[row + column * Rows];
+			mat.components[row * Columns + column] = this->components[row + column * Rows];
 	return mat;
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (UNSIGNED_TYPE index) {
-	return (*this).components[index];
+	return this->components[index];
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 const Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (UNSIGNED_TYPE index) const {
-	return (*this).components[index];
+	return this->components[index];
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
@@ -274,12 +272,12 @@ std::string ms::math::Matrix<Type, Rows, Columns> :: to_string() const {
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 const Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() const {
-	return (*this).components;
+	return this->components;
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() {
-	return (*this).components;
+	return this->components;
 }
 
 #endif

@@ -222,7 +222,7 @@ Type ms::math::Vector<Type, Dimension>::dot(const Vector & v) const {
     Type dotProduct = Type(0.0);
     
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        dotProduct += (*this).components[i] * v.components[i];
+        dotProduct += this->components[i] * v.components[i];
     
     return dotProduct;
 }
@@ -282,10 +282,9 @@ template <UNSIGNED_TYPE Columns>
 ms::math::Vector<Type, Columns> ms::math::Vector<Type, Dimension> :: operator * (const Matrix<Type, Dimension, Columns> & m) const {
 	Vector<Type, Columns> result;
 	for(UNSIGNED_TYPE row = 0; row < Dimension; ++row) {
-		Type sum = 0.0;
+		result.components[row] = 0.0;
 		for(UNSIGNED_TYPE column = 0; column < Columns; ++column)
-			sum += (*this).components[column] * m[Dimension * column + row];
-		result[row] = sum;
+			result.components[row] += (*this).components[column] * m.components[Dimension * column + row];
 	}
 	return result;
 }
@@ -349,7 +348,7 @@ template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator -= (const Vector & v) {
     
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        (*this).components[i] -= v.components[i];
+        this->components[i] -= v.components[i];
     
     return *this;
     
@@ -467,8 +466,8 @@ ms::math::Vector<Type, 2> ms::math::Vector<Type, Dimension>::xy () const {
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension+1> ms::math::Vector<Type, Dimension>::expanded (Type value) const {
 	Vector<Type, Dimension + 1> v;
-	memcpy(v.c_array(), this->components, sizeof(Type) * Dimension);
-	v[Dimension] = value;
+	memcpy(v.components, this->components, sizeof(Type) * Dimension);
+	v.components[Dimension] = value;
 	return v;
 }
 

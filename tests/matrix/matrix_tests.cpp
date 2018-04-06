@@ -158,6 +158,35 @@ void MatrixTest::testScaling() {
 	
 }
 
+void MatrixTest::testMultiplicationPerformance() {
+	math::mat4 a = math::mat4::identity();
+	math::mat4 b = math::mat4::identity();
+	math::vec4 c(1.0f, 1.0f, 1.0f, 1.0f);
+	
+	auto time = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			a * b;
+		}
+		
+	});
+	
+	std::cout << "time:" << time << std::endl;
+	std::cout << std::endl;
+	
+	auto time2 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b * c;
+		}
+		
+	});
+	
+	std::cout << "time2:" << time2 << std::endl;
+	std::cout << std::endl;
+	
+}
+
 void MatrixTest::testTranslation() {
 	
 	float tab [] = { 1.0f, 1.0f, 1.0f };

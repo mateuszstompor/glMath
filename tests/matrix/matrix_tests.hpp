@@ -4,6 +4,16 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include "../../source/glMath.h"
+#include <chrono>
+
+template<typename T>
+inline long measure_time(std::function<void(void)> lambda) {
+	auto start = std::chrono::high_resolution_clock::now();
+	lambda();
+	auto now = std::chrono::high_resolution_clock::now();
+	return std::chrono::duration_cast<T>(now - start).count();
+}
+
 
 namespace ms {
     
@@ -16,6 +26,7 @@ namespace ms {
 	  CPPUNIT_TEST( testSubtraction );
 	  CPPUNIT_TEST( testEquality );
 	  CPPUNIT_TEST( testMultiplication );
+	  CPPUNIT_TEST( testMultiplicationPerformance );
 	  CPPUNIT_TEST( testTransposition );
 	  CPPUNIT_TEST( testScaling );
 	  CPPUNIT_TEST( testTranslation );
@@ -38,6 +49,7 @@ namespace ms {
 	  void testRotations();
 	  void testTranslation();
 	  void testMultiplication();
+	  void testMultiplicationPerformance();
 	  void testTransformationConversion();
   
   };
