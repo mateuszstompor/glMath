@@ -144,11 +144,30 @@ ms::math::Matrix<float, 4, C> ms::math::Matrix<float, 4, 4> :: operator * (const
 
 ms::math::Vector<float, 4> ms::math::Matrix<float, 4, 4> :: operator * (const Vector<float, 4> & v) const {
 	Vector<float, 4> result;
-	for(UNSIGNED_TYPE row = 0; row < 4; ++row) {
-		result.components[row] = 0.0;
-		for(UNSIGNED_TYPE column = 0; column < 4; ++column)
-			result.components[row] += v.components[column] * this->components[4 * column + row];
-	}
+	result.components[0] =
+	v.components[0] * this->components[0] +
+	v.components[1] * this->components[4] +
+	v.components[2] * this->components[8] +
+	v.components[3] * this->components[12];
+	
+	result.components[1] =
+	v.components[0] * this->components[1] +
+	v.components[1] * this->components[5] +
+	v.components[2] * this->components[9] +
+	v.components[3] * this->components[13];
+	
+	result.components[2] =
+	v.components[0] * this->components[2] +
+	v.components[1] * this->components[6] +
+	v.components[2] * this->components[10] +
+	v.components[3] * this->components[14];
+	
+	result.components[3] =
+	v.components[0] * this->components[3] +
+	v.components[1] * this->components[7] +
+	v.components[2] * this->components[11] +
+	v.components[3] * this->components[15];
+
 	return result;
 }
 
