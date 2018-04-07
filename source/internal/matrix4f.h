@@ -172,15 +172,47 @@ ms::math::Vector<float, 4> ms::math::Matrix<float, 4, 4> :: operator * (const Ve
 }
 
 ms::math::Matrix<float, 4, 4> & ms::math::Matrix<float, 4, 4> :: operator *= (float value) {
-	for(UNSIGNED_TYPE i = 0; i < 16; ++i)
-		this->components[i] *= value;
+	
+	this->components[0] *= value;
+	this->components[1] *= value;
+	this->components[2] *= value;
+	this->components[3] *= value;
+	this->components[4] *= value;
+	this->components[5] *= value;
+	this->components[6] *= value;
+	this->components[7] *= value;
+	this->components[8] *= value;
+	this->components[9] *= value;
+	this->components[10] *= value;
+	this->components[11] *= value;
+	this->components[12] *= value;
+	this->components[13] *= value;
+	this->components[14] *= value;
+	this->components[15] *= value;
+
 	return (*this);
 }
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: operator * (float value) const {
 	Matrix result;
-	for(UNSIGNED_TYPE i = 0; i < 16; ++i)
-		result[i] = (*this).components[i] * value;
+	
+	result.components[0] 	= (*this).components[0] * value;
+	result.components[1] 	= (*this).components[1] * value;
+	result.components[2] 	= (*this).components[2] * value;
+	result.components[3] 	= (*this).components[3] * value;
+	result.components[4] 	= (*this).components[4] * value;
+	result.components[5] 	= (*this).components[5] * value;
+	result.components[6] 	= (*this).components[6] * value;
+	result.components[7] 	= (*this).components[7] * value;
+	result.components[8] 	= (*this).components[8] * value;
+	result.components[9] 	= (*this).components[9] * value;
+	result.components[10] 	= (*this).components[10] * value;
+	result.components[11] 	= (*this).components[11] * value;
+	result.components[12] 	= (*this).components[12] * value;
+	result.components[13] 	= (*this).components[13] * value;
+	result.components[14] 	= (*this).components[14] * value;
+	result.components[15] 	= (*this).components[15] * value;
+	
 	return result;
 }
 

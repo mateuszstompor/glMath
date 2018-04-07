@@ -171,7 +171,8 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << "time:" << time << std::endl;
+	std::cout << std::endl;
+	std::cout << "matrix * matrix:" << time << std::endl;
 	std::cout << std::endl;
 	
 	auto time2 = measure_time<std::chrono::milliseconds>([&](){
@@ -182,7 +183,104 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << "time2:" << time2 << std::endl;
+	std::cout << std::endl;
+	std::cout << "matrix * vector:" << time2 << std::endl;
+	std::cout << std::endl;
+	
+	auto time3 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b * 3.23f;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix * value:" << time3 << std::endl;
+	std::cout << std::endl;
+	
+	auto time4 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b *= 3.23f;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix *= value:" << time4 << std::endl;
+	std::cout << std::endl;
+	
+	auto time5 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b - a;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix - matrix:" << time5 << std::endl;
+	std::cout << std::endl;
+	
+	auto time8 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b -= a;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix -= matrix:" << time8 << std::endl;
+	std::cout << std::endl;
+	
+	auto time6 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b + a;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix + matrix:" << time6 << std::endl;
+	std::cout << std::endl;
+	
+	auto time7 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b += a;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix += matrix:" << time7 << std::endl;
+	std::cout << std::endl;
+	
+	auto time9 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b * a;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix * matrix:" << time9 << std::endl;
+	std::cout << std::endl;
+	
+	auto time10 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			b *= a;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix *= matrix:" << time10 << std::endl;
 	std::cout << std::endl;
 	
 }
