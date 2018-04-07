@@ -43,6 +43,8 @@ namespace ms {
 			template <UNSIGNED_TYPE C>
 			inline Matrix<float, 4, C> 			operator * 			(const Matrix<float, 4, C> &) const;
 
+			inline Matrix<float, 4, 4> 			operator * 			(const Matrix<float, 4, 4> & m) const;
+			
 			inline Vector<float, 4>				operator *			(const Vector<float, 4> & b) const;
 
 			inline Matrix & 					operator *= 		(float value);
@@ -72,54 +74,163 @@ namespace ms {
 }
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: identity () {
-	return diagonal(1.0f);
+	Matrix result;
+	
+	result.components[0] = 1.0f;
+	result.components[1] = 0.0f;
+	result.components[2] = 0.0f;
+	result.components[3] = 0.0f;
+	result.components[4] = 0.0f;
+	result.components[5] = 1.0f;
+	result.components[6] = 0.0f;
+	result.components[7] = 0.0f;
+	result.components[8] = 0.0f;
+	result.components[9] = 0.0f;
+	result.components[10] = 1.0f;
+	result.components[11] = 0.0f;
+	result.components[12] = 0.0f;
+	result.components[13] = 0.0f;
+	result.components[14] = 0.0f;
+	result.components[15] = 1.0f;
+	
+	return result;
 }
 
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: diagonal (float value) {
-	Matrix m;
-	for(UNSIGNED_TYPE row = 0; row < 4; ++row)
-		for(UNSIGNED_TYPE column = 0; column < 4; ++column)
-			m.components[column * 4 + row] = row == column ? value : 0;
-	return m;
+	Matrix result;
+	
+	result.components[0] = value;
+	result.components[1] = 0.0f;
+	result.components[2] = 0.0f;
+	result.components[3] = 0.0f;
+	result.components[4] = 0.0f;
+	result.components[5] = value;
+	result.components[6] = 0.0f;
+	result.components[7] = 0.0f;
+	result.components[8] = 0.0f;
+	result.components[9] = 0.0f;
+	result.components[10] = value;
+	result.components[11] = 0.0f;
+	result.components[12] = 0.0f;
+	result.components[13] = 0.0f;
+	result.components[14] = 0.0f;
+	result.components[15] = value;
+	
+	return result;
 }
 
 ms::math::Matrix<float, 4, 4> :: Matrix(float value) {
-	for(UNSIGNED_TYPE i = 0; i < 16; ++i)
-		(*this).components[i] = value;
+	components[0] = value;
+	components[1] = value;
+	components[2] = value;
+	components[3] = value;
+	components[4] = value;
+	components[5] = value;
+	components[6] = value;
+	components[7] = value;
+	components[8] = value;
+	components[9] = value;
+	components[10] = value;
+	components[11] = value;
+	components[12] = value;
+	components[13] = value;
+	components[14] = value;
+	components[15] = value;
 }
 
 ms::math::Matrix<float, 4, 4> :: Matrix(const Matrix & m) {
-	std::memcpy((*this).components, m.components, sizeof(float) * 16);
+	std::memcpy(this->components, m.components, sizeof(float) * 16);
 }
 
 ms::math::Matrix<float, 4, 4> :: Matrix(const float array [16]) {
-	std::memcpy((*this).components, array, sizeof(float) * 16);
+	std::memcpy(this->components, array, sizeof(float) * 16);
 }
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: operator - (const Matrix<float, 4, 4> & m) const {
 	Matrix result;
-	for(UNSIGNED_TYPE i = 0; i < 4 * 4; ++i)
-		result[i] = this->components[i] - m.components[i];
+	
+	result.components[0] = this->components[0] - m.components[0];
+	result.components[1] = this->components[1] - m.components[1];
+	result.components[2] = this->components[2] - m.components[2];
+	result.components[3] = this->components[3] - m.components[3];
+	result.components[4] = this->components[4] - m.components[4];
+	result.components[5] = this->components[5] - m.components[5];
+	result.components[6] = this->components[6] - m.components[6];
+	result.components[7] = this->components[7] - m.components[7];
+	result.components[8] = this->components[8] - m.components[8];
+	result.components[9] = this->components[9] - m.components[9];
+	result.components[10] = this->components[10] - m.components[10];
+	result.components[11] = this->components[11] - m.components[11];
+	result.components[12] = this->components[12] - m.components[12];
+	result.components[13] = this->components[13] - m.components[13];
+	result.components[14] = this->components[14] - m.components[14];
+	result.components[15] = this->components[15] - m.components[15];
+	
 	return result;
 }
 
 ms::math::Matrix<float, 4, 4> & ms::math::Matrix<float, 4, 4> :: operator -= (const Matrix<float, 4, 4> & m) {
-	for(UNSIGNED_TYPE i = 0; i < 16; ++i)
-		this->components[i] -= m.components[i];
+	this->components[0] -= m.components[0];
+	this->components[1] -= m.components[1];
+	this->components[2] -= m.components[2];
+	this->components[3] -= m.components[3];
+	this->components[4] -= m.components[4];
+	this->components[5] -= m.components[5];
+	this->components[6] -= m.components[6];
+	this->components[7] -= m.components[7];
+	this->components[8] -= m.components[8];
+	this->components[9] -= m.components[9];
+	this->components[10] -= m.components[10];
+	this->components[11] -= m.components[11];
+	this->components[12] -= m.components[12];
+	this->components[13] -= m.components[13];
+	this->components[14] -= m.components[14];
+	this->components[15] -= m.components[15];
 	return *this;
 }
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: operator + (const Matrix & m) const {
 	Matrix result;
-	for(UNSIGNED_TYPE i = 0; i < 16; ++i)
-		result[i] = this->components[i] + m.components[i];
+	
+	result.components[0] = this->components[0] + m.components[0];
+	result.components[1] = this->components[1] + m.components[1];
+	result.components[2] = this->components[2] + m.components[2];
+	result.components[3] = this->components[3] + m.components[3];
+	result.components[4] = this->components[4] + m.components[4];
+	result.components[5] = this->components[5] + m.components[5];
+	result.components[6] = this->components[6] + m.components[6];
+	result.components[7] = this->components[7] + m.components[7];
+	result.components[8] = this->components[8] + m.components[8];
+	result.components[9] = this->components[9] + m.components[9];
+	result.components[10] = this->components[10] + m.components[10];
+	result.components[11] = this->components[11] + m.components[11];
+	result.components[12] = this->components[12] + m.components[12];
+	result.components[13] = this->components[13] + m.components[13];
+	result.components[14] = this->components[14] + m.components[14];
+	result.components[15] = this->components[15] + m.components[15];
+	
 	return result;
 }
 
 ms::math::Matrix<float, 4, 4> & ms::math::Matrix<float, 4, 4> :: operator += (const Matrix & m) {
-	for(UNSIGNED_TYPE i = 0; i < 16; ++i)
-		this->components[i] += m.components[i];
+	
+	this->components[0] += m.components[0];
+	this->components[1] += m.components[1];
+	this->components[2] += m.components[2];
+	this->components[3] += m.components[3];
+	this->components[4] += m.components[4];
+	this->components[5] += m.components[5];
+	this->components[6] += m.components[6];
+	this->components[7] += m.components[7];
+	this->components[8] += m.components[8];
+	this->components[9] += m.components[9];
+	this->components[10] += m.components[10];
+	this->components[11] += m.components[11];
+	this->components[12] += m.components[12];
+	this->components[13] += m.components[13];
+	this->components[14] += m.components[14];
+	this->components[15] += m.components[15];
 	return *this;
 }
 
@@ -261,6 +372,108 @@ const float * ms::math::Matrix<float, 4, 4> :: c_array() const {
 
 float * ms::math::Matrix<float, 4, 4> :: c_array() {
 	return this->components;
+}
+
+ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> ::operator * (const Matrix<float, 4, 4> & m) const {
+	Matrix <float, 4, 4> result;
+
+	result.components[0] =
+	this->components[0] * m.components[0] +
+	this->components[4] * m.components[1] +
+	this->components[8] * m.components[2] +
+	this->components[12] * m.components[3];
+	
+	result.components[4] =
+	this->components[0] * m.components[4] +
+	this->components[4] * m.components[5] +
+	this->components[8] * m.components[6] +
+	this->components[12] * m.components[7];
+	
+	result.components[8] =
+	this->components[0] * m.components[8] +
+	this->components[4] * m.components[9] +
+	this->components[8] * m.components[10] +
+	this->components[12] * m.components[11];
+	
+	result.components[12] =
+	this->components[0] * m.components[12] +
+	this->components[4] * m.components[13] +
+	this->components[8] * m.components[14] +
+	this->components[12] * m.components[15];
+	
+	result.components[1] =
+	this->components[1] * m.components[0] +
+	this->components[5] * m.components[1] +
+	this->components[9] * m.components[2] +
+	this->components[13] * m.components[3];
+	
+	result.components[5] =
+	this->components[1] * m.components[4] +
+	this->components[5] * m.components[5] +
+	this->components[9] * m.components[6] +
+	this->components[13] * m.components[7];
+	
+	result.components[9] =
+	this->components[1] * m.components[8] +
+	this->components[5] * m.components[9] +
+	this->components[9] * m.components[10] +
+	this->components[13] * m.components[11];
+	
+	result.components[13] =
+	this->components[1] * m.components[12] +
+	this->components[5] * m.components[13] +
+	this->components[9] * m.components[14] +
+	this->components[13] * m.components[15];
+	
+	result.components[2] =
+	this->components[2] * m.components[0] +
+	this->components[6] * m.components[1] +
+	this->components[10] * m.components[2] +
+	this->components[14] * m.components[3];
+	
+	result.components[6] =
+	this->components[2] * m.components[4] +
+	this->components[6] * m.components[5] +
+	this->components[10] * m.components[6] +
+	this->components[14] * m.components[7];
+	
+	result.components[10] =
+	this->components[2] * m.components[8] +
+	this->components[6] * m.components[9] +
+	this->components[10] * m.components[10] +
+	this->components[14] * m.components[11];
+	
+	result.components[14] =
+	this->components[2] * m.components[12] +
+	this->components[6] * m.components[13] +
+	this->components[10] * m.components[14] +
+	this->components[14] * m.components[15];
+	
+	result.components[3] =
+	this->components[3] * m.components[0] +
+	this->components[7] * m.components[1] +
+	this->components[11] * m.components[2] +
+	this->components[15] * m.components[3];
+
+	result.components[7] =
+	this->components[3] * m.components[4] +
+	this->components[7] * m.components[5] +
+	this->components[11] * m.components[6] +
+	this->components[15] * m.components[7];
+
+	result.components[11] =
+	this->components[3] * m.components[8] +
+	this->components[7] * m.components[9] +
+	this->components[11] * m.components[10] +
+	this->components[15] * m.components[11];
+
+	result.components[15] =
+	this->components[3] * m.components[12] +
+	this->components[7] * m.components[13] +
+	this->components[11] * m.components[14] +
+	this->components[15] * m.components[15];
+	
+	return result;
 }
 
 #endif /* matrix4f_h */

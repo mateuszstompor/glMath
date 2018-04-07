@@ -283,6 +283,18 @@ void MatrixTest::testMultiplicationPerformance() {
 	std::cout << "matrix *= matrix:" << time10 << std::endl;
 	std::cout << std::endl;
 	
+	auto time11 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			mat4::identity();
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix:identity4:" << time11 << std::endl;
+	std::cout << std::endl;
+	
 }
 
 void MatrixTest::testTranslation() {
