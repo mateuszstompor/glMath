@@ -5,6 +5,14 @@
 
 #include "../../source/glMath.h"
 
+template<typename T>
+inline long measure_time(std::function<void(void)> lambda) {
+	auto start = std::chrono::high_resolution_clock::now();
+	lambda();
+	auto now = std::chrono::high_resolution_clock::now();
+	return std::chrono::duration_cast<T>(now - start).count();
+}
+
 namespace ms {
     
   class VectorTest : public CppUnit::TestFixture {
@@ -29,6 +37,7 @@ namespace ms {
 	CPPUNIT_TEST( testSphericalCoordinatesConversionDegrees );
 	CPPUNIT_TEST( testSphericalCoordinatesConversionRadians );
 	CPPUNIT_TEST( testDimensionChange );
+	CPPUNIT_TEST( testPerformance );
 
     CPPUNIT_TEST_SUITE_END();
 
@@ -62,6 +71,8 @@ namespace ms {
     void testScalarMultiplication();
       
     void testSubtraction();
+	  
+	void testPerformance();
       
     void testEquals();
 

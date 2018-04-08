@@ -10,6 +10,7 @@
 #define glMath_h
 
 #include "internal/definitions.h"
+#include "internal/vector4f.h"
 #include "internal/matrix.h"
 #include "internal/vector.h"
 #include "internal/common.h"

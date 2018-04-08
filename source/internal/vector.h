@@ -53,6 +53,7 @@ namespace ms {
 										Vector				(Type x, Type y);
 										Vector				(Type x, Type y, Type z);
 										Vector				(Type x, Type y, Type z, Type w);
+										Vector				(Type x, Type y, Type z, Type w, Type p);
 										Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
 										Vector				(const spco::RadiansSpherical<Type> sphericalCoordinates);
 			
@@ -185,6 +186,16 @@ ms::math::Vector<Type, Dimension>::Vector (Type x, Type y, Type z, Type w) : Vec
 	*(components + 1) = y;
 	*(components + 2) = z;
 	*(components + 3) = w;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension>::Vector (Type x, Type y, Type z, Type w, Type p) : Vector() {
+	static_assert(Dimension == 5, "Dimension must equal 5");
+	*(components) = x;
+	*(components + 1) = y;
+	*(components + 2) = z;
+	*(components + 3) = w;
+	*(components + 4) = p;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>

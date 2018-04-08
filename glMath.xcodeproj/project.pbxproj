@@ -84,6 +84,7 @@
 		568BCA16203F181900E02F23 /* vector_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector_tests.cpp; sourceTree = "<group>"; };
 		568BCA1F203F192800E02F23 /* matrix_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matrix_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		568BCA29203F1E7E00E02F23 /* glMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glMath.h; sourceTree = "<group>"; };
+		56B576CE207A3C700012C78C /* vector4f.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector4f.h; sourceTree = "<group>"; };
 		56FDC958207814BB002C302A /* matrix4f.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrix4f.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +202,7 @@
 				56FDC958207814BB002C302A /* matrix4f.h */,
 				5682949A2044C7F4003BF4CC /* common.h */,
 				5682949B2044C7F4003BF4CC /* vector.h */,
+				56B576CE207A3C700012C78C /* vector4f.h */,
 				5682949C2044C7F4003BF4CC /* definitions.h */,
 				5682949E2044CAB5003BF4CC /* projections.h */,
 			);
