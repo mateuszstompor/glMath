@@ -62,7 +62,7 @@ namespace ms {
 			inline float	 					length				() const;
 			inline float	 					length2				() const;
 			
-			inline void	 						normalize			();
+			inline Vector &	 					normalize			();
 			inline Vector						normalized			() const;
 			
 			inline std::string 					to_string			() const;
@@ -240,12 +240,13 @@ float ms::math::Vector<float, 4>::length2() const {
 	return components[0] * components[0] + components[1] * components[1] + components[2] * components[2] + components[3] * components[3];
 }
 
-void ms::math::Vector<float, 4>::normalize() {
+ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::normalize() {
 	float len = ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1] + components[2] * components[2] + components[3] * components[3]);
 	components[0] /= len;
 	components[1] /= len;
 	components[2] /= len;
 	components[3] /= len;
+	return *this;
 }
 
 ms::math::Vector<float, 4> ms::math::Vector<float, 4> :: normalized() const {
@@ -318,4 +319,5 @@ ms::math::Vector <float, 2> ms::math::Vector <float, 4>::xy () const {
 //}
 
 #endif /* vector4f_h */
+
 

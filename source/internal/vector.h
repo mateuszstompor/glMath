@@ -89,7 +89,7 @@ namespace ms {
 			Type	 					length				() const;
 			Type	 					length2				() const;
 			
-			void	 					normalize			();
+			Vector &	 				normalize			();
 			Vector						normalized			() const;
 			
 			std::string 				to_string			() const;
@@ -407,10 +407,11 @@ Type ms::math::Vector<Type, Dimension>::length2() const {
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-void ms::math::Vector<Type, Dimension>::normalize() {
+ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::normalize() {
 	Type len = length();
 	for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
 		components[i] /= len;
+	return *this;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>

@@ -82,8 +82,6 @@ namespace ms {
 			constexpr Type *		 	c_array				();
 			constexpr const Type * 		c_array				() const;
 			
-//		private:
-			
 			Type * 						components;
 			
 		};

@@ -82,10 +82,10 @@ template <typename Type>
 ms::math::Plane<Type>::Plane(const vec3T & normal,
 							 const vec3T & origin,
 							 const vec3T & secondPoint) : normal(normal), originPoint(origin), secondPoint(secondPoint) {
-#if DEBUG
+//#if DEBUG
 //	assert_equal(Type(1.0), this->normal.length2(), Type(DEBUG_DEFAULT_PRECISION));
 //	assert_equal(Type(1.0), (this->secondPoint-this->originPoint).length2(), Type(DEBUG_DEFAULT_PRECISION));
-#endif
+//#endif
 	normal4 = vec4(normal[0], normal[1], normal[2], 1.0f);
 	originPoint4 = vec4(originPoint[0], originPoint[1], originPoint[2], 1.0f);
 }
@@ -108,12 +108,12 @@ template <typename Type>
 typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (const Matrix<Type, 4, 4> & m, const BoundingBox<Type> & boundingBox) const {
 	bool isInFront = true;
 	bool isBehind = true;
-	
+
 	bool result = true;
-	
+
 	for(int i = 0 ; i < 8 && (isBehind || isInFront); ++i) {
 		result = ((m * boundingBox.corners[i]) -= originPoint4).dot(normal4) > 0;
-		
+
 		isInFront = isInFront && result;
 		isBehind = isBehind && !result;
 	}
@@ -131,7 +131,6 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool result = true;
 	
 	for(int i = 0; i < 8 && (isBehind || isInFront); ++i) {
-		
 		result = (boundingBox.corners[i].xyz() - originPoint).dot(normal) > 0;
 		
 		isInFront = isInFront && result;
@@ -155,9 +154,9 @@ ms::math::Vector<Type, 3> const & ms::math::Plane<Type>::get_origin () const {
 template <typename Type>
 ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T firstPoint, vec3T origin, vec3T secondPoint) {
 	
-	auto firstVector = (firstPoint - origin).normalized();
-	auto secondVector = (secondPoint - origin).normalized();
-	auto normal = firstVector.cross(secondVector).normalized();
+	auto firstVector = (firstPoint - origin).normalize();
+	auto secondVector = (secondPoint - origin).normalize();
+	auto normal = firstVector.cross(secondVector).normalize();
 	
 	return ms::math::Plane<Type>(normal, origin, origin + secondVector);
 }
