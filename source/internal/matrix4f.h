@@ -39,6 +39,7 @@ namespace ms {
 			inline Matrix & 					operator += 		(const Matrix & m);
 
 			inline Matrix & 					operator *= 		(const Matrix & m);
+			inline Matrix &						operator =			(const Matrix & m);
 
 			template <UNSIGNED_TYPE C>
 			inline Matrix<float, 4, C> 			operator * 			(const Matrix<float, 4, C> &) const;
@@ -55,15 +56,15 @@ namespace ms {
 
 			inline Matrix 						transposition 		() const;
 
-			inline float & 						operator []		(UNSIGNED_TYPE index);
+			inline constexpr float & 			operator []		(UNSIGNED_TYPE index);
 
-			inline const float & 				operator []			(UNSIGNED_TYPE index) const;
+			inline constexpr const float & 		operator []			(UNSIGNED_TYPE index) const;
 
 			inline std::string 					to_string			() const;
 
-			inline float *		 				c_array				();
+			inline constexpr float *		 	c_array				();
 
-			inline const float * 				c_array				() const;
+			inline constexpr const float * 		c_array				() const;
 
 			float								components[16];
 
@@ -168,6 +169,11 @@ ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: operator - (const
 	result.components[15] = this->components[15] - m.components[15];
 	
 	return result;
+}
+
+ms::math::Matrix<float, 4, 4> & ms::math::Matrix<float, 4, 4>::operator = (const Matrix & m) {
+	std::memcpy(this->components, m.components, sizeof(float) * 16);
+	return *this;
 }
 
 ms::math::Matrix<float, 4, 4> & ms::math::Matrix<float, 4, 4> :: operator -= (const Matrix<float, 4, 4> & m) {
@@ -347,11 +353,11 @@ ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: transposition () 
 	return mat;
 }
 
-float & ms::math::Matrix<float, 4, 4> :: operator [] (UNSIGNED_TYPE index) {
+constexpr float & ms::math::Matrix<float, 4, 4> :: operator [] (UNSIGNED_TYPE index) {
 	return this->components[index];
 }
 
-const float & ms::math::Matrix<float, 4, 4> :: operator [] (UNSIGNED_TYPE index) const {
+constexpr const float & ms::math::Matrix<float, 4, 4> :: operator [] (UNSIGNED_TYPE index) const {
 	return this->components[index];
 }
 
@@ -366,11 +372,11 @@ std::string ms::math::Matrix<float, 4, 4> :: to_string() const {
 	return output.str();
 }
 
-const float * ms::math::Matrix<float, 4, 4> :: c_array() const {
+constexpr const float * ms::math::Matrix<float, 4, 4> :: c_array() const {
 	return this->components;
 }
 
-float * ms::math::Matrix<float, 4, 4> :: c_array() {
+constexpr float * ms::math::Matrix<float, 4, 4> :: c_array() {
 	return this->components;
 }
 

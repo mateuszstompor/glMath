@@ -74,16 +74,14 @@ namespace ms {
 			Vector 						operator 	* 		(Type value) const;
 			Vector& 					operator 	*= 		(Type value);
 			
-			Vector<Type, Dimension + 1>	expanded			(Type value) const;
-			
 			template <UNSIGNED_TYPE Columns>
 			Vector<Type, Columns>		operator	*		(const Matrix<Type, Dimension, Columns> &) const;
 			
 			template <UNSIGNED_TYPE Columns>
 			Vector<Type, Columns> &		operator	*=		(const Matrix<Type, Dimension, Columns> &);
 			
-			Type & 						operator 	[] 		(UNSIGNED_TYPE position);
-			Type const & 				operator 	[] 		(UNSIGNED_TYPE position) const;
+			constexpr Type & 			operator 	[] 		(UNSIGNED_TYPE position);
+			constexpr Type const & 		operator 	[] 		(UNSIGNED_TYPE position) const;
 			
 			Type 						dot					(const Vector & v) const;
 			Vector 						cross				(const Vector & v) const;
@@ -96,20 +94,20 @@ namespace ms {
 			
 			std::string 				to_string			() const;
 			
-			Type *		 				c_array				();
-			const Type * 				c_array				() const;
+			constexpr Type *		 	c_array				();
+			constexpr const Type * 		c_array				() const;
 			
-			Type const &				x					() const;
-			Type &						x					();
+			constexpr Type const &		x					() const;
+			constexpr Type &			x					();
 			
-			Type const &				y					() const;
-			Type &						y					();
+			constexpr Type const &		y					() const;
+			constexpr Type &			y					();
 			
-			Type const &				z					() const;
-			Type &						z					();
+			constexpr Type const &		z					() const;
+			constexpr Type &			z					();
 			
-			Type const &				w					() const;
-			Type &						w					();
+			constexpr Type const &		w					() const;
+			constexpr Type &			w					();
 			
 			Vector<Type, 3>				xyz					() const;
 			Vector<Type, 2> 			xy					() const;
@@ -337,12 +335,12 @@ ms::math::Vector<Type, Columns> & ms::math::Vector<Type, Dimension> :: operator 
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE position) {
+constexpr Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE position) {
     return (*this).components[position];
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-const Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE position) const {
+constexpr const Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE position) const {
 	return (*this).components[position];
 }
 
@@ -433,59 +431,59 @@ std::string ms::math::Vector<Type, Dimension>::to_string() const {
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-const Type * ms::math::Vector<Type, Dimension>::c_array() const {
+constexpr const Type * ms::math::Vector<Type, Dimension>::c_array() const {
     return components;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type * ms::math::Vector<Type, Dimension>::c_array() {
+constexpr Type * ms::math::Vector<Type, Dimension>::c_array() {
 	return components;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type const & ms::math::Vector<Type, Dimension>::x () const {
+constexpr Type const & ms::math::Vector<Type, Dimension>::x () const {
 	static_assert(Dimension > 0, "Dimension needs to be greater than zero");
 	return *this->components;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type & ms::math::Vector<Type, Dimension>::x () {
+constexpr Type & ms::math::Vector<Type, Dimension>::x () {
 	static_assert(Dimension > 0, "Dimension needs to be greater than zero");
 	return *this->components;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type const & ms::math::Vector<Type, Dimension>::y () const {
+constexpr Type const & ms::math::Vector<Type, Dimension>::y () const {
 	static_assert(Dimension > 1, "Dimension needs to be greater than one");
 	return *(this->components + 1);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type & ms::math::Vector<Type, Dimension>::y () {
+constexpr Type & ms::math::Vector<Type, Dimension>::y () {
 	static_assert(Dimension > 1, "Dimension needs to be greater than one");
 	return *(this->components + 1);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type const & ms::math::Vector<Type, Dimension>::z () const  {
+constexpr Type const & ms::math::Vector<Type, Dimension>::z () const  {
 	static_assert(Dimension > 2, "Dimension needs to be greater than two");
 	return *(this->components + 2);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type & ms::math::Vector<Type, Dimension>::z ()  {
+constexpr Type & ms::math::Vector<Type, Dimension>::z ()  {
 	static_assert(Dimension > 2, "Dimension needs to be greater than two");
 	return *(this->components + 2);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type const & ms::math::Vector<Type, Dimension>::w () const  {
+constexpr Type const & ms::math::Vector<Type, Dimension>::w () const  {
 	static_assert(Dimension > 3, "Dimension needs to be greater than three");
 	return *(this->components + 3);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-Type & ms::math::Vector<Type, Dimension>::w () {
+constexpr Type & ms::math::Vector<Type, Dimension>::w () {
 	static_assert(Dimension > 3, "Dimension needs to be greater than three");
 	return *(this->components + 3);
 }
@@ -498,15 +496,6 @@ ms::math::Vector<Type, 3> ms::math::Vector<Type, Dimension>::xyz () const {
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, 2> ms::math::Vector<Type, Dimension>::xy () const {
 	return Vector<Type, 2>{this->x(), this->y()};
-}
-
-
-template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension+1> ms::math::Vector<Type, Dimension>::expanded (Type value) const {
-	Vector<Type, Dimension + 1> v;
-	memcpy(v.components, this->components, sizeof(Type) * Dimension);
-	v.components[Dimension] = value;
-	return v;
 }
 
 #endif /* vector_h */

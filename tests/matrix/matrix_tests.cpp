@@ -47,11 +47,17 @@ void MatrixTest::testEquality() {
 	
 	ms::math::Matrix<float, 3, 3> m1(1);
 	ms::math::Matrix<float, 3, 3> m2(2);
+	ms::math::Matrix<float, 3, 3> mat3f = ms::math::mat3::identity();
 	CPPUNIT_ASSERT(m1 != m2);
 	m1 = m2;
 	CPPUNIT_ASSERT(m1 == m2);
 	m1[8] = 3.0f;
 	CPPUNIT_ASSERT(m1 != m2);
+	
+	for(int i = 0; i < 9; ++i) {
+		CPPUNIT_ASSERT_DOUBLES_EQUAL(ms::math::mat3::identity()[i], (mat3f * mat3f)[i], 0.0001f);
+	}
+	
 }
 
 void MatrixTest::testMultiplication() {
@@ -161,6 +167,7 @@ void MatrixTest::testScaling() {
 void MatrixTest::testMultiplicationPerformance() {
 	math::mat4 a = math::mat4::identity();
 	math::mat4 b = math::mat4::identity();
+	math::mat3 mat3f = math::mat3::identity();
 	math::vec4 c(1.0f, 1.0f, 1.0f, 1.0f);
 	
 	auto time = measure_time<std::chrono::milliseconds>([&](){
@@ -293,6 +300,18 @@ void MatrixTest::testMultiplicationPerformance() {
 	
 	std::cout << std::endl;
 	std::cout << "matrix:identity4:" << time11 << std::endl;
+	std::cout << std::endl;
+	
+	auto time12 = measure_time<std::chrono::milliseconds>([&](){
+		
+		for(long i = 0; i < 10000000; ++i) {
+			mat3f * mat3f;
+		}
+		
+	});
+	
+	std::cout << std::endl;
+	std::cout << "matrix3 * matrix3:" << time12 << std::endl;
 	std::cout << std::endl;
 	
 }

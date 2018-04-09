@@ -10,11 +10,13 @@
 #define glMath_h
 
 #include "internal/definitions.h"
+#include "internal/vector3f.h"
 #include "internal/vector4f.h"
 #include "internal/matrix.h"
 #include "internal/vector.h"
 #include "internal/common.h"
 #include "internal/matrix4f.h"
+#include "internal/matrix3f.h"
 #include "internal/transformations.h"
 #include "internal/sc_radians.h"
 #include "internal/sc_degrees.h"

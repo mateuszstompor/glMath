@@ -45,7 +45,7 @@ namespace ms {
 			inline Vector 						operator 	* 		(float value) const;
 			inline Vector& 						operator 	*= 		(float value);
 			
-			inline Vector<float, 5>				expanded			(float value) const;
+//			inline Vector<float, 5>				expanded			(float value) const;
 			
 			template <UNSIGNED_TYPE Columns>
 			Vector<float, Columns>				operator	*		(const Matrix<float, 4, Columns> &) const;
@@ -53,8 +53,8 @@ namespace ms {
 			template <UNSIGNED_TYPE Columns>
 			inline Vector<float, Columns> &		operator	*=		(const Matrix<float, 4, Columns> &);
 			
-			inline float & 						operator 	[] 		(UNSIGNED_TYPE position);
-			inline float const & 				operator 	[] 		(UNSIGNED_TYPE position) const;
+			inline constexpr float & 			operator 	[] 		(UNSIGNED_TYPE position);
+			inline constexpr float const & 		operator 	[] 		(UNSIGNED_TYPE position) const;
 			
 			inline float 						dot					(const Vector & v) const;
 //			inline Vector 						cross				(const Vector & v) const;
@@ -67,20 +67,20 @@ namespace ms {
 			
 			inline std::string 					to_string			() const;
 			
-			inline float *		 				c_array				();
-			inline const float * 				c_array				() const;
+			inline constexpr float *		 	c_array				();
+			inline constexpr const float * 		c_array				() const;
 			
-			inline float const &				x					() const;
-			inline float &						x					();
+			inline constexpr float const &		x					() const;
+			inline constexpr float &			x					();
 			
-			inline float const &				y					() const;
-			inline float &						y					();
+			inline constexpr float const &		y					() const;
+			inline constexpr float &			y					();
 			
-			inline float const &				z					() const;
-			inline float &						z					();
+			inline constexpr float const &		z					() const;
+			inline constexpr float &			z					();
 			
-			inline float const &				w					() const;
-			inline float &						w					();
+			inline constexpr float const &		w					() const;
+			inline constexpr float &			w					();
 			
 			inline Vector<float, 3>				xyz					() const;
 			inline Vector<float, 2> 			xy					() const;
@@ -192,11 +192,11 @@ ms::math::Vector<float, Columns> & ms::math::Vector<float, 4> :: operator *= (co
 	return (*this);
 }
 
-float& ms::math::Vector<float, 4>::operator [] (UNSIGNED_TYPE position) {
+constexpr float& ms::math::Vector<float, 4>::operator [] (UNSIGNED_TYPE position) {
 	return components[position];
 }
 
-const float& ms::math::Vector<float, 4>::operator [] (UNSIGNED_TYPE position) const {
+constexpr const float& ms::math::Vector<float, 4>::operator [] (UNSIGNED_TYPE position) const {
 	return components[position];
 }
 
@@ -241,7 +241,7 @@ float ms::math::Vector<float, 4>::length2() const {
 }
 
 void ms::math::Vector<float, 4>::normalize() {
-	float len = components[0] * components[0] + components[1] * components[1] + components[2] * components[2] + components[3] * components[3];
+	float len = ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1] + components[2] * components[2] + components[3] * components[3]);
 	components[0] /= len;
 	components[1] /= len;
 	components[2] /= len;
@@ -249,7 +249,7 @@ void ms::math::Vector<float, 4>::normalize() {
 }
 
 ms::math::Vector<float, 4> ms::math::Vector<float, 4> :: normalized() const {
-	float len = components[0] * components[0] + components[1] * components[1] + components[2] * components[2] + components[3] * components[3];
+	float len = ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1] + components[2] * components[2] + components[3] * components[3]);
 	return Vector(components[0]/len, components[1]/len, components[2]/len, components[3]/len);
 }
 
@@ -264,44 +264,44 @@ std::string ms::math::Vector<float, 4>::to_string() const {
 	return output.str();
 }
 
-const float * ms::math::Vector<float, 4>::c_array() const {
+constexpr const float * ms::math::Vector<float, 4>::c_array() const {
 	return components;
 }
 
-float * ms::math::Vector<float, 4>::c_array() {
+constexpr float * ms::math::Vector<float, 4>::c_array() {
 	return components;
 }
 
-float const & ms::math::Vector <float, 4>::x () const {
+constexpr float const & ms::math::Vector <float, 4>::x () const {
 	return *this->components;
 }
 
-float & ms::math::Vector <float, 4>::x () {
+constexpr float & ms::math::Vector <float, 4>::x () {
 	return *this->components;
 }
 
-float const & ms::math::Vector <float, 4>::y () const {
+constexpr float const & ms::math::Vector <float, 4>::y () const {
 	return *(this->components + 1);
 }
 
-float & ms::math::Vector <float, 4>::y () {
+constexpr float & ms::math::Vector <float, 4>::y () {
 	return *(this->components + 1);
 }
 
-float const & ms::math::Vector <float, 4>::z () const  {
+constexpr float const & ms::math::Vector <float, 4>::z () const  {
 	return *(this->components + 2);
 }
 
-float & ms::math::Vector <float, 4>::z ()  {
+constexpr float & ms::math::Vector <float, 4>::z ()  {
 	return *(this->components + 2);
 }
 
-float const & ms::math::Vector <float, 4>::w () const  {
+constexpr float const & ms::math::Vector <float, 4>::w () const  {
 	return *(this->components + 3);
 }
 
 
-float & ms::math::Vector <float, 4>::w () {
+constexpr float & ms::math::Vector <float, 4>::w () {
 	return *(this->components + 3);
 }
 
@@ -313,8 +313,9 @@ ms::math::Vector <float, 2> ms::math::Vector <float, 4>::xy () const {
 	return Vector <float, 2>{this->x(), this->y()};
 }
 
-ms::math::Vector<float, 5> ms::math::Vector<float, 4>::expanded (float value) const {
-	return Vector<float, 5>(components[0], components[1], components[2], components[3], value);
-}
+//ms::math::Vector<float, 5> ms::math::Vector<float, 4>::expanded (float value) const {
+//	return Vector<float, 5>(components[0], components[1], components[2], components[3], value);
+//}
 
 #endif /* vector4f_h */
+

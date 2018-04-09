@@ -74,13 +74,13 @@ namespace ms {
 			
 			Matrix<Type, Columns, Rows> transposition 		() const;
 			
-			Type & 						operator []			(UNSIGNED_TYPE index);
-			const Type & 				operator []			(UNSIGNED_TYPE index) const;
+			constexpr Type & 			operator []			(UNSIGNED_TYPE index);
+			constexpr const Type & 		operator []			(UNSIGNED_TYPE index) const;
 			
 			std::string 				to_string			() const;
 			
-			Type *		 				c_array				();
-			const Type * 				c_array				() const;
+			constexpr Type *		 	c_array				();
+			constexpr const Type * 		c_array				() const;
 			
 //		private:
 			
@@ -252,12 +252,12 @@ ms::math::Matrix<Type, Columns, Rows> ms::math::Matrix<Type, Rows, Columns> :: t
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (UNSIGNED_TYPE index) {
+constexpr Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (UNSIGNED_TYPE index) {
 	return this->components[index];
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-const Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (UNSIGNED_TYPE index) const {
+constexpr const Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (UNSIGNED_TYPE index) const {
 	return this->components[index];
 }
 
@@ -274,12 +274,12 @@ std::string ms::math::Matrix<Type, Rows, Columns> :: to_string() const {
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-const Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() const {
+constexpr const Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() const {
 	return this->components;
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() {
+constexpr Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() {
 	return this->components;
 }
 
