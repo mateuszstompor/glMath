@@ -3,6 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+#include <chrono>
+
 #include "../../source/glMath.h"
 
 template<typename T>
