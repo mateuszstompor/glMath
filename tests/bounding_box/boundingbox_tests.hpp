@@ -31,7 +31,7 @@ namespace ms {
 	  
 	  BoundingBox<float> bb0 {0, 1, 0, 1, 0, 1};
 	  BoundingBox<float> bb1 {-1, 1, -1, 1, -1, 1};
-	  Plane<float> p{vec3{0, 1, 0}, vec3{0, 0, 0}, vec3{0, 0, 1}};
+	  Plane<float> p{vec3{0, 1, 0}, vec3{0, 0, 0}};
   
   };
     
