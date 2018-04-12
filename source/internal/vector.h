@@ -9,17 +9,9 @@
 #ifndef vector_h
 #define vector_h
 
-#define VECTOR_MAX_DIM 4
-
 #include <string>
 #include <sstream>
 #include <cstring>
-
-#ifdef DEBUG
-
-	#include <cassert>
-
-#endif
 
 #include "common.h"
 
@@ -54,8 +46,8 @@ namespace ms {
 										Vector				(Type x, Type y, Type z);
 										Vector				(Type x, Type y, Type z, Type w);
 										Vector				(Type x, Type y, Type z, Type w, Type p);
-										Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
-										Vector				(const spco::RadiansSpherical<Type> sphericalCoordinates);
+										Vector				(const spco::DegreesSpherical<Type> & sphericalCoordinates);
+										Vector				(const spco::RadiansSpherical<Type> & sphericalCoordinates);
 			
 										~Vector();
 			
@@ -67,6 +59,7 @@ namespace ms {
 			Vector & 					operator 	+= 		(const Vector & v);
 			Vector 						operator 	- 		(const Vector & v) const;
 			Vector & 					operator 	-= 		(const Vector & v);
+			Vector 						operator 	-		() const;
 			
 			Vector 						operator 	/ 		(Type value) const;
 			Vector& 					operator 	/= 		(Type value);
@@ -80,8 +73,8 @@ namespace ms {
 			template <UNSIGNED_TYPE Columns>
 			Vector<Type, Columns> &		operator	*=		(const Matrix<Type, Dimension, Columns> &);
 			
-			constexpr Type & 			operator 	[] 		(UNSIGNED_TYPE position);
-			constexpr Type const & 		operator 	[] 		(UNSIGNED_TYPE position) const;
+			constexpr Type & 			operator 	[] 		(size_t position);
+			constexpr Type const & 		operator 	[] 		(size_t position) const;
 			
 			Type 						dot					(const Vector & v) const;
 			Vector 						cross				(const Vector & v) const;
@@ -112,11 +105,7 @@ namespace ms {
 			Vector<Type, 3>				xyz					() const;
 			Vector<Type, 2> 			xy					() const;
 			
-			#ifdef VECTOR_MAX_DIM
-			Type 						components [VECTOR_MAX_DIM];
-			#else
 			Type * 						components;
-			#endif
 			
 		};
 		
@@ -124,14 +113,8 @@ namespace ms {
     
 }
 
-#ifdef VECTOR_MAX_DIM
-template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::Vector() {}
-#else
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector() : components( new Type[Dimension] ) { }
-#endif
-
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(Type value) : Vector() {
@@ -139,17 +122,10 @@ ms::math::Vector<Type, Dimension>::Vector(Type value) : Vector() {
 	*(components) = value;
 }
 
-#ifdef VECTOR_MAX_DIM
-template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::Vector(Vector && v) noexcept {
-	std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
-}
-#else
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(Vector && v) noexcept : components(v.components) {
     v.components = nullptr;
 }
-#endif
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(const Vector & v) : Vector() {
@@ -202,13 +178,6 @@ ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(
     return *this;
 }
 
-#ifdef VECTOR_MAX_DIM
-template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(Vector && v) noexcept {
-	std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
-	return *this;
-}
-#else
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(Vector && v) noexcept {
     delete [] (*this).components;
@@ -218,15 +187,14 @@ ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(
     
     return *this;
 }
-#endif
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> sphericalCoordinates) : Vector( spco::RadiansSpherical <Type> ( sphericalCoordinates ) ) {
+ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> & sphericalCoordinates) : Vector( spco::RadiansSpherical <Type> ( sphericalCoordinates ) ) {
 	static_assert(Dimension == 3, "Spherical system requires dimension of three");
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> sphericalCoordinates) : Vector() {
+ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> & sphericalCoordinates) : Vector() {
 	static_assert(Dimension == 3, "Spherical system requires dimension of three");
 	(*this).components[0] = sphericalCoordinates.radius * cosine<Type>(sphericalCoordinates.azimuthAngle)	* sinus<Type>(sphericalCoordinates.inclination);
 	(*this).components[1] = sphericalCoordinates.radius * sinus<Type>(sphericalCoordinates.azimuthAngle) 	* sinus<Type>(sphericalCoordinates.inclination);
@@ -235,9 +203,7 @@ ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type>
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::~Vector() {
-#ifndef VECTOR_MAX_DIM
     delete [] this->components;
-#endif
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -335,12 +301,12 @@ ms::math::Vector<Type, Columns> & ms::math::Vector<Type, Dimension> :: operator 
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-constexpr Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE position) {
+constexpr Type& ms::math::Vector<Type, Dimension>::operator [] (size_t position) {
     return (*this).components[position];
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-constexpr const Type& ms::math::Vector<Type, Dimension>::operator [] (UNSIGNED_TYPE position) const {
+constexpr const Type& ms::math::Vector<Type, Dimension>::operator [] (size_t position) const {
 	return (*this).components[position];
 }
 
@@ -492,6 +458,14 @@ constexpr Type & ms::math::Vector<Type, Dimension>::w () {
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, 3> ms::math::Vector<Type, Dimension>::xyz () const {
 	return Vector<Type, 3>{this->x(), this->y(), this->z()};
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension> :: operator - () const {
+	Vector v;
+	for (size_t i = 0; i < Dimension; ++i)
+		v.components[i] = -this->components[i];
+	return v;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>

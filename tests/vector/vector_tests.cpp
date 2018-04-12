@@ -237,16 +237,35 @@ void VectorTest::testPerformance() {
 
 void VectorTest::testMoveConstructor() {
 	
-#ifndef VECTOR_MAX_DIM
-
-    math::Vector<float, 3> vec1(2, 2, 2);
+    math::Vector<float, 2> vec1(2, 2);
     const float* ptrToComponents = vec1.c_array();
 
-    math::Vector<float, 3> vec2(std::move(vec1));
+    math::Vector<float, 2> vec2(std::move(vec1));
     CPPUNIT_ASSERT(vec2.c_array() == ptrToComponents);
     CPPUNIT_ASSERT(vec1.c_array() == nullptr);
+	
+}
 
-#endif
+void VectorTest::testUnaryMinus() {
+	
+	math::Vector<float, 2> vec1(2, 2);
+	auto vec2 = -vec1;
+	CPPUNIT_ASSERT(vec2 != vec1);
+	CPPUNIT_ASSERT(vec2[0] ==  - vec1[0]);
+	CPPUNIT_ASSERT(vec2[1] ==  - vec1[1]);
+	
+	vec3 v3(1, 2, 3);
+	auto v4 = -v3;
+	CPPUNIT_ASSERT(v4[0] ==  - v3[0]);
+	CPPUNIT_ASSERT(v4[1] ==  - v3[1]);
+	CPPUNIT_ASSERT(v4[2] ==  - v3[2]);
+	
+	vec4 v5(1, 2, 3, 4);
+	auto v6 = -v5;
+	CPPUNIT_ASSERT(v5[0] ==  - v6[0]);
+	CPPUNIT_ASSERT(v5[1] ==  - v6[1]);
+	CPPUNIT_ASSERT(v5[2] ==  - v6[2]);
+	CPPUNIT_ASSERT(v5[3] ==  - v6[3]);
 	
 }
 
@@ -254,8 +273,8 @@ void VectorTest::testMoveAssignment() {
 
 #ifndef VECTOR_MAX_DIM
 
-    math::Vector<float, 3> vec1(2, 2, 2);
-    math::Vector<float, 3> vec2;
+    math::Vector<float, 2> vec1(2, 2);
+    math::Vector<float, 2> vec2;
 
     const float* ptrToComponents = vec1.c_array();
 

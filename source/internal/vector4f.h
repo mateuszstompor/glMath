@@ -25,8 +25,8 @@ namespace ms {
 			inline 								Vector				(const Vector & v);
 			inline 								Vector				(const float array [4]);
 			inline 								Vector				(float x, float y, float z, float w);
-//			inline 								Vector				(const spco::DegreesSpherical<Type> sphericalCoordinates);
-//			inline 								Vector				(const spco::RadiansSpherical<Type> sphericalCoordinates);
+			inline 								Vector				(const spco::DegreesSpherical<float> & sphericalCoordinates);
+			inline 								Vector				(const spco::RadiansSpherical<float> & sphericalCoordinates);
 		
 												~Vector() = default;
 			
@@ -38,14 +38,14 @@ namespace ms {
 			inline Vector & 					operator 	+= 		(const Vector & v);
 			inline Vector 						operator 	- 		(const Vector & v) const;
 			inline Vector & 					operator 	-= 		(const Vector & v);
-			
+			inline Vector						operator 	-		() const;
 			inline Vector 						operator 	/ 		(float value) const;
 			inline Vector& 						operator 	/= 		(float value);
 			
 			inline Vector 						operator 	* 		(float value) const;
 			inline Vector& 						operator 	*= 		(float value);
 			
-//			inline Vector<float, 5>				expanded			(float value) const;
+			inline Vector<float, 5>				expanded			(float value) const;
 			
 			template <UNSIGNED_TYPE Columns>
 			Vector<float, Columns>				operator	*		(const Matrix<float, 4, Columns> &) const;
@@ -53,11 +53,11 @@ namespace ms {
 			template <UNSIGNED_TYPE Columns>
 			inline Vector<float, Columns> &		operator	*=		(const Matrix<float, 4, Columns> &);
 			
-			inline constexpr float & 			operator 	[] 		(UNSIGNED_TYPE position);
-			inline constexpr float const & 		operator 	[] 		(UNSIGNED_TYPE position) const;
+			inline constexpr float & 			operator 	[] 		(size_t position);
+			inline constexpr float const & 		operator 	[] 		(size_t position) const;
 			
 			inline float 						dot					(const Vector & v) const;
-//			inline Vector 						cross				(const Vector & v) const;
+			inline Vector 						cross				(const Vector & v) const;
 			
 			inline float	 					length				() const;
 			inline float	 					length2				() const;
@@ -108,18 +108,14 @@ ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::operator=(const Vector 
 	return *this;
 }
 
-//ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> sphericalCoordinates) : Vector( spco::RadiansSpherical <Type> ( sphericalCoordinates ) ) {
-//	static_assert(Dimension == 3, "Spherical system requires dimension of three");
-//}
-//
-//
-//ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> sphericalCoordinates) : Vector() {
-//	static_assert(Dimension == 3, "Spherical system requires dimension of three");
-//	(*this).components[0] = sphericalCoordinates.radius * cosine<Type>(sphericalCoordinates.azimuthAngle)	* sinus<Type>(sphericalCoordinates.inclination);
-//	(*this).components[1] = sphericalCoordinates.radius * sinus<Type>(sphericalCoordinates.azimuthAngle) 	* sinus<Type>(sphericalCoordinates.inclination);
-//	(*this).components[2] = sphericalCoordinates.radius * cosine<Type>(sphericalCoordinates.inclination);
-//}
-//
+ms::math::Vector<float, 4> :: Vector (const spco::DegreesSpherical <float> & sphericalCoordinates) : Vector( spco::RadiansSpherical <float> ( sphericalCoordinates ) ) { }
+
+ms::math::Vector<float, 4> :: Vector (const spco::RadiansSpherical <float> & sphericalCoordinates) {
+	components[0] = sphericalCoordinates.radius * cosine<float>(sphericalCoordinates.azimuthAngle)	* sinus<float>(sphericalCoordinates.inclination);
+	components[1] = sphericalCoordinates.radius * sinus<float>(sphericalCoordinates.azimuthAngle) 	* sinus<float>(sphericalCoordinates.inclination);
+	components[2] = sphericalCoordinates.radius * cosine<float>(sphericalCoordinates.inclination);
+	components[3] = 1.0f;
+}
 
 bool ms::math::Vector<float, 4>::operator == (const Vector & v) const {
 	return v.components[0] == this->components[0] && v.components[1] == this->components[1] && v.components[2] == this->components[2] && v.components[3] == this->components[3];
@@ -137,14 +133,12 @@ float ms::math::Vector<float, 4>::dot(const Vector & v) const {
 			this->components[3] * v.components[3];
 }
 
-//ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::cross(const Vector & v) const {
-//	static_assert(Dimension == 3, "Cross product exists only for dimension of three");
-//	Vector vec;
-//	vec[0] = this->components[1] * v.components[2] - this->components[2] * v.components[1];
-//	vec[1] = this->components[2] * v.components[0] - this->components[0] * v.components[2];
-//	vec[2] = this->components[0] * v.components[1] - this->components[1] * v.components[0];
-//	return vec;
-//}
+ms::math::Vector<float, 4> ms::math::Vector<float, 4> :: cross (const Vector & v) const {
+	return Vector(this->components[1] * v.components[2] - this->components[2] * v.components[1],
+				  this->components[2] * v.components[0] - this->components[0] * v.components[2],
+				  this->components[0] * v.components[1] - this->components[1] * v.components[0],
+				  1.0f);
+}
 
 ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::operator /= (float value) {
 	this->components[0] /= value;
@@ -192,11 +186,11 @@ ms::math::Vector<float, Columns> & ms::math::Vector<float, 4> :: operator *= (co
 	return (*this);
 }
 
-constexpr float& ms::math::Vector<float, 4>::operator [] (UNSIGNED_TYPE position) {
+constexpr float& ms::math::Vector<float, 4>::operator [] (size_t position) {
 	return components[position];
 }
 
-constexpr const float& ms::math::Vector<float, 4>::operator [] (UNSIGNED_TYPE position) const {
+constexpr const float& ms::math::Vector<float, 4>::operator [] (size_t position) const {
 	return components[position];
 }
 
@@ -238,6 +232,10 @@ float ms::math::Vector<float, 4>::length() const {
 
 float ms::math::Vector<float, 4>::length2() const {
 	return components[0] * components[0] + components[1] * components[1] + components[2] * components[2] + components[3] * components[3];
+}
+
+ms::math::Vector<float, 4> ms::math::Vector<float, 4> :: operator - () const {
+	return Vector(-components[0], -components[1], -components[2], -components[3]);
 }
 
 ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::normalize() {
@@ -314,9 +312,9 @@ ms::math::Vector <float, 2> ms::math::Vector <float, 4>::xy () const {
 	return Vector <float, 2>{this->x(), this->y()};
 }
 
-//ms::math::Vector<float, 5> ms::math::Vector<float, 4>::expanded (float value) const {
-//	return Vector<float, 5>(components[0], components[1], components[2], components[3], value);
-//}
+ms::math::Vector<float, 5> ms::math::Vector<float, 4>::expanded (float value) const {
+	return Vector<float, 5>(components[0], components[1], components[2], components[3], value);
+}
 
 #endif /* vector4f_h */
 

@@ -40,6 +40,7 @@ namespace ms {
 	CPPUNIT_TEST( testSphericalCoordinatesConversionRadians );
 	CPPUNIT_TEST( testDimensionChange );
 	CPPUNIT_TEST( testPerformance );
+	CPPUNIT_TEST( testUnaryMinus );
 
     CPPUNIT_TEST_SUITE_END();
 
@@ -60,6 +61,7 @@ namespace ms {
 	void testMatrixMult();
 	  
     void testAddition();
+	void testUnaryMinus();
 	  
 	void testDot();
 	void testCross();
