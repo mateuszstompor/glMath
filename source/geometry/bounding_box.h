@@ -45,16 +45,17 @@ namespace ms {
 			
 		public:
 			
-							BoundingBox		(Type x, Type X,
-											 Type y, Type Y,
-											 Type z, Type Z);
+										BoundingBox		(Type x, Type X,
+														 Type y, Type Y,
+														 Type z, Type Z);
 			
-			vec3T &			operator []		(size_t index);
+			constexpr vec4T &			operator []		(size_t index);
+			constexpr vec4T const &		operator []		(size_t index) const;
 			
-			Type 			get_width_x		() const;
-			Type 			get_height_y	() const;
-			Type 			get_depth_z		() const;
-			vec3T const & 	get_origin		() const;
+			constexpr Type 				get_width_x		() const;
+			constexpr Type 				get_height_y	() const;
+			constexpr Type 				get_depth_z		() const;
+			constexpr vec3T const & 	get_origin		() const;
 			
 		protected:
 			
@@ -99,23 +100,33 @@ ms::math::BoundingBox<Type>::BoundingBox(Type x, Type X, Type y, Type Y, Type z,
 }
 
 template <typename Type>
-Type ms::math::BoundingBox<Type>::get_width_x () const {
+constexpr Type ms::math::BoundingBox<Type>::get_width_x () const {
 	return width_x;
 }
 
 template <typename Type>
-Type ms::math::BoundingBox<Type>::get_height_y () const {
+constexpr Type ms::math::BoundingBox<Type>::get_height_y () const {
 	return height_y;
 }
 
 template <typename Type>
-Type ms::math::BoundingBox<Type>::get_depth_z () const {
+constexpr Type ms::math::BoundingBox<Type>::get_depth_z () const {
 	return depth_z;
 }
 
 template <typename Type>
-ms::math::Vector<Type, 3> const & ms::math::BoundingBox<Type>::get_origin () const {
+constexpr ms::math::Vector<Type, 3> const & ms::math::BoundingBox<Type>::get_origin () const {
 	return origin;
+}
+
+template <typename Type>
+constexpr typename ms::math::BoundingBox<Type>::vec4T & ms::math::BoundingBox<Type>::operator [] (size_t index) {
+	return corners[index];
+}
+
+template <typename Type>
+constexpr typename ms::math::BoundingBox<Type>::vec4T const & ms::math::BoundingBox<Type>::operator [] (size_t index) const {
+	return corners[index];
 }
 
 #endif /* boundingBox_h */

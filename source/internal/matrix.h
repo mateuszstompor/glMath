@@ -23,9 +23,6 @@ namespace ms {
 		template <typename T, UNSIGNED_TYPE Dimension>
 		class Vector;
 		
-//		template <>
-//		class Vector<float, 4>;
-		
 		template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 		class Matrix {
 			

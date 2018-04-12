@@ -14,7 +14,6 @@ namespace ms {
   class PlaneTest : public CppUnit::TestFixture {
 	  CPPUNIT_TEST_SUITE( PlaneTest );
 	
-	  CPPUNIT_TEST( testPlaneCorrectness );
 	  CPPUNIT_TEST( testIsInFront );
 	  CPPUNIT_TEST( testRelativePosition );
 	  CPPUNIT_TEST( testCreationFromThreePoints );
@@ -25,14 +24,13 @@ namespace ms {
 	
 	  void setUp();
 	  void tearDown();
-	  void testPlaneCorrectness();
 	  void testIsInFront();
 	  void testRelativePosition();
 	  void testCreationFromThreePoints();
 	  
   protected:
 	  
-	  Plane<float> p{vec3{0, 1, 0}, vec3{0, 0, 0}, vec3{0, 0, 1}};
+	  Plane<float> p{vec3{0, 1, 0}, vec3{0, 0, 0}};
 
   };
     
