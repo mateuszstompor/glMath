@@ -34,6 +34,38 @@ namespace ms {
 				return scale;
 			}
 			
+			template<typename Type>
+			Matrix<Type, 4, 4> look_at (const Vector<Type, 3> & eyePosition, const Vector<Type, 3> & originPosition, const Vector<Type, 3> & upVector) {
+				
+				auto z = (originPosition - eyePosition).normalized();
+				auto y = upVector.normalized();
+				auto x = z.cross(y);
+				
+				Matrix<Type, 4, 4> m;
+				
+				m[0] = x.x();
+				m[1] = x.y();
+				m[2] = x.z();
+				m[3] = Type(0.0);
+				
+				m[4] = y.x();
+				m[5] = y.y();
+				m[6] = y.z();
+				m[7] = Type(0.0);
+				
+				m[8] = -z.x();
+				m[9] = -z.y();
+				m[10] = -z.z();
+				m[11] = Type(0.0);
+				
+				m[12] = -x.dot(eyePosition);
+				m[13] = -y.dot(eyePosition);
+				m[14] = -z.dot(eyePosition);
+				m[15] = Type(1.0);
+				
+				return m;
+			}
+			
 			template <typename Type, UNSIGNED_TYPE Dimension>
 			Matrix<Type, Dimension, Dimension> translate (Vector<Type, (Dimension - 1) > translationFactors) {
 				static_assert(	Dimension	>=	2		, "Matrix needs to at least two - dimensional" );
