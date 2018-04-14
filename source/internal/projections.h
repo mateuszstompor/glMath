@@ -56,34 +56,34 @@ namespace ms {
 			}
 			
 			template <typename Type>
-			Matrix<Type, 4, 4> orthogonal(Type far, Type near,
-										  Type top, Type bottom,
-										  Type left, Type right) {
+			Matrix<Type, 4, 4> orthogonal(Type _far, Type _near,
+										  Type _top, Type _bottom,
+										  Type _left, Type _right) {
 				
 				Matrix<Type, 4, 4> p;
 				
 				// First column
-				p[0] 	= Type(2.0)/(right - left);
+				p[0] 	= Type(2.0)/(_right - _left);
 				p[1] 	= Type(0.0);
 				p[2] 	= Type(0.0);
 				p[3] 	= Type(0.0);
 				
 				// Second column
 				p[4] 	= Type(0.0);
-				p[5] 	= Type(2.0)/(top - bottom);
+				p[5] 	= Type(2.0)/(_top - _bottom);
 				p[6] 	= Type(0.0);
 				p[7]	= Type(0.0);
 				
 				// Third column
 				p[8] 	= Type(0.0);
 				p[9] 	= Type(0.0);
-				p[10]	= -Type(2.0)/(far - near);
+				p[10]	= -Type(2.0)/(_far - _near);
 				p[11] 	= Type(0.0);
 				
 				// Fourth column
-				p[12] 	= -((right + left)/(right - left));
-				p[13] 	= -((top + bottom)/(top - bottom));
-				p[14]	= -((far + near)/(far - near));
+				p[12] 	= -((_right + _left)/(_right - _left));
+				p[13] 	= -((_top + _bottom)/(_top - _bottom));
+				p[14]	= -((_far + _near)/(_far - _near));
 				p[15] 	= Type(1.0);
 				
 				return p;
