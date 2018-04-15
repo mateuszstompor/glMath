@@ -89,6 +89,28 @@ namespace ms {
 				return p;
 			}
 			
+			template <typename Type>
+			Matrix<Type, 4, 4> orthogonal_cube(Type side) {
+				return orthogonal(side, -side, side, -side, side, -side);
+			}
+			
+		}
+		
+		namespace projection4f {
+			
+			inline Matrix<float, 4, 4> perspective(float nearPlane, float farPlane, float fovDegrees, float aspectRatio) {
+				return math::projection::perspective<float>(nearPlane, farPlane, fovDegrees, aspectRatio);
+			}
+			
+			inline Matrix<float, 4, 4> orthogonal(float _far, float _near,
+												  float _top, float _bottom,
+												  float _left, float _right) {
+				return math::projection::orthogonal<float>(_far, _near, _top, _bottom, _left, _right);
+			}
+
+			inline Matrix<float, 4, 4> orthogonal_cube(float side) {
+				return math::projection::orthogonal_cube<float>(side);
+			}
 		}
 		
 	}
