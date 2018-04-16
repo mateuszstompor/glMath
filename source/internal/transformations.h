@@ -39,7 +39,7 @@ namespace ms {
 				
 				auto z = (originPosition - eyePosition).normalized();
 				auto y = upVector.normalized();
-				auto x = z.cross(y);
+				auto x = z.cross(y).normalized();
 				
 				Matrix<Type, 4, 4> m;
 				
@@ -64,6 +64,14 @@ namespace ms {
 				m[15] = Type(1.0);
 
 				return m;
+			}
+			
+			// TODO OPTIMIZE IT
+			// Use when you do not need to have up vector specified precisely
+			template<typename Type>
+			Matrix<Type, 4, 4> directional_look (const Vector<Type, 3> & direction, const Vector<Type, 3> & eyePosition = Vector<Type, 3>(Type(0.0), Type(0.0), Type(0.0)))  {
+				auto up = Vector<Type, 3>(direction[0], direction[1], direction[2] * Type(2.0)).cross(direction);
+				return look_at(eyePosition, eyePosition + direction, up);
 			}
 			
 			template <typename Type, UNSIGNED_TYPE Dimension>
