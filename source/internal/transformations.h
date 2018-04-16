@@ -43,26 +43,26 @@ namespace ms {
 				
 				Matrix<Type, 4, 4> m;
 				
-				m[0] = x.x();
-				m[1] = x.y();
-				m[2] = x.z();
-				m[3] = Type(0.0);
-				
-				m[4] = y.x();
-				m[5] = y.y();
-				m[6] = y.z();
-				m[7] = Type(0.0);
-				
-				m[8] = -z.x();
-				m[9] = -z.y();
-				m[10] = -z.z();
-				m[11] = Type(0.0);
-				
+				m[0] = x[0];
+				m[4] = x[1];
+				m[8] = x[2];
 				m[12] = -x.dot(eyePosition);
+
+				m[1] = y[0];
+				m[5] = y[1];
+				m[9] = y[2];
 				m[13] = -y.dot(eyePosition);
+
+				m[2] = -z[0];
+				m[6] = -z[1];
+				m[10] = -z[2];
 				m[14] = -z.dot(eyePosition);
+
+				m[3] = Type(0.0);
+				m[7] = Type(0.0);
+				m[11] = Type(0.0);
 				m[15] = Type(1.0);
-				
+
 				return m;
 			}
 			
