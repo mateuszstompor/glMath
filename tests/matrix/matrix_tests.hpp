@@ -4,16 +4,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include "../../source/glMath.h"
-#include <chrono>
-
-template<typename T>
-inline long measure_time(std::function<void(void)> lambda) {
-	auto start = std::chrono::high_resolution_clock::now();
-	lambda();
-	auto now = std::chrono::high_resolution_clock::now();
-	return std::chrono::duration_cast<T>(now - start).count();
-}
-
+#include "../helper.h"
 
 namespace ms {
     

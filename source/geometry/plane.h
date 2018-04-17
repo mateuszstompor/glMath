@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "../internal/definitions.h"
+#include "../geometry/bounding_box.h"
 
 namespace ms {
 	
@@ -33,6 +34,7 @@ namespace ms {
 				intersects,
 				behind
 			};
+										Plane	();
 			
 										Plane	(const vec3T & normal,
 												 const vec3T & origin);
@@ -70,25 +72,24 @@ namespace ms {
 }
 
 template <typename Type>
+ms::math::Plane<Type>::Plane () : normal{}, originPoint{} {}
+
+template <typename Type>
 ms::math::Plane<Type>::Plane(const vec3T & normal,
 							 const vec3T & origin) : normal(normal), originPoint(origin) { }
 
 template <typename Type>
 ms::math::Plane<Type>::Plane(vec3T && normal, vec3T && origin) : normal(std::move(normal)), originPoint(std::move(origin)) { }
 
-template <typename Type>
-bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
-	for(int i = 0; i < 8 ; ++i) {
-		if((boundingBox.corners[i].xyz() - originPoint).dot(normal) < 0) {
-			std::cout << boundingBox.corners[i].xyz().to_string() << std::endl;
-			std::cout << originPoint.to_string() << std::endl;
-			std::cout << normal.to_string() << std::endl;
-			
-			return false;
-		}
-	}
-	return true;
-}
+//template <typename Type>
+//bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
+//	for(int i = 0; i < 8 ; ++i) {
+//		if((boundingBox.corners[i].xyz() - originPoint).dot(normal) < 0) {
+//			return false;
+//		}
+//	}
+//	return true;
+//}
 
 template <typename Type>
 typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (const Matrix<Type, 4, 4> & m, const BoundingBox<Type> & boundingBox) const {
@@ -113,16 +114,16 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 
 	bool isInFront = true;
 	bool isBehind = true;
-	
+
 	bool result = true;
-	
+
 	for(int i = 0; i < 8 && (isBehind || isInFront); ++i) {
 		result = (boundingBox.corners[i].xyz() - originPoint).dot(normal) > 0;
-		
+
 		isInFront = isInFront && result;
 		isBehind = isBehind && !result;
 	}
-	
+
 	return isInFront == false && isBehind == false ? RelativePosition::intersects :
 	(isInFront == false ? RelativePosition::behind : RelativePosition::in_front);
 }

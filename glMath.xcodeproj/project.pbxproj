@@ -15,6 +15,8 @@
 		568BCA1A203F181900E02F23 /* vector_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568BCA16203F181900E02F23 /* vector_tests.cpp */; };
 		568BCA26203F193000E02F23 /* matrix_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568BCA10203F181900E02F23 /* matrix_tests.cpp */; };
 		568BCA27203F193000E02F23 /* matrix_testing_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568BCA11203F181900E02F23 /* matrix_testing_program.cpp */; };
+		56F423D42085781B003D6998 /* frustum_testing_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F423C9208577FD003D6998 /* frustum_testing_program.cpp */; };
+		56F423D52085781B003D6998 /* frustum_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F423C8208577FD003D6998 /* frustum_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +48,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		568BCA1D203F192800E02F23 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		56F423CF2085780A003D6998 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -87,6 +98,14 @@
 		568BCA1F203F192800E02F23 /* matrix_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matrix_tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		568BCA29203F1E7E00E02F23 /* glMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glMath.h; sourceTree = "<group>"; };
 		56B576CE207A3C700012C78C /* vector4f.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector4f.h; sourceTree = "<group>"; };
+		56F423C520857063003D6998 /* frustum_viewport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = frustum_viewport.h; sourceTree = "<group>"; };
+		56F423C7208577FD003D6998 /* frustum_tests.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = frustum_tests.hpp; sourceTree = "<group>"; };
+		56F423C8208577FD003D6998 /* frustum_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = frustum_tests.cpp; sourceTree = "<group>"; };
+		56F423C9208577FD003D6998 /* frustum_testing_program.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = frustum_testing_program.cpp; sourceTree = "<group>"; };
+		56F423D32085780A003D6998 /* frustum_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = frustum_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		56F423D620857EC6003D6998 /* helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
+		56F423D72085DF82003D6998 /* box.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = box.h; sourceTree = "<group>"; };
+		56F423D82085F56C003D6998 /* orthographic_viewport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = orthographic_viewport.h; sourceTree = "<group>"; };
 		56FDC958207814BB002C302A /* matrix4f.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrix4f.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +138,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		56F423CE2085780A003D6998 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -136,10 +162,12 @@
 		56085052203E49F300BDD00C /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				56F423C6208577CE003D6998 /* frustum */,
 				567B5F6C20703AD500855C50 /* plane */,
 				564F5206207024330009E3EF /* boundingbox */,
 				568BCA0F203F181900E02F23 /* matrix */,
 				568BCA13203F181900E02F23 /* vector */,
+				56F423D620857EC6003D6998 /* helper.h */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -161,6 +189,7 @@
 				568BCA1F203F192800E02F23 /* matrix_tests */,
 				567B5F692070248B00855C50 /* boundingbox_tests */,
 				567B5F7620703AF700855C50 /* plane_tests */,
+				56F423D32085780A003D6998 /* frustum_tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,6 +199,9 @@
 			children = (
 				564F51FF207022080009E3EF /* bounding_box.h */,
 				564F5202207022F00009E3EF /* plane.h */,
+				56F423C520857063003D6998 /* frustum_viewport.h */,
+				56F423D82085F56C003D6998 /* orthographic_viewport.h */,
+				56F423D72085DF82003D6998 /* box.h */,
 			);
 			path = geometry;
 			sourceTree = "<group>";
@@ -231,6 +263,16 @@
 				568BCA15203F181900E02F23 /* vector_testing_program.cpp */,
 			);
 			path = vector;
+			sourceTree = "<group>";
+		};
+		56F423C6208577CE003D6998 /* frustum */ = {
+			isa = PBXGroup;
+			children = (
+				56F423C9208577FD003D6998 /* frustum_testing_program.cpp */,
+				56F423C8208577FD003D6998 /* frustum_tests.cpp */,
+				56F423C7208577FD003D6998 /* frustum_tests.hpp */,
+			);
+			path = frustum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,6 +346,23 @@
 			productReference = 568BCA1F203F192800E02F23 /* matrix_tests */;
 			productType = "com.apple.product-type.tool";
 		};
+		56F423CA2085780A003D6998 /* frustum_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56F423D02085780A003D6998 /* Build configuration list for PBXNativeTarget "frustum_tests" */;
+			buildPhases = (
+				56F423CB2085780A003D6998 /* Sources */,
+				56F423CE2085780A003D6998 /* Frameworks */,
+				56F423CF2085780A003D6998 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = frustum_tests;
+			productName = matrix_tests;
+			productReference = 56F423D32085780A003D6998 /* frustum_tests */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -327,6 +386,9 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
+					56F423CA2085780A003D6998 = {
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 56443A80203E48A000A801A7 /* Build configuration list for PBXProject "glMath" */;
@@ -345,6 +407,7 @@
 				568BCA1E203F192800E02F23 /* matrix_tests */,
 				567B5F5E2070248B00855C50 /* boundingbox_tests */,
 				567B5F6D20703AF700855C50 /* plane_tests */,
+				56F423CA2085780A003D6998 /* frustum_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -383,6 +446,15 @@
 			files = (
 				568BCA26203F193000E02F23 /* matrix_tests.cpp in Sources */,
 				568BCA27203F193000E02F23 /* matrix_testing_program.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56F423CB2085780A003D6998 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56F423D42085781B003D6998 /* frustum_testing_program.cpp in Sources */,
+				56F423D52085781B003D6998 /* frustum_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +654,24 @@
 			};
 			name = Release;
 		};
+		56F423D12085780A003D6998 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R78NEXF6E2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		56F423D22085780A003D6998 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R78NEXF6E2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -626,6 +716,15 @@
 			buildConfigurations = (
 				568BCA24203F192800E02F23 /* Debug */,
 				568BCA25203F192800E02F23 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		56F423D02085780A003D6998 /* Build configuration list for PBXNativeTarget "frustum_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56F423D12085780A003D6998 /* Debug */,
+				56F423D22085780A003D6998 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -163,6 +163,13 @@ namespace ms {
 		}
 		
 		template <typename Type>
+		void set_position (Matrix<Type, 4, 4> & transformation, const Vector<Type, 3> & position) {
+			transformation[12] = position[0];
+			transformation[13] = position[1];
+			transformation[14] = position[2];
+		}
+		
+		template <typename Type>
 		Vector<Type, 3> up (const Matrix<Type, 4, 4> & transformation) {
 			return Vector<Type, 3>{transformation[1], transformation[5], transformation[9]};
 		}
