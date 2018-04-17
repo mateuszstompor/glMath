@@ -81,15 +81,15 @@ ms::math::Plane<Type>::Plane(const vec3T & normal,
 template <typename Type>
 ms::math::Plane<Type>::Plane(vec3T && normal, vec3T && origin) : normal(std::move(normal)), originPoint(std::move(origin)) { }
 
-//template <typename Type>
-//bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
-//	for(int i = 0; i < 8 ; ++i) {
-//		if((boundingBox.corners[i].xyz() - originPoint).dot(normal) < 0) {
-//			return false;
-//		}
-//	}
-//	return true;
-//}
+template <typename Type>
+bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
+	for(int i = 0; i < 8 ; ++i) {
+		if((boundingBox.corners[i].xyz() - originPoint).dot(normal) < 0) {
+			return false;
+		}
+	}
+	return true;
+}
 
 template <typename Type>
 typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (const Matrix<Type, 4, 4> & m, const BoundingBox<Type> & boundingBox) const {

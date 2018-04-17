@@ -25,9 +25,25 @@ void FrustumTest::frustumInitialization() {
 	CPPUNIT_ASSERT(f.is_in_camera_sight(mat4::identity(), b));
 	
 	CPPUNIT_ASSERT(o.is_in_camera_sight(mat4::identity(), b));
-	CPPUNIT_ASSERT(!o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, 100.0f, 0.0f}), b));
-	CPPUNIT_ASSERT(!o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, 100.0f, 0.0f}), b));
 	
+	//top outside
+	CPPUNIT_ASSERT(o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, 1.49f, 0.0f}), b));
+	CPPUNIT_ASSERT(!o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, 1.61f, 0.0f}), b));
+	//bottom outside
+	CPPUNIT_ASSERT(o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, -1.49f, 0.0f}), b));
+	CPPUNIT_ASSERT(!o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, -1.6f, 0.0f}), b));
+	//left outside
+	CPPUNIT_ASSERT(o.is_in_camera_sight(translate<float, 4>(vec3{-1.49f, 0.0f, 0.0f}), b));
+	CPPUNIT_ASSERT(!o.is_in_camera_sight(translate<float, 4>(vec3{-1.60f, 0.0f, 0.0f}), b));
+	//right outside
+	CPPUNIT_ASSERT(o.is_in_camera_sight(translate<float, 4>(vec3{1.49f, 0.0f, 0.0f}), b));
+	CPPUNIT_ASSERT(!o.is_in_camera_sight(translate<float, 4>(vec3{1.6f, 0.0f, 0.0f}), b));
+	//front outside
+	CPPUNIT_ASSERT(o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, -1.49f, 0.0f}), b));
+	CPPUNIT_ASSERT(!o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, -1.6f, 0.0f}), b));
+	//back outside
+	CPPUNIT_ASSERT(o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, 0.0f, 1.49f}), b));
+	CPPUNIT_ASSERT(!o.is_in_camera_sight(translate<float, 4>(vec3{0.0f, 0.0f, 1.6f}), b));
 }
 
 void FrustumTest::measureTestingPerformance() {
