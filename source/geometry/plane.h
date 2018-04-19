@@ -81,11 +81,11 @@ template <typename Type>
 ms::math::Plane<Type>::Plane () : normal{}, originPoint{} {}
 
 template <typename Type>
-ms::math::Plane<Type>::Plane(const vec3T & normal,
-							 const vec3T & origin) : normal(normal), normal4(normal, 1.0f), originPoint(origin), originPoint4(originPoint, 1.0f) { }
+ms::math::Plane<Type>::Plane(const vec3T & n,
+							 const vec3T & o) : normal(n), normal4(n, 1.0f), originPoint(o), originPoint4(o, 1.0f) { }
 
 template <typename Type>
-ms::math::Plane<Type>::Plane(vec3T && normal, vec3T && origin) : originPoint4(originPoint, 1.0f), normal4(normal, 1.0f), originPoint(std::move(origin)), normal(std::move(normal)) { }
+ms::math::Plane<Type>::Plane(vec3T && n, vec3T && o) : originPoint4(o, 1.0f), normal4(n, 1.0f), originPoint(std::move(o)), normal(std::move(n)) { }
 
 template <typename Type>
 bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
