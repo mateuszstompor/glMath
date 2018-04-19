@@ -57,7 +57,7 @@ namespace ms {
 			constexpr Type 				get_depth_z		() const;
 			constexpr vec3T const & 	get_origin		() const;
 			
-		protected:
+		private:
 			
 			Type width_x, height_y, depth_z;
 			

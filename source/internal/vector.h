@@ -41,6 +41,7 @@ namespace ms {
 										Vector				(Type value);
 										Vector				(Vector && v) noexcept;
 										Vector				(const Vector & v);
+										Vector				(const Vector<Type, Dimension - 1> & v, Type value);
 										Vector				(const Type array [Dimension]);
 										Vector				(Type x, Type y);
 										Vector				(Type x, Type y, Type z);
@@ -130,6 +131,12 @@ ms::math::Vector<Type, Dimension>::Vector(Vector && v) noexcept : components(v.c
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(const Vector & v) : Vector() {
     std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+ms::math::Vector<Type, Dimension>::Vector (const Vector<Type, Dimension - 1> & v, Type value) : Vector() {
+	std::memcpy((*this).components, v.components, (Dimension - 1) * sizeof(Type));
+	(*this).components[Dimension - 1] = value;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>

@@ -26,6 +26,7 @@ namespace ms {
 		protected:
 			
 			typedef Vector<Type, 3> vec3T;
+			typedef Vector<Type, 4> vec4T;
 			
 		public:
 			
@@ -53,17 +54,22 @@ namespace ms {
 			RelativePosition			get_position	(BoundingBox<Type> const & boundingBox) const;
 			constexpr vec3T const &		get_normal		() const;
 			constexpr vec3T const &		get_origin		() const;
+			constexpr vec4T const &		get_normal4		() const;
+			constexpr vec4T const &		get_origin4		() const;
 			
 			//clockwise
 		static Plane from_points(vec3T const & firstPoint, vec3T const & origin, vec3T const & secondPoint);
 		static Plane from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint);
 			
-		protected:
+		private:
 			
-			Vector<Type, 3> 	normal;
+			// duplication speed up calculations a lot
+			Vector<Type, 3>  	normal;
+			Vector<Type, 4>  	normal4;
 			
 			//	origin of normal vector	//
-			Vector<Type, 3> 	originPoint;
+			Vector<Type, 3>  	originPoint;
+			Vector<Type, 4>  	originPoint4;
 			
 		};
 		
@@ -76,10 +82,10 @@ ms::math::Plane<Type>::Plane () : normal{}, originPoint{} {}
 
 template <typename Type>
 ms::math::Plane<Type>::Plane(const vec3T & normal,
-							 const vec3T & origin) : normal(normal), originPoint(origin) { }
+							 const vec3T & origin) : normal(normal), normal4(normal, 1.0f), originPoint(origin), originPoint4(originPoint, 1.0f) { }
 
 template <typename Type>
-ms::math::Plane<Type>::Plane(vec3T && normal, vec3T && origin) : normal(std::move(normal)), originPoint(std::move(origin)) { }
+ms::math::Plane<Type>::Plane(vec3T && normal, vec3T && origin) : originPoint4(originPoint, 1.0f), normal4(normal, 1.0f), originPoint(std::move(origin)), normal(std::move(normal)) { }
 
 template <typename Type>
 bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
@@ -99,7 +105,7 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool result = true;
 
 	for(int i = 0 ; i < 8 && (isBehind || isInFront); ++i) {
-		result = ((m * boundingBox.corners[i]).xyz() -= originPoint).dot(normal) > 0;
+		result = (m * boundingBox.corners[i] -= originPoint4).dot(normal4) > 0;
 
 		isInFront = isInFront && result;
 		isBehind = isBehind && !result;
@@ -118,7 +124,7 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool result = true;
 
 	for(int i = 0; i < 8 && (isBehind || isInFront); ++i) {
-		result = (boundingBox.corners[i].xyz() - originPoint).dot(normal) > 0;
+		result = (boundingBox.corners[i] - originPoint4).dot(normal4) > 0;
 
 		isInFront = isInFront && result;
 		isBehind = isBehind && !result;
@@ -136,6 +142,16 @@ constexpr ms::math::Vector<Type, 3> const & ms::math::Plane<Type>::get_normal ()
 template <typename Type>
 constexpr ms::math::Vector<Type, 3> const & ms::math::Plane<Type>::get_origin () const {
 	return originPoint;
+}
+
+template <typename Type>
+constexpr ms::math::Vector<Type, 4> const & ms::math::Plane<Type>::get_normal4 () const {
+	return normal4;
+}
+
+template <typename Type>
+constexpr ms::math::Vector<Type, 4> const & ms::math::Plane<Type>::get_origin4 () const {
+	return originPoint4;
 }
 
 template <typename Type>

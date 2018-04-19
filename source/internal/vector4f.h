@@ -23,6 +23,7 @@ namespace ms {
 												Vector				() = default;
 			
 			inline 								Vector				(const Vector & v);
+			inline 								Vector				(const Vector<float, 3> & v, float value);
 			inline 								Vector				(const float array [4]);
 			inline 								Vector				(float x, float y, float z, float w);
 			inline 								Vector				(const spco::DegreesSpherical<float> & sphericalCoordinates);
@@ -95,6 +96,11 @@ namespace ms {
 
 ms::math::Vector<float, 4>::Vector(const Vector & v) {
 	std::memcpy(this->components, v.components, 4 * sizeof(float));
+}
+
+ms::math::Vector<float, 4>::Vector (const Vector<float, 3> & v, float value) {
+	std::memcpy(this->components, v.components, 3 * sizeof(float));
+	this->components[3] = value;
 }
 
 ms::math::Vector<float, 4>::Vector(const float array [4]) : Vector() {
