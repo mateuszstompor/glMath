@@ -58,7 +58,7 @@ namespace ms {
 			template <typename Type>
 			Matrix<Type, 4, 4> orthogonal(Type _far, Type _near,
 										  Type _top, Type _bottom,
-										  Type _left, Type _right) {
+										  Type _right, Type _left) {
 				
 				Matrix<Type, 4, 4> p;
 				
@@ -104,8 +104,8 @@ namespace ms {
 			
 			inline Matrix<float, 4, 4> orthogonal(float _far, float _near,
 												  float _top, float _bottom,
-												  float _left, float _right) {
-				return math::projection::orthogonal<float>(_far, _near, _top, _bottom, _left, _right);
+												  float _right, float _left) {
+				return math::projection::orthogonal<float>(_far, _near, _top, _bottom, _right, _left);
 			}
 
 			inline Matrix<float, 4, 4> orthogonal_cube(float side) {
