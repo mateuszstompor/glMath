@@ -184,6 +184,30 @@ namespace ms {
 			return Vector<Type, 3>{transformation[2], transformation[6], transformation[10]};
 		}
 		
+		namespace transform4f {
+			
+			inline Vector<float, 3> up (const Matrix<float, 4, 4> & transformation) {
+				return Vector<float, 3>{transformation[1], transformation[5], transformation[9]};
+			}
+			
+			inline Vector<float, 3> right (const Matrix<float, 4, 4> & transformation) {
+				return Vector<float, 3>{transformation[0], transformation[4], transformation[8]};
+			}
+			
+			inline Vector<float, 3> back (const Matrix<float, 4, 4> & transformation) {
+				return Vector<float, 3>{transformation[2], transformation[6], transformation[10]};
+			}
+			
+			inline Matrix<float, 4, 4> translate (Vector<float, 3> translationFactors) {
+				Matrix<float, 4, 4> translation = Matrix<float, 4, 4>::identity();
+				translation[12] = translationFactors[0];
+				translation[13] = translationFactors[1];
+				translation[14] = translationFactors[2];
+				return translation;
+			}
+			
+		}
+		
 	}
 	
 }
