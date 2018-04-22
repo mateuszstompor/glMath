@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef transformations_h
-#define transformations_h
+#pragma once
 
 namespace ms {
 	
@@ -211,5 +210,3 @@ namespace ms {
 	}
 	
 }
-
-#endif /* transformations_h */

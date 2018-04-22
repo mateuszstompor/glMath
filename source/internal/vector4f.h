@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef vector4f_h
-#define vector4f_h
+#pragma once
 
 #include "vector.h"
 
@@ -321,7 +320,3 @@ ms::math::Vector <float, 2> ms::math::Vector <float, 4>::xy () const {
 ms::math::Vector<float, 5> ms::math::Vector<float, 4>::expanded (float value) const {
 	return Vector<float, 5>(components[0], components[1], components[2], components[3], value);
 }
-
-#endif /* vector4f_h */
-
-

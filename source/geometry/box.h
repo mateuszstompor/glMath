@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef box_h
-#define box_h
+#pragma once
 
 //
 //               e-------f
@@ -69,5 +68,3 @@ namespace ms {
 	}
 	
 }
-
-#endif /* box_h */

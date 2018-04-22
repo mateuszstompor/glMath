@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef plane_hpp
-#define plane_hpp
+#pragma once
 
 #define DEBUG_DEFAULT_PRECISION 0.0001f
 
@@ -173,5 +172,3 @@ ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T && firstPoint, 
 	
 	return ms::math::Plane<Type>(std::move(normal), std::move(origin));
 }
-
-#endif /* plane_h */

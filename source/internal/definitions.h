@@ -8,10 +8,7 @@
 
 #include "common.h"
 
-#ifndef definitions_h
-#define definitions_h
-
-
+#pragma once
 
 namespace ms {
 	
@@ -22,7 +19,10 @@ namespace ms {
 
 		template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 		class Matrix;
-		
+
+		template <typename Type>
+		class FrustumViewport;
+
 	}
 	
 }
@@ -49,9 +49,8 @@ namespace ms {
 		typedef ms::math::Vector<double, 2> vec2d;
 		typedef ms::math::Vector<double, 3> vec3d;
 		typedef ms::math::Vector<double, 4> vec4d;
+		typedef ms::math::FrustumViewport<float> frustum4f;
 		
 	}
 	
 }
-
-#endif /* definitions_h */

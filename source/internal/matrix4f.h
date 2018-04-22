@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef matrix4f_h
-#define matrix4f_h
+#pragma once
 
 #include "matrix.h"
 
@@ -481,7 +480,3 @@ ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> ::operator * (const 
 	
 	return result;
 }
-
-#endif /* matrix4f_h */
-
-

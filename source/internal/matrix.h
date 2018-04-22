@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef matrix_h
-#define matrix_h
+#pragma once
 
 #include <string>
 #include <cstring>
@@ -277,5 +276,3 @@ template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 constexpr Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() {
 	return this->components;
 }
-
-#endif

@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef vector_h
-#define vector_h
+#pragma once
 
 #include <string>
 #include <sstream>
@@ -479,5 +478,3 @@ template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, 2> ms::math::Vector<Type, Dimension>::xy () const {
 	return Vector<Type, 2>{this->x(), this->y()};
 }
-
-#endif /* vector_h */

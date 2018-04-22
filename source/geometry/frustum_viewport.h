@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef frustum_viewport_h
-#define frustum_viewport_h
+#pragma once
 
 #include "plane.h"
 #include "box.h"
@@ -143,8 +142,3 @@ template<typename Type>
 constexpr ms::math::mat4 const & ms::math::FrustumViewport<Type>::get_projection_matrix () const {
 	return projectionMatrix;
 }
-
-#endif /* frustum_h */
-
-
-

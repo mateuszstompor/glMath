@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef boundingBox_hpp
-#define boundingBox_hpp
+#pragma once
 
 #include <cassert>
 #include <vector>
@@ -128,5 +127,3 @@ template <typename Type>
 constexpr typename ms::math::BoundingBox<Type>::vec4T const & ms::math::BoundingBox<Type>::operator [] (size_t index) const {
 	return corners[index];
 }
-
-#endif /* boundingBox_h */

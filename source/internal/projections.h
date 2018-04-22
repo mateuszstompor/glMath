@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef projections_h
-#define projections_h
+#pragma once
 
 namespace ms {
 	
@@ -116,5 +115,3 @@ namespace ms {
 	}
 	
 }
-
-#endif /* projections_h */

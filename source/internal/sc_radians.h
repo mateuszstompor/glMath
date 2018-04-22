@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef sc_radians_h
-#define sc_radians_h
+#pragma once
 
 #include "common.h"
 
@@ -59,11 +58,9 @@ ms::math::spco::RadiansSpherical<Type>::RadiansSpherical(DegreesSpherical<Type> 
 template <typename Type>
 ms::math::spco::RadiansSpherical<Type>::RadiansSpherical(ms::math::Vector<Type, 3> v) {
 	radius 			= sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-	azimuthAngle 	= v[0] 		== 0 ? 0 : std::atan(v[1] / v[0]);
-	inclination 	= radius 	== 0 ? 0 : std::acos(v[2] / radius);
+	azimuthAngle 	= v[0] 		== Type{0.0} ? Type{0.0} : std::atan(v[1] / v[0]);
+	inclination 	= radius 	== Type{0.0} ? Type{0.0} : std::acos(v[2] / radius);
 }
 
 template <typename Type>
-ms::math::spco::RadiansSpherical<Type>::RadiansSpherical() : RadiansSpherical(0, 0, 0) { }
-
-#endif
+ms::math::spco::RadiansSpherical<Type>::RadiansSpherical() : RadiansSpherical(Type{0.0}, Type{0.0}, Type{0.0}) { }

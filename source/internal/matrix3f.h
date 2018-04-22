@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef matrix3f_h
-#define matrix3f_h
+#pragma once
 
 #include "matrix.h"
 
@@ -360,7 +359,3 @@ ms::math::Matrix<float, 3, 3> ms::math::Matrix<float, 3, 3> ::operator * (const 
 	
 	return result;
 }
-
-#endif /* matrix3f_h */
-
-

@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef glMath_h
-#define glMath_h
+#pragma once
 
 #include "internal/definitions.h"
 #include "internal/vector3f.h"
@@ -26,5 +25,3 @@
 
 #include "geometry/bounding_box.h"
 #include "geometry/plane.h"
-
-#endif /* glMath_h */

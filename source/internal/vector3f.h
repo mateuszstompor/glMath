@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef vector3f_h
-#define vector3f_h
+#pragma once
 
 #include "vector.h"
 #include "sc_degrees.h"
@@ -288,5 +287,3 @@ constexpr float & ms::math::Vector <float, 3>::z ()  {
 ms::math::Vector <float, 2> ms::math::Vector <float, 3>::xy () const {
 	return Vector <float, 2>{this->components[0], this->components[1]};
 }
-
-#endif /* vector3f_h */

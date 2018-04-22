@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef orthographic_viewport_h
-#define orthographic_viewport_h
+#pragma once
 
 //
 //               e-------f
@@ -130,5 +129,3 @@ template<typename Type>
 constexpr ms::math::mat4 const & ms::math::OrthographicViewport<Type>::get_projection_matrix () const {
 	return projectionMatrix;
 }
-
-#endif /* orthographic_viewport_h */

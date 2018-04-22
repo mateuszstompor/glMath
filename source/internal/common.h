@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#ifndef common_h
-#define common_h
+#pragma once
 
 #include <cstdint>
 #include <cassert>
@@ -131,6 +130,3 @@ namespace ms {
 	}
 
 }
-
-
-#endif /* common_h */
