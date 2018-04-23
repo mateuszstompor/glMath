@@ -39,10 +39,6 @@ namespace ms {
 										Plane	(const vec3T & normal,
 												 const vec3T & origin);
 			
-										Plane	(vec3T && normal,
-												 vec3T && origin);
-			
-			
 			//																						//
 			// checks if vector from origin to second point and normal vector are perpendicular		//
 			//																						//
@@ -84,34 +80,29 @@ ms::math::Plane<Type>::Plane(const vec3T & n,
 							 const vec3T & o) : normal(n), normal4(n, 1.0f), originPoint(o), originPoint4(o, 1.0f) { }
 
 template <typename Type>
-ms::math::Plane<Type>::Plane(vec3T && n, vec3T && o) : originPoint4(o, 1.0f), normal4(n, 1.0f), originPoint(std::move(o)), normal(std::move(n)) { }
-
-template <typename Type>
 bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
 	for(int i = 0; i < 8 ; ++i) {
-		if((boundingBox.corners[i].xyz() - originPoint).dot(normal) < 0) {
+		if(boundingBox.corners[i] - originPoint4.dot(normal4) < 0)
 			return false;
-		}
 	}
 	return true;
 }
 
 template <typename Type>
 typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (const Matrix<Type, 4, 4> & m, const BoundingBox<Type> & boundingBox) const {
-	bool isInFront = true;
-	bool isBehind = true;
-
+	bool inFront = true;
+	bool behind = true;
 	bool result = true;
 
-	for(int i = 0 ; i < 8 && (isBehind || isInFront); ++i) {
-		result = (m * boundingBox.corners[i] -= originPoint4).dot(normal4) > 0;
+	for(int i = 0 ; i < 8 && (behind || inFront); ++i) {
+		result = ((m * boundingBox.corners[i]) -= originPoint4).dot(normal4) > 0;
 
-		isInFront = isInFront && result;
-		isBehind = isBehind && !result;
+		inFront = inFront && result;
+		behind = behind && !result;
 	}
 
-	return (isInFront || isBehind) == false ? RelativePosition::intersects :
-	(isInFront == false ? RelativePosition::behind : RelativePosition::in_front);
+	return (inFront || behind) == false ? RelativePosition::intersects :
+	(inFront == false ? RelativePosition::behind : RelativePosition::in_front);
 }
 
 template <typename Type>
@@ -119,7 +110,6 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 
 	bool isInFront = true;
 	bool isBehind = true;
-
 	bool result = true;
 
 	for(int i = 0; i < 8 && (isBehind || isInFront); ++i) {
@@ -165,7 +155,6 @@ ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T const & firstPo
 
 template <typename Type>
 ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint) {
-	
 	firstPoint -= origin;
 	secondPoint -= origin;
 	auto normal = firstPoint.cross(secondPoint).normalize();
