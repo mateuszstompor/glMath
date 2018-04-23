@@ -82,7 +82,7 @@ ms::math::Plane<Type>::Plane(const vec3T & n,
 template <typename Type>
 bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
 	for(int i = 0; i < 8 ; ++i) {
-		if(boundingBox.corners[i] - originPoint4.dot(normal4) < 0)
+		if((boundingBox.corners[i] - originPoint4).dot(normal4) < 0)
 			return false;
 	}
 	return true;
