@@ -8,8 +8,6 @@
 
 #pragma once
 
-#define DEBUG_DEFAULT_PRECISION 0.0001f
-
 #include <utility>
 
 #include "../internal/definitions.h"
@@ -82,7 +80,7 @@ ms::math::Plane<Type>::Plane(const vec3T & n,
 template <typename Type>
 bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
 	for(int i = 0; i < 8 ; ++i) {
-		if((boundingBox.corners[i] - originPoint4).dot(normal4) < 0)
+		if((boundingBox.corners[i] - originPoint4).dot_xyz(normal4) < 0)
 			return false;
 	}
 	return true;
@@ -95,7 +93,7 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool result = true;
 
 	for(int i = 0 ; i < 8 && (behind || inFront); ++i) {
-		result = ((m * boundingBox.corners[i]) -= originPoint4).dot(normal4) > 0;
+		result = ((m * boundingBox.corners[i]) -= originPoint4).dot_xyz(normal4) > 0;
 
 		inFront = inFront && result;
 		behind = behind && !result;
@@ -113,7 +111,7 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool result = true;
 
 	for(int i = 0; i < 8 && (isBehind || isInFront); ++i) {
-		result = (boundingBox.corners[i] - originPoint4).dot(normal4) > 0;
+		result = (boundingBox.corners[i] - originPoint4).dot_xyz(normal4) > 0;
 
 		isInFront = isInFront && result;
 		isBehind = isBehind && !result;

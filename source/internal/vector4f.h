@@ -57,6 +57,7 @@ namespace ms {
 			inline constexpr float const & 		operator 	[] 		(size_t position) const;
 			
 			inline float 						dot					(const Vector & v) const;
+			inline constexpr float 				dot_xyz				(const Vector & v) const;
 			inline Vector 						cross				(const Vector & v) const;
 			
 			inline float	 					length				() const;
@@ -102,7 +103,7 @@ ms::math::Vector<float, 4>::Vector (const Vector<float, 3> & v, float value) {
 	this->components[3] = value;
 }
 
-ms::math::Vector<float, 4>::Vector(const float array [4]) : Vector() {
+ms::math::Vector<float, 4>::Vector(const float array [4]) {
 	std::memcpy(this->components, array, 4 * sizeof(float));
 }
 
@@ -136,6 +137,10 @@ float ms::math::Vector<float, 4>::dot(const Vector & v) const {
 			this->components[1] * v.components[1] +
 			this->components[2] * v.components[2] +
 			this->components[3] * v.components[3];
+}
+
+constexpr float ms::math::Vector<float, 4>::dot_xyz(const Vector & v) const {
+	return 	this->components[0] * v.components[0] +	this->components[1] * v.components[1] +	this->components[2] * v.components[2];
 }
 
 ms::math::Vector<float, 4> ms::math::Vector<float, 4> :: cross (const Vector & v) const {
@@ -207,10 +212,10 @@ ms::math::Vector<float, 4> ms::math::Vector<float, 4>::operator + (const Vector 
 }
 
 ms::math::Vector<float, 4> ms::math::Vector<float, 4>::operator - (const Vector & v) const {
-	return ms::math::Vector<float, 4>(v.components[0] - this->components[0],
-									  v.components[1] - this->components[1],
-									  v.components[2] - this->components[2],
-									  v.components[3] - this->components[3]);
+	return ms::math::Vector<float, 4>(this->components[0] - v.components[0],
+									  this->components[1] - v.components[1],
+									  this->components[2] - v.components[2],
+									  this->components[3] - v.components[3]);
 }
 
 ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::operator += (const Vector & v) {

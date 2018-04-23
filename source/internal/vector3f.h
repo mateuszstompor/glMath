@@ -58,6 +58,8 @@ namespace ms {
 			inline constexpr float const & 		operator 	[] 		(size_t position) const;
 
 			inline float 						dot					(const Vector & v) const;
+			inline constexpr float 				dot_xyz				(const Vector & v) const;
+
 			inline Vector 						cross				(const Vector & v) const;
 
 			inline float	 					length				() const;
@@ -133,6 +135,11 @@ float ms::math::Vector<float, 3>::dot(const Vector & v) const {
 			this->components[1] * v.components[1] +
 			this->components[2] * v.components[2];
 }
+
+constexpr float ms::math::Vector<float, 3>::dot_xyz (const Vector & v) const {
+	return this->components[0] * v.components[0] + this->components[1] * v.components[1] + this->components[2] * v.components[2];
+}
+
 
 ms::math::Vector<float, 3> ms::math::Vector<float, 3>::cross(const Vector & v) const {
 	return Vector(this->components[1] * v.components[2] - this->components[2] * v.components[1],

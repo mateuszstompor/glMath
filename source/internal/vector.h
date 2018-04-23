@@ -77,6 +77,7 @@ namespace ms {
 			constexpr Type const & 		operator 	[] 		(size_t position) const;
 			
 			Type 						dot					(const Vector & v) const;
+			constexpr Type 				dot_xyz				(const Vector & v) const;
 			Vector 						cross				(const Vector & v) const;
 			
 			Type	 					length				() const;
@@ -233,6 +234,12 @@ Type ms::math::Vector<Type, Dimension>::dot(const Vector & v) const {
         dotProduct += this->components[i] * v.components[i];
     
     return dotProduct;
+}
+
+template <typename Type, UNSIGNED_TYPE Dimension>
+constexpr Type ms::math::Vector<Type, Dimension>::dot_xyz (const Vector & v) const {
+	static_assert(Dimension >= 3, "dot_xyz requires vector of dimension at least 3");
+	return this->components[0] * v.components[0] + this->components[1] * v.components[1] + this->components[2] * v.components[2];
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
