@@ -49,9 +49,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec3 createion:" << time1 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec3 createion:" << time1 << '\n';
 	
 	auto time2 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -61,9 +59,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec4 createion:" << time2 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec4 createion:" << time2 << '\n';
 	
 	auto time3 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -73,9 +69,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec4 dot vec4:" << time3 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec4 dot vec4:" << time3 << '\n';
 	
 	auto time4 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -85,9 +79,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec3 dot vec3:" << time4 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec3 dot vec3:" << time4 << '\n';
 	
 	auto time5 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -97,9 +89,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec3 length:" << time5 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec3 length:" << time5 << '\n';
 	
 	auto time6 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -109,9 +99,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec4 length:" << time6 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec4 length:" << time6 << '\n';
 	
 	auto time7 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -121,9 +109,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec4 normalize:" << time7 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec4 normalize:" << time7 << '\n';
 	
 	auto time8 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -133,9 +119,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec3 normalize:" << time8 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec3 normalize:" << time8 << '\n';
 	
 	auto time9 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -145,9 +129,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec4 normalized:" << time9 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec4 normalized:" << time9 << '\n';
 	
 	auto time10 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -157,9 +139,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec3 normalized:" << time10 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec3 normalized:" << time10 << '\n';
 	
 	auto time11 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -169,9 +149,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec3 == vec3:" << time11 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec3 == vec3:" << time11 << '\n';
 	
 	auto time12 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -181,9 +159,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec4 == vec4:" << time12 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec4 == vec4:" << time12 << '\n';
 	
 	auto time13 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -193,9 +169,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec3 != vec3:" << time13 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec3 != vec3:" << time13 << '\n';
 	
 	auto time14 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -205,9 +179,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "vec4 != vec4:" << time14 << std::endl;
-	std::cout << std::endl;
+	std::cout << "vec4 != vec4:" << time14 << '\n';
 	
 	auto time15 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -217,9 +189,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "v3 * m3:" << time15 << std::endl;
-	std::cout << std::endl;
+	std::cout << "v3 * m3:" << time15 << '\n';
 	
 	auto time16 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -229,9 +199,7 @@ void VectorTest::testPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "v4 * m4:" << time16 << std::endl;
-	std::cout << std::endl;
+	std::cout << "v4 * m4:" << time16 << '\n';
 	
 }
 
@@ -431,15 +399,6 @@ void VectorTest::testScalarMultiplication() {
         CPPUNIT_ASSERT(vec3.c_array()[i] == 8);
     }
 	
-}
-
-void VectorTest::testDimensionChange() {
-	math::vec2 vec1 (2, 3);
-//	math::vec3 vec2 = vec1.expanded(5);
-//
-//	CPPUNIT_ASSERT(vec2[0] == 2);
-//	CPPUNIT_ASSERT(vec2[1] == 3);
-//	CPPUNIT_ASSERT(vec2[2] == 5);
 }
 
 void VectorTest::testDot() {

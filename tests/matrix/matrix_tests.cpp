@@ -178,9 +178,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix * matrix:" << time << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix * matrix:" << time << '\n';
 	
 	auto time2 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -190,9 +188,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix * vector:" << time2 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix * vector:" << time2 << '\n';
 	
 	auto time3 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -202,9 +198,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix * value:" << time3 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix * value:" << time3 << '\n';
 	
 	auto time4 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -214,9 +208,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix *= value:" << time4 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix *= value:" << time4 << '\n';
 	
 	auto time5 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -226,9 +218,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix - matrix:" << time5 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix - matrix:" << time5 << '\n';
 	
 	auto time8 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -238,9 +228,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix -= matrix:" << time8 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix -= matrix:" << time8 << '\n';
 	
 	auto time6 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -250,9 +238,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix + matrix:" << time6 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix + matrix:" << time6 << '\n';
 	
 	auto time7 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -262,9 +248,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix += matrix:" << time7 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix += matrix:" << time7 << '\n';
 	
 	auto time9 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -274,9 +258,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix * matrix:" << time9 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix * matrix:" << time9 << '\n';
 	
 	auto time10 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -286,9 +268,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix *= matrix:" << time10 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix *= matrix:" << time10 << '\n';
 	
 	auto time11 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -298,9 +278,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix:identity4:" << time11 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix:identity4:" << time11 << '\n';
 	
 	auto time12 = measure_time<std::chrono::milliseconds>([&](){
 		
@@ -310,9 +288,7 @@ void MatrixTest::testMultiplicationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "matrix3 * matrix3:" << time12 << std::endl;
-	std::cout << std::endl;
+	std::cout << "matrix3 * matrix3:" << time12 << '\n';
 	
 }
 

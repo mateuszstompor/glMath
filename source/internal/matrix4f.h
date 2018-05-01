@@ -366,7 +366,7 @@ std::string ms::math::Matrix<float, 4, 4> :: to_string() const {
 		for (UNSIGNED_TYPE column = 0; column < 4; ++column) {
 			output << std::setprecision(2) << components[column * 4 + row] << " ";
 		}
-		output << std::endl;
+		output << '\n';
 	}
 	return output.str();
 }

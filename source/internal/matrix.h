@@ -262,7 +262,7 @@ std::string ms::math::Matrix<Type, Rows, Columns> :: to_string() const {
 		for (UNSIGNED_TYPE column = 0; column < Columns; ++column) {
 			output << std::setprecision(2) << components[column * Rows + row] << " ";
 		}
-		output << std::endl;
+		output << '\n';
 	}
 	return output.str();
 }

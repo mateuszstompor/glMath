@@ -5,13 +5,9 @@ using namespace math;
 
 CPPUNIT_TEST_SUITE_REGISTRATION( FrustumTest );
 
-void FrustumTest::setUp() {
-    
-}
+void FrustumTest::setUp() { }
 
-void FrustumTest::tearDown() {
-
-}
+void FrustumTest::tearDown() { }
 
 void FrustumTest::frustumInitialization() {
 
@@ -69,9 +65,8 @@ void FrustumTest::measureTestingPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "is_in_camera_sight:" << frustumCullingTime << std::endl;
-	std::cout << std::endl;
+	std::cout << "is_in_camera_sight:" << frustumCullingTime << '\n';
+	
 }
 
 void FrustumTest::measureInitializationPerformance() {
@@ -93,7 +88,5 @@ void FrustumTest::measureInitializationPerformance() {
 		
 	});
 	
-	std::cout << std::endl;
-	std::cout << "initialization:" << initializationTime << std::endl;
-	std::cout << std::endl;
+	std::cout << "initialization:" << initializationTime << '\n';
 }

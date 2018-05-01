@@ -32,7 +32,6 @@ namespace ms {
 	CPPUNIT_TEST( testMatrixMult );
 	CPPUNIT_TEST( testSphericalCoordinatesConversionDegrees );
 	CPPUNIT_TEST( testSphericalCoordinatesConversionRadians );
-	CPPUNIT_TEST( testDimensionChange );
 	CPPUNIT_TEST( testPerformance );
 	CPPUNIT_TEST( testUnaryMinus );
 
@@ -45,7 +44,6 @@ namespace ms {
       
     void testCopyConstructor();
     void testMoveConstructor();
-	void testDimensionChange();
       
     void testMoveAssignment();
     void testCopyAssignment();

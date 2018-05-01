@@ -285,18 +285,15 @@ std::string ms::math::Matrix<float, 3, 3> :: to_string() const {
 	
 	output << std::setprecision(2) << components[0] << " ";
 	output << std::setprecision(2) << components[3] << " ";
-	output << std::setprecision(2) << components[6] << " ";
-	output << std::endl;
+	output << std::setprecision(2) << components[6] << "\n";
 	
 	output << std::setprecision(2) << components[1] << " ";
 	output << std::setprecision(2) << components[4] << " ";
-	output << std::setprecision(2) << components[7] << " ";
-	output << std::endl;
+	output << std::setprecision(2) << components[7] << "\n";
 	
 	output << std::setprecision(2) << components[2] << " ";
 	output << std::setprecision(2) << components[5] << " ";
-	output << std::setprecision(2) << components[8] << " ";
-	output << std::endl;
+	output << std::setprecision(2) << components[8] << "\n";
 	
 	return output.str();
 }
