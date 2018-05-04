@@ -74,6 +74,7 @@
 		564F5207207024570009E3EF /* boundingbox_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = boundingbox_tests.cpp; path = tests/bounding_box/boundingbox_tests.cpp; sourceTree = SOURCE_ROOT; };
 		564F5208207024570009E3EF /* boundingbox_tests.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = boundingbox_tests.hpp; path = tests/bounding_box/boundingbox_tests.hpp; sourceTree = SOURCE_ROOT; };
 		564F5209207024570009E3EF /* boundingbox_testing_program.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = boundingbox_testing_program.cpp; path = tests/bounding_box/boundingbox_testing_program.cpp; sourceTree = SOURCE_ROOT; };
+		5660E3E2209C918600AEFEC4 /* vector2f.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector2f.h; sourceTree = "<group>"; };
 		567084D6207ABE4700CFA63C /* matrix3f.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrix3f.h; sourceTree = "<group>"; };
 		567084D7207AC4AA00CFA63C /* vector3f.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector3f.h; sourceTree = "<group>"; };
 		567B5F692070248B00855C50 /* boundingbox_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = boundingbox_tests; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,6 +238,7 @@
 				56FDC958207814BB002C302A /* matrix4f.h */,
 				5682949A2044C7F4003BF4CC /* common.h */,
 				5682949B2044C7F4003BF4CC /* vector.h */,
+				5660E3E2209C918600AEFEC4 /* vector2f.h */,
 				567084D7207AC4AA00CFA63C /* vector3f.h */,
 				56B576CE207A3C700012C78C /* vector4f.h */,
 				5682949C2044C7F4003BF4CC /* definitions.h */,

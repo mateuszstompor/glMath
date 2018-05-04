@@ -9,6 +9,7 @@
 #pragma once
 
 #include "internal/definitions.h"
+#include "internal/vector2f.h"
 #include "internal/vector3f.h"
 #include "internal/vector4f.h"
 #include "internal/matrix.h"
