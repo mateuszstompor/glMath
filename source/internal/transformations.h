@@ -205,6 +205,10 @@ namespace ms {
 				return translation;
 			}
 			
+			inline Matrix<float, 4, 4> scale (Vector<float, 3> scaleFactors) {
+				return math::transform::scale<float, 4>(scaleFactors);
+			}
+			
 		}
 		
 	}
