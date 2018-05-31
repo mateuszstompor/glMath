@@ -15,11 +15,7 @@ namespace ms {
     CPPUNIT_TEST_SUITE( VectorTest );
 
     CPPUNIT_TEST( testCopyConstructor );
-    CPPUNIT_TEST( testMoveConstructor );
-    
     CPPUNIT_TEST( testCopyAssignment );
-    CPPUNIT_TEST( testMoveAssignment );
-      
     CPPUNIT_TEST( testLength );
     CPPUNIT_TEST( testAddition );
 	CPPUNIT_TEST( testDot );
