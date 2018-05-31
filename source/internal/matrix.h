@@ -41,13 +41,9 @@ namespace ms {
 										Matrix				();
 										Matrix				(Type value);
 										Matrix				(const Matrix & m);
-										Matrix				(Matrix && m) noexcept;
 										Matrix				(const Type array [Rows * Columns]);
 			
-										~Matrix				();
-			
 			Matrix &					operator =			(const Matrix & m);
-			Matrix &					operator =			(Matrix && m) noexcept;
 			
 			Matrix 						operator - 			(const Matrix & m) const;
 			Matrix & 					operator -= 		(const Matrix & m);
@@ -78,7 +74,7 @@ namespace ms {
 			constexpr Type *		 	c_array				();
 			constexpr const Type * 		c_array				() const;
 			
-			Type * 						components;
+			Type 						components [Rows * Columns];
 			
 		};
 		
@@ -102,7 +98,7 @@ ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: d
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-ms::math::Matrix<Type, Rows, Columns> :: Matrix() : components(new Type[ Columns * Rows ]) { }
+ms::math::Matrix<Type, Rows, Columns> :: Matrix() { }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> :: Matrix(Type value) : Matrix() {
@@ -116,32 +112,13 @@ ms::math::Matrix<Type, Rows, Columns> :: Matrix(const Matrix & m) : Matrix() {
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-ms::math::Matrix<Type, Rows, Columns> :: Matrix(Matrix && m) noexcept {
-	(*this).components = m.components;
-	m.components = nullptr;
-}
-
-template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> :: Matrix(const Type array [Rows * Columns]) : Matrix() {
 	std::memcpy((*this).components, array, sizeof(Type) * Rows * Columns);
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-ms::math::Matrix<Type, Rows, Columns> :: ~Matrix() {
-	delete [] (*this).components;
-}
-
-template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator = (const Matrix & m) {
 	std::memcpy((*this).components, m.components, sizeof(Type) * Rows * Columns);
-	return (*this);
-}
-
-template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator = (Matrix && m) noexcept {
-	delete [] (*this).components;
-	(*this).components = m.components;
-	m.components = nullptr;
 	return (*this);
 }
 

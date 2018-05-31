@@ -38,7 +38,6 @@ namespace ms {
 			
 										Vector				();
 										Vector				(Type value);
-										Vector				(Vector && v) noexcept;
 										Vector				(const Vector & v);
 										Vector				(const Vector<Type, Dimension - 1> & v, Type value);
 										Vector				(const Type array [Dimension]);
@@ -49,10 +48,7 @@ namespace ms {
 										Vector				(const spco::DegreesSpherical<Type> & sphericalCoordinates);
 										Vector				(const spco::RadiansSpherical<Type> & sphericalCoordinates);
 			
-										~Vector();
-			
 			Vector &					operator	=		(const Vector & v);
-			Vector &					operator	=		(Vector && v) noexcept;
 			bool						operator	==		(const Vector & v) const;
 			bool						operator	!=		(const Vector & v) const;
 			Vector						operator	+		(const Vector & v) const;
@@ -106,7 +102,7 @@ namespace ms {
 			Vector<Type, 3>				xyz					() const;
 			Vector<Type, 2> 			xy					() const;
 			
-			Type * 						components;
+			Type 						components [Dimension];
 			
 		};
 		
@@ -115,17 +111,12 @@ namespace ms {
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::Vector() : components( new Type[Dimension] ) { }
+ms::math::Vector<Type, Dimension>::Vector() { }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(Type value) : Vector() {
 	static_assert(Dimension == 1, "Dimension must equal 1");
 	*(components) = value;
-}
-
-template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::Vector(Vector && v) noexcept : components(v.components) {
-    v.components = nullptr;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -186,16 +177,6 @@ ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(Vector && v) noexcept {
-    delete [] (*this).components;
-    
-    (*this).components = v.components;
-    v.components = nullptr;
-    
-    return *this;
-}
-
-template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> & sphericalCoordinates) : Vector( spco::RadiansSpherical <Type> ( sphericalCoordinates ) ) {
 	static_assert(Dimension == 3, "Spherical system requires dimension of three");
 }
@@ -203,14 +184,9 @@ ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type>
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> & sphericalCoordinates) : Vector() {
 	static_assert(Dimension == 3, "Spherical system requires dimension of three");
-	(*this).components[0] = sphericalCoordinates.radius * cosine<Type>(sphericalCoordinates.azimuthAngle)	* sinus<Type>(sphericalCoordinates.inclination);
-	(*this).components[1] = sphericalCoordinates.radius * sinus<Type>(sphericalCoordinates.azimuthAngle) 	* sinus<Type>(sphericalCoordinates.inclination);
-	(*this).components[2] = sphericalCoordinates.radius * cosine<Type>(sphericalCoordinates.inclination);
-}
-
-template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension>::~Vector() {
-    delete [] this->components;
+	(*this).components[0] = sphericalCoordinates.radius * cos(sphericalCoordinates.azimuthAngle)	* sin(sphericalCoordinates.inclination);
+	(*this).components[1] = sphericalCoordinates.radius * sin(sphericalCoordinates.azimuthAngle) 	* sin(sphericalCoordinates.inclination);
+	(*this).components[2] = sphericalCoordinates.radius * cos(sphericalCoordinates.inclination);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -377,7 +353,7 @@ Type ms::math::Vector<Type, Dimension>::length() const {
 		length += (*this).components[i] * (*this).components[i];
 	}
     
-	return ms::math::square_root<Type>(length);
+	return sqrt(length);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>

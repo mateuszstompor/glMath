@@ -91,11 +91,11 @@ namespace ms {
 				Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
 				static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
 				
-				rotation[Dimension + 1] = 		cosine<Type>(radians);
-				rotation[Dimension + 2] = 		sinus<Type>(radians);
+				rotation[Dimension + 1] = 		std::cos(radians);
+				rotation[Dimension + 2] = 		std::sin(radians);
 				
-				rotation[2 * Dimension + 1] = 	-sinus<Type>(radians);
-				rotation[2 * Dimension + 2] = 	cosine<Type>(radians);
+				rotation[2 * Dimension + 1] = 	-std::sin(radians);
+				rotation[2 * Dimension + 2] = 	std::cos(radians);
 				
 				return rotation;
 			}
@@ -106,11 +106,11 @@ namespace ms {
 		
 				static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
 				
-				rotation[0] = 					cosine<Type>(radians);
-				rotation[2] = 					-sinus<Type>(radians);
+				rotation[0] = 					std::cos(radians);
+				rotation[2] = 					-std::sin(radians);
 				
-				rotation[2 * Dimension] = 		sinus<Type>(radians);
-				rotation[2 * Dimension + 2] = 	cosine<Type>(radians);
+				rotation[2 * Dimension] = 		std::sin(radians);
+				rotation[2 * Dimension + 2] = 	std::cos(radians);
 				
 				return rotation;
 			}
@@ -121,11 +121,11 @@ namespace ms {
 				
 				static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
 				
-				rotation[0] = 				cosine<Type>(radians);
-				rotation[1] = 				sinus<Type>(radians);
+				rotation[0] = 				std::cos(radians);
+				rotation[1] = 				std::sin(radians);
 				
-				rotation[Dimension] = 		-sinus<Type>(radians);
-				rotation[Dimension + 1] = 	cosine<Type>(radians);
+				rotation[Dimension] = 		-std::sin(radians);
+				rotation[Dimension + 1] = 	std::cos(radians);
 				
 				return rotation;
 			}
@@ -137,19 +137,19 @@ namespace ms {
 				static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
 				
 				// First column
-				rotation[0] = cosine<Type>(radians) + v[0]*v[0]*(1 - cosine<Type>(radians));
-				rotation[1] = v[0]*v[1]*(1 - cosine<Type>(radians)) + v[2] * sinus<Type>(radians);
-				rotation[2] = v[2]*v[1]*(1 - cosine<Type>(radians)) - v[1] * sinus<Type>(radians);
+				rotation[0] = std::cos(radians) + v[0]*v[0]*(1 - std::cos(radians));
+				rotation[1] = v[0]*v[1]*(1 - std::cos(radians)) + v[2] * std::sin(radians);
+				rotation[2] = v[2]*v[1]*(1 - std::cos(radians)) - v[1] * std::sin(radians);
 				
 				// Second column
-				rotation[Dimension] 	= v[0]*v[1]*(1 - cosine<Type>(radians)) - v[2] * sinus<Type>(radians);
-				rotation[Dimension + 1] = cosine<Type>(radians) + v[1]*v[1]*(1 - cosine<Type>(radians));
-				rotation[Dimension + 2] = v[2]*v[1]*(1 - cosine<Type>(radians)) + v[0] * sinus<Type>(radians);
+				rotation[Dimension] 	= v[0]*v[1]*(1 - std::cos(radians)) - v[2] * std::sin(radians);
+				rotation[Dimension + 1] = std::cos(radians) + v[1]*v[1]*(1 - std::cos(radians));
+				rotation[Dimension + 2] = v[2]*v[1]*(1 - std::cos(radians)) + v[0] * std::sin(radians);
 				
 				// Third column
-				rotation[2 * Dimension] 	= v[0]*v[2]*(1 - cosine<Type>(radians)) + v[1] * sinus<Type>(radians);
-				rotation[2 * Dimension + 1] = v[1]*v[2]*(1 - cosine<Type>(radians)) - v[0] * sinus<Type>(radians);
-				rotation[2 * Dimension + 2] = cosine<Type>(radians) + v[2]*v[2]*(1 - cosine<Type>(radians));
+				rotation[2 * Dimension] 	= v[0]*v[2]*(1 - std::cos(radians)) + v[1] * std::sin(radians);
+				rotation[2 * Dimension + 1] = v[1]*v[2]*(1 - std::cos(radians)) - v[0] * std::sin(radians);
+				rotation[2 * Dimension + 2] = std::cos(radians) + v[2]*v[2]*(1 - std::cos(radians));
 				
 				return rotation;
 			}

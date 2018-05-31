@@ -186,7 +186,7 @@ ms::math::Vector<float, 2> & ms::math::Vector<float, 2>::operator -= (const Vect
 }
 
 float ms::math::Vector<float, 2>::length() const {
-	return ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1]);
+	return std::sqrt(components[0] * components[0] + components[1] * components[1]);
 }
 
 
@@ -195,14 +195,14 @@ float ms::math::Vector<float, 2>::length2() const {
 }
 
 ms::math::Vector<float, 2> & ms::math::Vector<float, 2>::normalize() {
-	float len = ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1]);
+	float len = std::sqrt(components[0] * components[0] + components[1] * components[1]);
 	components[0] /= len;
 	components[1] /= len;
 	return *this;
 }
 
 ms::math::Vector<float, 2> ms::math::Vector<float, 2> :: normalized() const {
-	float len = ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1]);
+	float len = std::sqrt(components[0] * components[0] + components[1] * components[1]);
 	return Vector(components[0]/len, components[1]/len);
 }
 

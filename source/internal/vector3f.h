@@ -116,9 +116,9 @@ ms::math::Vector<float, 3> :: Vector (const spco::DegreesSpherical <float> & sph
 
 
 ms::math::Vector<float, 3> :: Vector (const spco::RadiansSpherical <float> & sphericalCoordinates) {
-	(*this).components[0] = sphericalCoordinates.radius * cosine<float>(sphericalCoordinates.azimuthAngle)	* sinus<float>(sphericalCoordinates.inclination);
-	(*this).components[1] = sphericalCoordinates.radius * sinus<float>(sphericalCoordinates.azimuthAngle) 	* sinus<float>(sphericalCoordinates.inclination);
-	(*this).components[2] = sphericalCoordinates.radius * cosine<float>(sphericalCoordinates.inclination);
+	(*this).components[0] = sphericalCoordinates.radius * std::cos(sphericalCoordinates.azimuthAngle)	* std::sin(sphericalCoordinates.inclination);
+	(*this).components[1] = sphericalCoordinates.radius * std::sin(sphericalCoordinates.azimuthAngle) 	* std::sin(sphericalCoordinates.inclination);
+	(*this).components[2] = sphericalCoordinates.radius * std::cos(sphericalCoordinates.inclination);
 }
 
 bool ms::math::Vector<float, 3>::operator == (const Vector & v) const {
@@ -228,7 +228,7 @@ ms::math::Vector<float, 3> & ms::math::Vector<float, 3>::operator -= (const Vect
 }
 
 float ms::math::Vector<float, 3>::length() const {
-	return ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1] + components[2] * components[2]);
+	return std::sqrt(components[0] * components[0] + components[1] * components[1] + components[2] * components[2]);
 }
 
 
@@ -237,7 +237,7 @@ float ms::math::Vector<float, 3>::length2() const {
 }
 
 ms::math::Vector<float, 3> & ms::math::Vector<float, 3>::normalize() {
-	float len = ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1] + components[2] * components[2]);
+	float len = std::sqrt(components[0] * components[0] + components[1] * components[1] + components[2] * components[2]);
 	components[0] /= len;
 	components[1] /= len;
 	components[2] /= len;
@@ -245,7 +245,7 @@ ms::math::Vector<float, 3> & ms::math::Vector<float, 3>::normalize() {
 }
 
 ms::math::Vector<float, 3> ms::math::Vector<float, 3> :: normalized() const {
-	float len = ms::math::square_root<float>(components[0] * components[0] + components[1] * components[1] + components[2] * components[2]);
+	float len = std::sqrt(components[0] * components[0] + components[1] * components[1] + components[2] * components[2]);
 	return Vector(components[0]/len, components[1]/len, components[2]/len);
 }
 
