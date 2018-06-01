@@ -13,40 +13,40 @@
 #include <cmath>
 
 namespace ms {
-	
-	namespace math {
-		
-		template <typename T, UNSIGNED_TYPE Dimension>
-		class Vector;
-		
-		//spherical coordinates
-		namespace spco {
-			
-			template <typename Type>
-			struct RadiansSpherical;
-			
-			template <typename Type>
-			struct DegreesSpherical {
-				
-			public:
-				
-				DegreesSpherical(Type inclination, Type azimuthAngle, Type radius);
-				DegreesSpherical(ms::math::Vector<Type, 3> v);
-				DegreesSpherical(RadiansSpherical<Type> radiansSpherical);
-				DegreesSpherical();
-				
-				// measured from azimuth
-				Type 				inclination;
-				// measure of the angle (looking from northern direction)
-				Type 				azimuthAngle;
-				Type 				radius;
-				
-			};
-			
-		}
-		
-	}
-	
+    
+    namespace math {
+        
+        template <typename T, UNSIGNED_TYPE Dimension>
+        class Vector;
+        
+        //spherical coordinates
+        namespace spco {
+            
+            template <typename Type>
+            struct RadiansSpherical;
+            
+            template <typename Type>
+            struct DegreesSpherical {
+                
+            public:
+                
+                DegreesSpherical(Type inclination, Type azimuthAngle, Type radius);
+                DegreesSpherical(ms::math::Vector<Type, 3> v);
+                DegreesSpherical(RadiansSpherical<Type> radiansSpherical);
+                DegreesSpherical();
+                
+                // measured from azimuth
+                Type 				inclination;
+                // measure of the angle (looking from northern direction)
+                Type 				azimuthAngle;
+                Type 				radius;
+                
+            };
+            
+        }
+        
+    }
+    
 }
 
 template <typename Type>
@@ -59,9 +59,9 @@ ms::math::spco::DegreesSpherical<Type>::DegreesSpherical(RadiansSpherical<Type> 
 
 template <typename Type>
 ms::math::spco::DegreesSpherical<Type>::DegreesSpherical(ms::math::Vector<Type, 3> v) {
-	radius 			= sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-	azimuthAngle 	= v[0] 		== Type{0.0} ? Type{0.0} : ms::math::degrees(std::atan(v[1] / v[0]));
-	inclination 	= radius 	== Type{0.0} ? Type{0.0} : ms::math::degrees(std::acos(v[2] / radius));
+    radius 			= sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+    azimuthAngle 	= v[0] 		== Type{0.0} ? Type{0.0} : ms::math::degrees(std::atan(v[1] / v[0]));
+    inclination 	= radius 	== Type{0.0} ? Type{0.0} : ms::math::degrees(std::acos(v[2] / radius));
 }
 
 template <typename Type>
