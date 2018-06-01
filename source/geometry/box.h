@@ -51,9 +51,7 @@ namespace ms {
 		
 		template <typename Type>
 		struct BoxPlanes {
-			
-			using vec3T = Vector<Type, 3>;
-			
+						
 			Plane<Type>     front;
 			Plane<Type>     back;
 			

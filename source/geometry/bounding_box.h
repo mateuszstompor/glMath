@@ -76,7 +76,7 @@ namespace ms {
 }
 
 template <typename Type>
-ms::math::BoundingBox<Type>::BoundingBox(Type x, Type X, Type y, Type Y, Type z, Type Z) : minX(x), maxX(X), minY(y), maxY(Y), minZ(z), maxZ(Z) {
+ms::math::BoundingBox<Type>::BoundingBox(Type x, Type X, Type y, Type Y, Type z, Type Z) : minX{x}, maxX{X}, minY{y}, maxY{Y}, minZ{z}, maxZ{Z} {
 	
 	corners.resize(8);
 	

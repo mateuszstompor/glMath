@@ -26,9 +26,8 @@ namespace ms {
 				
 				Matrix<Type, Dimension, Dimension> scale = Matrix<Type, Dimension, Dimension>::identity();
 				
-				for (UNSIGNED_TYPE i = 0; i < Dimension - 1; ++i) {
+				for (UNSIGNED_TYPE i = 0; i < Dimension - 1; ++i)
 					scale[i * Dimension + i] = scaleFactors[i];
-				}
 				
 				return scale;
 			}
@@ -42,25 +41,25 @@ namespace ms {
 				
 				Matrix<Type, 4, 4> m;
 				
-				m[0] = x[0];
-				m[4] = x[1];
-				m[8] = x[2];
-				m[12] = -x.dot(eyePosition);
+				m[0] 	= x[0];
+				m[4] 	= x[1];
+				m[8] 	= x[2];
+				m[12] 	= -x.dot(eyePosition);
 
-				m[1] = y[0];
-				m[5] = y[1];
-				m[9] = y[2];
-				m[13] = -y.dot(eyePosition);
+				m[1] 	= y[0];
+				m[5] 	= y[1];
+				m[9] 	= y[2];
+				m[13] 	= -y.dot(eyePosition);
 
-				m[2] = -z[0];
-				m[6] = -z[1];
-				m[10] = -z[2];
-				m[14] = -z.dot(eyePosition);
+				m[2] 	= -z[0];
+				m[6] 	= -z[1];
+				m[10] 	= -z[2];
+				m[14] 	= -z.dot(eyePosition);
 
-				m[3] = Type(0.0);
-				m[7] = Type(0.0);
-				m[11] = Type(0.0);
-				m[15] = Type(1.0);
+				m[3] 	= Type(0.0);
+				m[7] 	= Type(0.0);
+				m[11] 	= Type(0.0);
+				m[15] 	= Type(1.0);
 
 				return m;
 			}
@@ -183,6 +182,7 @@ namespace ms {
 			return Vector<Type, 3>{transformation[2], transformation[6], transformation[10]};
 		}
 		
+		//eased access to commonly used function
 		namespace transform4f {
 			
 			inline Vector<float, 3> up (const Matrix<float, 4, 4> & transformation) {
@@ -207,6 +207,22 @@ namespace ms {
 			
 			inline Matrix<float, 4, 4> scale (Vector<float, 3> scaleFactors) {
 				return math::transform::scale<float, 4>(scaleFactors);
+			}
+			
+			inline Matrix<float, 4, 4> rotate_about_x_radians (float radians) {
+				return transform::rotate_about_x_radians<float, 4>(radians);
+			}
+			
+			inline Matrix<float, 4, 4> rotate_about_y_radians (float radians) {
+				return transform::rotate_about_y_radians<float, 4>(radians);
+			}
+			
+			inline Matrix<float, 4, 4> rotate_about_z_radians (float radians) {
+				return transform::rotate_about_z_radians<float, 4>(radians);
+			}
+			
+			inline Matrix<float, 4, 4> look_at (const Vector<float, 3> & eyePosition, const Vector<float, 3> & originPosition, const Vector<float, 3> & upVector) {
+				return transform::look_at(eyePosition, originPosition, upVector);
 			}
 			
 		}

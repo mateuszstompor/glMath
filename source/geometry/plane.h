@@ -79,7 +79,7 @@ ms::math::Plane<Type>::Plane(const vec3T & n,
 
 template <typename Type>
 bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) const {
-	for(int i = 0; i < 8 ; ++i) {
+	for(int i{0}; i < 8 ; ++i) {
 		if((boundingBox.corners[i] - originPoint4).dot_xyz(normal4) < 0)
 			return false;
 	}
@@ -92,7 +92,7 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool behind = true;
 	bool result = true;
 
-	for(int i = 0 ; i < 8 && (behind || inFront); ++i) {
+	for(int i{0}; i < 8 && (behind || inFront); ++i) {
 		result = ((m * boundingBox.corners[i]) -= originPoint4).dot_xyz(normal4) > 0;
 
 		inFront = inFront && result;
@@ -105,7 +105,6 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 
 template <typename Type>
 typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (BoundingBox<Type> const & boundingBox) const {
-
 	bool isInFront = true;
 	bool isBehind = true;
 	bool result = true;
@@ -143,11 +142,9 @@ constexpr ms::math::Vector<Type, 4> const & ms::math::Plane<Type>::get_origin4 (
 
 template <typename Type>
 ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T const & firstPoint, vec3T const & origin, vec3T const & secondPoint) {
-	
 	auto firstVector = firstPoint - origin;
 	auto secondVector = secondPoint - origin;
 	auto normal = firstVector.cross(secondVector).normalize();
-	
 	return ms::math::Plane<Type>(std::move(normal), origin);
 }
 
@@ -156,6 +153,5 @@ ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T && firstPoint, 
 	firstPoint -= origin;
 	secondPoint -= origin;
 	auto normal = firstPoint.cross(secondPoint).normalize();
-	
 	return ms::math::Plane<Type>(std::move(normal), std::move(origin));
 }

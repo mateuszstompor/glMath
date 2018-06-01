@@ -76,11 +76,11 @@ ms::math::FrustumViewport<Type>::FrustumViewport (Type nearPlane,
 												  Type aspectRatio) : projectionMatrix(std::move(projection::perspective(nearPlane, farPlane, fovDegrees, aspectRatio))) {
 
 	
-	auto right = vec3T{Type(1.0), Type(0.0), Type(0.0)};
-	auto up = vec3T{Type(0.0), Type(1.0), Type(0.0)};
+	auto right = vec3T{Type{1.0}, Type{0.0}, Type{0.0}};
+	auto up = vec3T{Type{0.0}, Type{1.0}, Type{0.0}};
 	
-	auto nearPlaneOrigin = vec3{Type(0.0), Type(0.0), nearPlane};
-	auto farPlaneOrigin = vec3{Type(0.0), Type(0.0), farPlane};
+	auto nearPlaneOrigin = vec3{Type{0.0}, Type{0.0}, nearPlane};
+	auto farPlaneOrigin = vec3{Type{0.0}, Type{0.0}, farPlane};
 														  
 	float nearPlaneHalfWidth 	= nearPlane * tan(math::radians(fovDegrees));
 	float nearPlaneHalfHeight 	= nearPlaneHalfWidth / aspectRatio;
@@ -110,29 +110,23 @@ template<typename Type>
 bool ms::math::FrustumViewport<Type>::is_in_camera_sight (mat4 const & boundingBoxTransformation,
 												  BoundingBox<Type> const & boundingBox) const {
 	
-	if(boxPlanes.left.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.left.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 	
-	if(boxPlanes.right.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.right.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 	
-	if(boxPlanes.front.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.front.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 	
-	if(boxPlanes.top.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.top.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 	
-	if(boxPlanes.back.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.back.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 	
-	if(boxPlanes.bottom.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.bottom.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 	
 	return true;
 

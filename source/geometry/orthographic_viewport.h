@@ -97,29 +97,23 @@ template<typename Type>
 bool ms::math::OrthographicViewport<Type>::is_in_camera_sight (mat4 const & boundingBoxTransformation,
 															   BoundingBox<Type> const & boundingBox) const {
 
-	if(boxPlanes.left.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.left.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 
-	if(boxPlanes.right.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.right.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 
-	if(boxPlanes.front.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.front.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 
-	if(boxPlanes.top.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.top.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 	
-	if(boxPlanes.back.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.back.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 
-	if(boxPlanes.bottom.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front) {
+	if(boxPlanes.bottom.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-	}
 
 	return true;
 	
