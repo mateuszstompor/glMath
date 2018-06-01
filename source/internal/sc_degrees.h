@@ -15,7 +15,7 @@
 namespace ms {
 	
 	namespace math {
-	
+		
 		template <typename T, UNSIGNED_TYPE Dimension>
 		class Vector;
 		
@@ -46,7 +46,7 @@ namespace ms {
 		}
 		
 	}
-
+	
 }
 
 template <typename Type>

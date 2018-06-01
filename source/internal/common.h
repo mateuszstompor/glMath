@@ -14,24 +14,24 @@
 
 #ifdef __WIN32__
 
-    #define _USE_MATH_DEFINES
-    #include <math.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 #else
 
-    #include <cmath>
+#include <cmath>
 
 #endif
 
 
 namespace ms {
-
+	
 	namespace math {
-
-		#define UNSIGNED_TYPE std::uint8_t
-
+		
+#define UNSIGNED_TYPE std::uint8_t
+		
 	}
-
+	
 }
 
 // FUNCTIONS
@@ -57,17 +57,17 @@ namespace ms {
 	}
 	
 	namespace math {
-
+		
 		template <typename Type>
 		inline Type degrees(Type radians) {
 			return radians * Type{180.0} / M_PI;
 		}
-
+		
 		template <typename Type>
 		inline Type radians(Type degrees) {
 			return M_PI * (degrees / Type{180.0});
 		}
-
+		
 		namespace point {
 			
 			template <typename Type>
@@ -81,7 +81,7 @@ namespace ms {
 			}
 			
 		}
-
+		
 	}
-
+	
 }

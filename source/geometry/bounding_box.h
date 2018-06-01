@@ -26,7 +26,7 @@
 //
 
 namespace ms {
-    
+	
 	namespace math {
 		
 		template <typename Type>
@@ -44,9 +44,9 @@ namespace ms {
 			
 		public:
 			
-										BoundingBox		(Type x, Type X,
-														 Type y, Type Y,
-														 Type z, Type Z);
+			BoundingBox		(Type x, Type X,
+							 Type y, Type Y,
+							 Type z, Type Z);
 			
 			constexpr vec4T &			operator []		(size_t index);
 			constexpr vec4T const &		operator []		(size_t index) const;
@@ -72,7 +72,7 @@ namespace ms {
 		};
 		
 	}
-    
+	
 }
 
 template <typename Type>

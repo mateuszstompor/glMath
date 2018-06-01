@@ -19,7 +19,7 @@ namespace ms {
 			
 		public:
 			
-												Vector				() = default;
+			Vector				() = default;
 			
 			inline 								Vector				(const Vector & v);
 			inline 								Vector				(const Vector<float, 3> & v, float value);
@@ -27,11 +27,11 @@ namespace ms {
 			inline 								Vector				(float x, float y, float z, float w);
 			inline 								Vector				(const spco::DegreesSpherical<float> & sphericalCoordinates);
 			inline 								Vector				(const spco::RadiansSpherical<float> & sphericalCoordinates);
-		
-												~Vector() = default;
+			
+			~Vector() = default;
 			
 			inline Vector &						operator	=		(const Vector & v);
-	
+			
 			inline bool							operator	==		(const Vector & v) const;
 			inline bool							operator	!=		(const Vector & v) const;
 			inline Vector						operator	+		(const Vector & v) const;
@@ -87,7 +87,7 @@ namespace ms {
 			inline Vector<float, 2> 			xy					() const;
 			
 			float 								components [4];
-
+			
 		};
 		
 	}
@@ -134,9 +134,9 @@ bool ms::math::Vector<float, 4>::operator != (const Vector & v) const {
 
 float ms::math::Vector<float, 4>::dot(const Vector & v) const {
 	return 	this->components[0] * v.components[0] +
-			this->components[1] * v.components[1] +
-			this->components[2] * v.components[2] +
-			this->components[3] * v.components[3];
+	this->components[1] * v.components[1] +
+	this->components[2] * v.components[2] +
+	this->components[3] * v.components[3];
 }
 
 constexpr float ms::math::Vector<float, 4>::dot_xyz(const Vector & v) const {
@@ -224,7 +224,7 @@ ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::operator += (const Vect
 	this->components[2] += v.components[2];
 	this->components[3] += v.components[3];
 	return *this;
-
+	
 }
 
 ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::operator -= (const Vector & v) {
@@ -269,7 +269,7 @@ std::string ms::math::Vector<float, 4>::to_string() const {
 	output << components[1] << " ";
 	output << components[2] << " ";
 	output << components[3] << " ";
-
+	
 	return output.str();
 }
 

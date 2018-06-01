@@ -18,15 +18,15 @@
 namespace ms {
 	
 	namespace math {
-	
+		
 		template <typename T, UNSIGNED_TYPE Dimension>
 		class Vector;
 		
 		template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 		class Matrix {
 			
-		template <typename T, UNSIGNED_TYPE Dimension>
-		friend class Vector;
+			template <typename T, UNSIGNED_TYPE Dimension>
+			friend class Vector;
 			
 		public:
 			
@@ -38,10 +38,10 @@ namespace ms {
 			
 		public:
 			
-										Matrix				();
-										Matrix				(Type value);
-										Matrix				(const Matrix & m);
-										Matrix				(const Type array [Rows * Columns]);
+			Matrix				();
+			Matrix				(Type value);
+			Matrix				(const Matrix & m);
+			Matrix				(const Type array [Rows * Columns]);
 			
 			Matrix &					operator =			(const Matrix & m);
 			
@@ -162,7 +162,7 @@ template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 template <UNSIGNED_TYPE C>
 ms::math::Matrix<Type, Rows, C> ms::math::Matrix<Type, Rows, Columns> :: operator * (const Matrix<Type, Columns, C> & m) const {
 	Matrix <Type, Rows, C> result;
-
+	
 	for(UNSIGNED_TYPE outerIterator = 0; outerIterator < Rows; ++outerIterator)
 		for (UNSIGNED_TYPE innerIterator = 0; innerIterator < C; ++innerIterator) {
 			result.components[Rows * innerIterator + outerIterator] = 0;

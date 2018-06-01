@@ -46,9 +46,9 @@ namespace ms {
 			
 		public:
 			
-												OrthographicViewport 	(Type _far, 	Type _near,
-																		 Type _top, 	Type _bottom,
-																		 Type _right,	Type _left);
+			OrthographicViewport 	(Type _far, 	Type _near,
+									 Type _top, 	Type _bottom,
+									 Type _right,	Type _left);
 			
 			bool 								is_in_camera_sight 		(mat4 const & boundingBoxTransformation,
 																		 BoundingBox<Type> const & boundingBox) const;
@@ -74,7 +74,7 @@ ms::math::OrthographicViewport<Type>::OrthographicViewport (Type _far, 		Type _n
 																																			_bottom,
 																																			_left,
 																																			_right))) {
-
+	
 	vec3T c {_left, _bottom, _near};
 	vec3T d {_right, _bottom, _near};
 	vec3T a {_left, _top, _near};
@@ -96,25 +96,25 @@ ms::math::OrthographicViewport<Type>::OrthographicViewport (Type _far, 		Type _n
 template<typename Type>
 bool ms::math::OrthographicViewport<Type>::is_in_camera_sight (mat4 const & boundingBoxTransformation,
 															   BoundingBox<Type> const & boundingBox) const {
-
+	
 	if(boxPlanes.left.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-
+	
 	if(boxPlanes.right.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-
+	
 	if(boxPlanes.front.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-
+	
 	if(boxPlanes.top.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
 	
 	if(boxPlanes.back.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-
+	
 	if(boxPlanes.bottom.get_position(boundingBoxTransformation, boundingBox) == math::Plane<float>::RelativePosition::in_front)
 		return false;
-
+	
 	return true;
 	
 }

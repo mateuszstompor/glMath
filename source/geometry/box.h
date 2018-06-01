@@ -32,7 +32,7 @@
 namespace ms {
 	
 	namespace math {
-	
+		
 		enum class BoxPlane {
 			front, back,
 			left, right,
@@ -51,7 +51,7 @@ namespace ms {
 		
 		template <typename Type>
 		struct BoxPlanes {
-						
+			
 			Plane<Type>     front;
 			Plane<Type>     back;
 			

@@ -106,7 +106,7 @@ namespace ms {
 												  float _right, float _left) {
 				return math::projection::orthogonal<float>(_far, _near, _top, _bottom, _right, _left);
 			}
-
+			
 			inline Matrix<float, 4, 4> orthogonal_cube(float side) {
 				return math::projection::orthogonal_cube<float>(side);
 			}

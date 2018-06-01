@@ -11,66 +11,66 @@
 #include "matrix.h"
 
 namespace ms {
-
+	
 	namespace math {
-
+		
 		template <>
 		class Matrix<float, 4, 4> {
-
+			
 		public:
-
+			
 			//static functions
-
-
+			
+			
 			inline static Matrix 				diagonal			(float value);
 			inline static Matrix 				identity			();
-
+			
 		public:
-												Matrix				() = default;
+			Matrix				() = default;
 			inline 								Matrix				(float value);
 			inline 								Matrix				(const Matrix & m);
 			inline 								Matrix				(const float array [16]);
-
+			
 			inline Matrix 						operator - 			(const Matrix & m) const;
 			inline Matrix & 					operator -= 		(const Matrix & m);
-
+			
 			inline Matrix 						operator + 			(const Matrix & m) const;
 			inline Matrix & 					operator += 		(const Matrix & m);
-
+			
 			inline Matrix & 					operator *= 		(const Matrix & m);
 			inline Matrix &						operator =			(const Matrix & m);
-
+			
 			template <UNSIGNED_TYPE C>
 			inline Matrix<float, 4, C> 			operator * 			(const Matrix<float, 4, C> &) const;
-
+			
 			inline Matrix<float, 4, 4> 			operator * 			(const Matrix<float, 4, 4> & m) const;
 			
 			inline Vector<float, 4>				operator *			(const Vector<float, 4> & b) const;
-
+			
 			inline Matrix & 					operator *= 		(float value);
 			inline Matrix	 					operator *	 		(float value) const;
-
+			
 			inline bool	 						operator ==	 		(const Matrix & m);
 			inline bool	 						operator !=	 		(const Matrix & m);
-
+			
 			inline Matrix 						transposition 		() const;
-
+			
 			inline constexpr float & 			operator []		(UNSIGNED_TYPE index);
-
+			
 			inline constexpr const float & 		operator []			(UNSIGNED_TYPE index) const;
-
+			
 			inline std::string 					to_string			() const;
-
+			
 			inline constexpr float *		 	c_array				();
-
+			
 			inline constexpr const float * 		c_array				() const;
-
+			
 			float								components[16];
-
+			
 		};
-
+		
 	}
-
+	
 }
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: identity () {
@@ -247,14 +247,14 @@ ms::math::Matrix<float, 4, 4> & ms::math::Matrix<float, 4, 4> :: operator *= (co
 template <UNSIGNED_TYPE C>
 ms::math::Matrix<float, 4, C> ms::math::Matrix<float, 4, 4> :: operator * (const Matrix<float, 4, C> & m) const {
 	Matrix <float, 4, C> result;
-
+	
 	for(UNSIGNED_TYPE outerIterator = 0; outerIterator < 4; ++outerIterator)
 		for (UNSIGNED_TYPE innerIterator = 0; innerIterator < C; ++innerIterator) {
 			result.components[4 * innerIterator + outerIterator] = 0;
 			for (UNSIGNED_TYPE i = 0; i < 4; ++i)
 				result.components[4 * innerIterator + outerIterator] += this->components[4*i + outerIterator ] * m.components[4*innerIterator + i];
 		}
-
+	
 	return result;
 }
 
@@ -283,7 +283,7 @@ ms::math::Vector<float, 4> ms::math::Matrix<float, 4, 4> :: operator * (const Ve
 	v.components[1] * this->components[7] +
 	v.components[2] * this->components[11] +
 	v.components[3] * this->components[15];
-
+	
 	return result;
 }
 
@@ -305,7 +305,7 @@ ms::math::Matrix<float, 4, 4> & ms::math::Matrix<float, 4, 4> :: operator *= (fl
 	this->components[13] *= value;
 	this->components[14] *= value;
 	this->components[15] *= value;
-
+	
 	return (*this);
 }
 
@@ -381,7 +381,7 @@ constexpr float * ms::math::Matrix<float, 4, 4> :: c_array() {
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> ::operator * (const Matrix<float, 4, 4> & m) const {
 	Matrix <float, 4, 4> result;
-
+	
 	result.components[0] =
 	this->components[0] * m.components[0] +
 	this->components[4] * m.components[1] +
@@ -459,19 +459,19 @@ ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> ::operator * (const 
 	this->components[7] * m.components[1] +
 	this->components[11] * m.components[2] +
 	this->components[15] * m.components[3];
-
+	
 	result.components[7] =
 	this->components[3] * m.components[4] +
 	this->components[7] * m.components[5] +
 	this->components[11] * m.components[6] +
 	this->components[15] * m.components[7];
-
+	
 	result.components[11] =
 	this->components[3] * m.components[8] +
 	this->components[7] * m.components[9] +
 	this->components[11] * m.components[10] +
 	this->components[15] * m.components[11];
-
+	
 	result.components[15] =
 	this->components[3] * m.components[12] +
 	this->components[7] * m.components[13] +

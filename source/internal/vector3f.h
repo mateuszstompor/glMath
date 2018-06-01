@@ -13,27 +13,27 @@
 #include "sc_radians.h"
 
 namespace ms {
-
+	
 	namespace math {
-
+		
 		template<>
 		class Vector<float, 3> {
-
+			
 		public:
-
-												Vector				() = default;
-
+			
+			Vector				() = default;
+			
 			inline 								Vector				(const Vector & v);
 			inline 								Vector				(const Vector<float, 2> & v, float value);
 			inline 								Vector				(const float array [3]);
 			inline 								Vector				(float x, float y, float z);
 			inline 								Vector				(const spco::DegreesSpherical<float> & sphericalCoordinates);
 			inline 								Vector				(const spco::RadiansSpherical<float> & sphericalCoordinates);
-
-												~Vector() = default;
-
+			
+			~Vector() = default;
+			
 			inline Vector &						operator	=		(const Vector & v);
-
+			
 			inline bool							operator	==		(const Vector & v) const;
 			inline bool							operator	!=		(const Vector & v) const;
 			inline Vector						operator	+		(const Vector & v) const;
@@ -41,55 +41,55 @@ namespace ms {
 			inline Vector 						operator 	- 		(const Vector & v) const;
 			inline Vector & 					operator 	-= 		(const Vector & v);
 			inline Vector						operator	-		() const;
-
+			
 			inline Vector 						operator 	/ 		(float value) const;
 			inline Vector& 						operator 	/= 		(float value);
-
+			
 			inline Vector 						operator 	* 		(float value) const;
 			inline Vector& 						operator 	*= 		(float value);
-
+			
 			template <UNSIGNED_TYPE Columns>
 			Vector<float, Columns>				operator	*		(const Matrix<float, 3, Columns> &) const;
-
+			
 			template <UNSIGNED_TYPE Columns>
 			inline Vector<float, Columns> &		operator	*=		(const Matrix<float, 3, Columns> &);
-
+			
 			inline constexpr float & 			operator 	[] 		(size_t position);
 			inline constexpr float const & 		operator 	[] 		(size_t position) const;
-
+			
 			inline float 						dot					(const Vector & v) const;
 			inline constexpr float 				dot_xyz				(const Vector & v) const;
-
+			
 			inline Vector 						cross				(const Vector & v) const;
-
+			
 			inline float	 					length				() const;
 			inline float	 					length2				() const;
-
+			
 			inline Vector &	 					normalize			();
 			inline Vector						normalized			() const;
-
+			
 			inline std::string 					to_string			() const;
-
+			
 			inline constexpr float *		 	c_array				();
 			inline constexpr const float * 		c_array				() const;
-
+			
 			inline constexpr float const &		x					() const;
 			inline constexpr float &			x					();
-
+			
 			inline constexpr float const &		y					() const;
 			inline constexpr float &			y					();
-
+			
 			inline constexpr float const &		z					() const;
 			inline constexpr float &			z					();
-
+			
 			inline Vector<float, 2> 			xy					() const;
-
+			
 			float 								components [3];
-
+			
 		};
-
+		
 	}
-
+	
 }
 
 ms::math::Vector<float, 3>::Vector(const Vector & v) {
@@ -132,8 +132,8 @@ bool ms::math::Vector<float, 3>::operator != (const Vector & v) const {
 
 float ms::math::Vector<float, 3>::dot(const Vector & v) const {
 	return 	this->components[0] * v.components[0] +
-			this->components[1] * v.components[1] +
-			this->components[2] * v.components[2];
+	this->components[1] * v.components[1] +
+	this->components[2] * v.components[2];
 }
 
 constexpr float ms::math::Vector<float, 3>::dot_xyz (const Vector & v) const {
@@ -217,7 +217,7 @@ ms::math::Vector<float, 3> & ms::math::Vector<float, 3>::operator += (const Vect
 	this->components[1] += v.components[1];
 	this->components[2] += v.components[2];
 	return *this;
-
+	
 }
 
 ms::math::Vector<float, 3> & ms::math::Vector<float, 3>::operator -= (const Vector & v) {
@@ -251,11 +251,11 @@ ms::math::Vector<float, 3> ms::math::Vector<float, 3> :: normalized() const {
 
 std::string ms::math::Vector<float, 3>::to_string() const {
 	std::ostringstream output;
-
+	
 	output << components[0] << " ";
 	output << components[1] << " ";
 	output << components[2] << " ";
-
+	
 	return output.str();
 }
 

@@ -16,13 +16,13 @@ namespace ms {
 		
 		template <typename T, UNSIGNED_TYPE Dimension>
 		class Vector;
-
+		
 		template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
 		class Matrix;
-
+		
 		template <typename Type>
 		class FrustumViewport;
-
+		
 	}
 	
 }

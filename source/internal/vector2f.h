@@ -11,24 +11,24 @@
 #include "vector.h"
 
 namespace ms {
-
+	
 	namespace math {
-
+		
 		template<>
 		class Vector<float, 2> {
-
+			
 		public:
-
-												Vector				() = default;
+			
+			Vector				() = default;
 			inline 								Vector				(const Vector & v);
 			inline 								Vector				(const Vector<float, 1> & v, float value);
 			inline 								Vector				(const float array [2]);
 			inline 								Vector				(float x, float y);
-
-												~Vector() = default;
-
+			
+			~Vector() = default;
+			
 			inline Vector &						operator	=		(const Vector & v);
-
+			
 			inline bool							operator	==		(const Vector & v) const;
 			inline bool							operator	!=		(const Vector & v) const;
 			inline Vector						operator	+		(const Vector & v) const;
@@ -36,47 +36,47 @@ namespace ms {
 			inline Vector 						operator 	- 		(const Vector & v) const;
 			inline Vector & 					operator 	-= 		(const Vector & v);
 			inline Vector						operator	-		() const;
-
+			
 			inline Vector 						operator 	/ 		(float value) const;
 			inline Vector& 						operator 	/= 		(float value);
-
+			
 			inline Vector 						operator 	* 		(float value) const;
 			inline Vector& 						operator 	*= 		(float value);
-
+			
 			template <UNSIGNED_TYPE Columns>
 			Vector<float, Columns>				operator	*		(const Matrix<float, 2, Columns> &) const;
-
+			
 			template <UNSIGNED_TYPE Columns>
 			inline Vector<float, Columns> &		operator	*=		(const Matrix<float, 2, Columns> &);
-
+			
 			inline constexpr float & 			operator 	[] 		(size_t position);
 			inline constexpr float const & 		operator 	[] 		(size_t position) const;
-
+			
 			inline float 						dot					(const Vector & v) const;
-
+			
 			inline float	 					length				() const;
 			inline float	 					length2				() const;
-
+			
 			inline Vector &	 					normalize			();
 			inline Vector						normalized			() const;
-
+			
 			inline std::string 					to_string			() const;
-
+			
 			inline constexpr float *		 	c_array				();
 			inline constexpr const float * 		c_array				() const;
-
+			
 			inline constexpr float const &		x					() const;
 			inline constexpr float &			x					();
-
+			
 			inline constexpr float const &		y					() const;
 			inline constexpr float &			y					();
-
+			
 			float 								components [2];
-
+			
 		};
-
+		
 	}
-
+	
 }
 
 ms::math::Vector<float, 2>::Vector(const Vector & v) {
@@ -109,7 +109,7 @@ bool ms::math::Vector<float, 2>::operator != (const Vector & v) const {
 
 float ms::math::Vector<float, 2>::dot(const Vector & v) const {
 	return 	this->components[0] * v.components[0] +
-			this->components[1] * v.components[1];
+	this->components[1] * v.components[1];
 }
 
 ms::math::Vector<float, 2> & ms::math::Vector<float, 2>::operator /= (float value) {
@@ -176,7 +176,7 @@ ms::math::Vector<float, 2> & ms::math::Vector<float, 2>::operator += (const Vect
 	this->components[0] += v.components[0];
 	this->components[1] += v.components[1];
 	return *this;
-
+	
 }
 
 ms::math::Vector<float, 2> & ms::math::Vector<float, 2>::operator -= (const Vector & v) {

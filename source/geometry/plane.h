@@ -32,10 +32,10 @@ namespace ms {
 				intersects,
 				behind
 			};
-										Plane	();
+			Plane	();
 			
-										Plane	(const vec3T & normal,
-												 const vec3T & origin);
+			Plane	(const vec3T & normal,
+					 const vec3T & origin);
 			
 			//																						//
 			// checks if vector from origin to second point and normal vector are perpendicular		//
@@ -51,8 +51,8 @@ namespace ms {
 			constexpr vec4T const &		get_origin4		() const;
 			
 			//clockwise
-		static Plane from_points(vec3T const & firstPoint, vec3T const & origin, vec3T const & secondPoint);
-		static Plane from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint);
+			static Plane from_points(vec3T const & firstPoint, vec3T const & origin, vec3T const & secondPoint);
+			static Plane from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint);
 			
 		private:
 			
@@ -91,14 +91,14 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool inFront = true;
 	bool behind = true;
 	bool result = true;
-
+	
 	for(int i{0}; i < 8 && (behind || inFront); ++i) {
 		result = ((m * boundingBox.corners[i]) -= originPoint4).dot_xyz(normal4) > 0;
-
+		
 		inFront = inFront && result;
 		behind = behind && !result;
 	}
-
+	
 	return (inFront || behind) == false ? RelativePosition::intersects :
 	(inFront == false ? RelativePosition::behind : RelativePosition::in_front);
 }
@@ -108,14 +108,14 @@ typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_posi
 	bool isInFront = true;
 	bool isBehind = true;
 	bool result = true;
-
+	
 	for(int i = 0; i < 8 && (isBehind || isInFront); ++i) {
 		result = (boundingBox.corners[i] - originPoint4).dot_xyz(normal4) > 0;
-
+		
 		isInFront = isInFront && result;
 		isBehind = isBehind && !result;
 	}
-
+	
 	return isInFront == false && isBehind == false ? RelativePosition::intersects :
 	(isInFront == false ? RelativePosition::behind : RelativePosition::in_front);
 }
