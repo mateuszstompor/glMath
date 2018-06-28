@@ -32,7 +32,6 @@ namespace ms {
     namespace math {
         
         //matrices
-        
         typedef ms::math::Matrix<float, 2, 2>       mat2;
         typedef ms::math::Matrix<float, 3, 3>       mat3;
         typedef ms::math::Matrix<float, 4, 4>       mat4;

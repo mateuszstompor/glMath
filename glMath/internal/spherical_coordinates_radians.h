@@ -30,10 +30,10 @@ namespace ms {
                 
             public:
                 
-                RadiansSpherical(Type inclination, Type azimuthAngle, Type radius);
-                RadiansSpherical(ms::math::Vector<Type, 3> v);
-                RadiansSpherical(DegreesSpherical<Type> degreesSpherical);
-                RadiansSpherical();
+                RadiansSpherical    (Type inclination, Type azimuthAngle, Type radius);
+                RadiansSpherical    (ms::math::Vector<Type, 3> v);
+                RadiansSpherical    (DegreesSpherical<Type> degreesSpherical);
+                RadiansSpherical    ();
                 
                 Type 				inclination;
                 Type 				azimuthAngle;

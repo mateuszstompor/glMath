@@ -22,7 +22,7 @@ namespace ms {
             
             template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
             Matrix<Type, Dimension, Dimension> scale (Vector<Type, (Dimension - 1) > scaleFactors) {
-                static_assert(	Dimension	>=	2		, "Matrix needs to at least two - dimensional" );
+                static_assert(	Dimension	>=	2, "Matrix needs to at least two - dimensional" );
                 
                 Matrix<Type, Dimension, Dimension> scale = Matrix<Type, Dimension, Dimension>::identity();
                 

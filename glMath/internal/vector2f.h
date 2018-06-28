@@ -25,7 +25,7 @@ namespace ms {
             inline 								Vector				(const float array [2]);
             inline 								Vector				(float x, float y);
             
-                                                ~Vector() = default;
+                                                ~Vector             () = default;
             
             inline Vector &						operator	=		(const Vector & v);
             

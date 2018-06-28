@@ -25,7 +25,7 @@ namespace ms {
             inline static Matrix 				identity			();
             
         public:
-            Matrix				() = default;
+                                                Matrix				() = default;
             inline 								Matrix				(float value);
             inline 								Matrix				(const Matrix & m);
             inline 								Matrix				(const float array [16]);
@@ -52,16 +52,12 @@ namespace ms {
             inline bool	 						operator ==	 		(const Matrix & m);
             inline bool	 						operator !=	 		(const Matrix & m);
             
-            inline Matrix 						transposition 		() const;
-            
-            inline constexpr float & 			operator []		(UNSIGNED_TYPE index);
-            
+            inline constexpr float & 			operator []		    (UNSIGNED_TYPE index);
             inline constexpr const float & 		operator []			(UNSIGNED_TYPE index) const;
             
+            inline Matrix                       transposition       () const;
             inline std::string 					to_string			() const;
-            
             inline constexpr float *		 	c_array				();
-            
             inline constexpr const float * 		c_array				() const;
             
             float								components[16];

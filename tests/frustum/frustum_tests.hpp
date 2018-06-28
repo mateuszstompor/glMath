@@ -6,7 +6,7 @@
 #include <iostream>
 #include <ctime>
 
-#include "../../source/glMath.h"
+#include <glMath/glMath.h>
 #include "../helper.h"
 
 using namespace ms;

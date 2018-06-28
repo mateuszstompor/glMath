@@ -28,7 +28,7 @@ namespace ms {
             inline 								Vector				(float x, float y, float z);
             inline 								Vector				(const spco::RadiansSpherical<float> & sphericalCoordinates);
             
-                                                ~Vector() = default;
+                                                ~Vector             () = default;
             
             inline Vector &						operator	=		(const Vector & v);
             

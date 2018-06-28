@@ -38,10 +38,10 @@ namespace ms {
             
         public:
             
-            Matrix				();
-            Matrix				(Type value);
-            Matrix				(const Matrix & m);
-            Matrix				(const Type array [Rows * Columns]);
+                                        Matrix				();
+                                        Matrix				(Type value);
+                                        Matrix				(const Matrix & m);
+                                        Matrix				(const Type array [Rows * Columns]);
             
             Matrix &					operator =			(const Matrix & m);
             
