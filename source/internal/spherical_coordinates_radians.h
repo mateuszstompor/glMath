@@ -1,5 +1,5 @@
 //
-//  sc_radians.h
+//  spherical_coordinates_radians.h
 //  glMath
 //
 //  Created by Mateusz Stompór on 25/02/2018.

@@ -21,7 +21,6 @@ namespace ms {
             
             //static functions
             
-            
             inline static Matrix 				diagonal			(float value);
             inline static Matrix 				identity			();
             

@@ -19,16 +19,14 @@ namespace ms {
             
         public:
             
-            Vector				() = default;
-            
+                                                Vector				() = default;
             inline 								Vector				(const Vector & v);
             inline 								Vector				(const Vector<float, 3> & v, float value);
             inline 								Vector				(const float array [4]);
             inline 								Vector				(float x, float y, float z, float w);
-            inline 								Vector				(const spco::DegreesSpherical<float> & sphericalCoordinates);
             inline 								Vector				(const spco::RadiansSpherical<float> & sphericalCoordinates);
             
-            ~Vector() = default;
+                                                ~Vector() = default;
             
             inline Vector &						operator	=		(const Vector & v);
             
@@ -113,8 +111,6 @@ ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::operator=(const Vector 
     std::memcpy((*this).components, v.components, 4 * sizeof(float));
     return *this;
 }
-
-ms::math::Vector<float, 4> :: Vector (const spco::DegreesSpherical <float> & sphericalCoordinates) : Vector( spco::RadiansSpherical <float> ( sphericalCoordinates ) ) { }
 
 ms::math::Vector<float, 4> :: Vector (const spco::RadiansSpherical <float> & sphericalCoordinates) {
     components[0] = sphericalCoordinates.radius * std::cos(sphericalCoordinates.azimuthAngle)	* std::sin(sphericalCoordinates.inclination);

@@ -84,11 +84,10 @@
 		567B5F7920703B3300855C50 /* plane_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane_tests.cpp; sourceTree = "<group>"; };
 		568294972044C7F4003BF4CC /* transformations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = transformations.h; sourceTree = "<group>"; usesTabs = 0; };
 		568294982044C7F4003BF4CC /* matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; usesTabs = 0; };
-		568294992044C7F4003BF4CC /* sc_radians.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sc_radians.h; sourceTree = "<group>"; usesTabs = 0; };
+		568294992044C7F4003BF4CC /* spherical_coordinates_radians.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spherical_coordinates_radians.h; sourceTree = "<group>"; usesTabs = 0; };
 		5682949A2044C7F4003BF4CC /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; usesTabs = 0; };
 		5682949B2044C7F4003BF4CC /* vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; usesTabs = 0; };
 		5682949C2044C7F4003BF4CC /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
-		5682949D2044C8D3003BF4CC /* sc_degrees.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sc_degrees.h; sourceTree = "<group>"; usesTabs = 0; };
 		5682949E2044CAB5003BF4CC /* projections.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = projections.h; sourceTree = "<group>"; };
 		568BCA10203F181900E02F23 /* matrix_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix_tests.cpp; sourceTree = "<group>"; };
 		568BCA11203F181900E02F23 /* matrix_testing_program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix_testing_program.cpp; sourceTree = "<group>"; };
@@ -231,8 +230,7 @@
 		568294962044C7F4003BF4CC /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				5682949D2044C8D3003BF4CC /* sc_degrees.h */,
-				568294992044C7F4003BF4CC /* sc_radians.h */,
+				568294992044C7F4003BF4CC /* spherical_coordinates_radians.h */,
 				568294972044C7F4003BF4CC /* transformations.h */,
 				568294982044C7F4003BF4CC /* matrix.h */,
 				567084D6207ABE4700CFA63C /* matrix3f.h */,

@@ -21,49 +21,44 @@ namespace ms {
             
             //static functions
             
-            inline static Matrix 				diagonal			(float value);
+            inline static Matrix 				diagonal			(float);
             inline static Matrix 				identity			();
             
         public:
-            Matrix				() = default;
-            inline 								Matrix				(float value);
-            inline 								Matrix				(const Matrix & m);
-            inline 								Matrix				(const float array [9]);
+                                                Matrix				() = default;
+            inline 								Matrix				(float);
+            inline 								Matrix				(const Matrix &);
+            inline 								Matrix				(const float [9]);
             
-            inline Matrix 						operator - 			(const Matrix & m) const;
-            inline Matrix & 					operator -= 		(const Matrix & m);
+            inline Matrix 						operator - 			(const Matrix &) const;
+            inline Matrix & 					operator -= 		(const Matrix &);
             
-            inline Matrix 						operator + 			(const Matrix & m) const;
-            inline Matrix & 					operator += 		(const Matrix & m);
+            inline Matrix 						operator + 			(const Matrix &) const;
+            inline Matrix & 					operator += 		(const Matrix &);
             
-            inline Matrix & 					operator *= 		(const Matrix & m);
-            inline Matrix &						operator =			(const Matrix & m);
+            inline Matrix & 					operator *= 		(const Matrix &);
+            inline Matrix &						operator =			(const Matrix &);
             
             template <UNSIGNED_TYPE C>
             inline Matrix<float, 3, C> 			operator * 			(const Matrix<float, 3, C> &) const;
             
-            inline Matrix<float, 3, 3> 			operator * 			(const Matrix<float, 3, 3> & m) const;
+            inline Matrix<float, 3, 3> 			operator * 			(const Matrix<float, 3, 3> &) const;
             
-            inline Vector<float, 3>				operator *			(const Vector<float, 3> & b) const;
+            inline Vector<float, 3>				operator *			(const Vector<float, 3> &) const;
             
-            inline Matrix & 					operator *= 		(float value);
-            inline Matrix	 					operator *	 		(float value) const;
+            inline Matrix & 					operator *= 		(float);
+            inline Matrix	 					operator *	 		(float) const;
             
-            inline bool	 						operator ==	 		(const Matrix & m);
-            inline bool	 						operator !=	 		(const Matrix & m);
+            inline bool	 						operator ==	 		(const Matrix &);
+            inline bool	 						operator !=	 		(const Matrix &);
             
-            inline Matrix 						transposition 		() const;
+            inline constexpr float & 			operator []			(UNSIGNED_TYPE);
+            inline constexpr const float & 		operator []			(UNSIGNED_TYPE) const;
             
-            inline constexpr float & 			operator []			(UNSIGNED_TYPE index);
-            
-            inline constexpr const float & 		operator []			(UNSIGNED_TYPE index) const;
-            
+            inline Matrix                       transposition       () const;
             inline std::string 					to_string			() const;
-            
             inline constexpr float *		 	c_array				();
-            
             inline constexpr const float * 		c_array				() const;
-            
             float								components[9];
             
         };

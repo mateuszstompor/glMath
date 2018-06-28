@@ -28,7 +28,7 @@ namespace ms {
     
     namespace math {
         
-#define UNSIGNED_TYPE std::uint8_t
+        #define UNSIGNED_TYPE std::uint8_t
         
     }
     

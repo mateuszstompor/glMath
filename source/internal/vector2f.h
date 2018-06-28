@@ -19,13 +19,13 @@ namespace ms {
             
         public:
             
-            Vector				() = default;
+                                                Vector				() = default;
             inline 								Vector				(const Vector & v);
             inline 								Vector				(const Vector<float, 1> & v, float value);
             inline 								Vector				(const float array [2]);
             inline 								Vector				(float x, float y);
             
-            ~Vector() = default;
+                                                ~Vector() = default;
             
             inline Vector &						operator	=		(const Vector & v);
             

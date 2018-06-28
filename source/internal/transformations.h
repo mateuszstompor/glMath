@@ -20,7 +20,7 @@ namespace ms {
         
         namespace transform {
             
-            template <typename Type, UNSIGNED_TYPE Dimension>
+            template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
             Matrix<Type, Dimension, Dimension> scale (Vector<Type, (Dimension - 1) > scaleFactors) {
                 static_assert(	Dimension	>=	2		, "Matrix needs to at least two - dimensional" );
                 
@@ -32,7 +32,7 @@ namespace ms {
                 return scale;
             }
             
-            template<typename Type>
+            template<typename Type = float>
             Matrix<Type, 4, 4> look_at (const Vector<Type, 3> & eyePosition, const Vector<Type, 3> & originPosition, const Vector<Type, 3> & upVector) {
                 
                 auto z = (originPosition - eyePosition).normalized();
@@ -66,13 +66,13 @@ namespace ms {
             
             // TODO OPTIMIZE IT
             // Use when you do not need to have up vector specified precisely
-            template<typename Type>
+            template<typename Type = float>
             Matrix<Type, 4, 4> directional_look (const Vector<Type, 3> & direction, const Vector<Type, 3> & eyePosition = Vector<Type, 3>(Type(0.0), Type(0.0), Type(0.0)))  {
                 auto up = Vector<Type, 3>(direction[0], direction[1], direction[2] * Type(2.0)).cross(direction);
                 return look_at(eyePosition, eyePosition + direction, up);
             }
             
-            template <typename Type, UNSIGNED_TYPE Dimension>
+            template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
             Matrix<Type, Dimension, Dimension> translate (Vector<Type, (Dimension - 1) > translationFactors) {
                 static_assert(	Dimension	>=	2		, "Matrix needs to at least two - dimensional" );
                 
@@ -85,7 +85,7 @@ namespace ms {
                 return translation;
             }
             
-            template <typename Type, UNSIGNED_TYPE Dimension>
+            template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
             Matrix<Type, Dimension, Dimension> rotate_about_x_radians (Type radians) {
                 Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
                 static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
@@ -99,7 +99,7 @@ namespace ms {
                 return rotation;
             }
             
-            template <typename Type, UNSIGNED_TYPE Dimension>
+            template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
             Matrix<Type, Dimension, Dimension> rotate_about_y_radians (Type radians) {
                 Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
                 
@@ -114,7 +114,7 @@ namespace ms {
                 return rotation;
             }
             
-            template <typename Type, UNSIGNED_TYPE Dimension>
+            template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
             Matrix<Type, Dimension, Dimension> rotate_about_z_radians (Type radians) {
                 Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
                 
@@ -130,7 +130,7 @@ namespace ms {
             }
             
             // VECTOR NEEDS TO BE NORMALIZED
-            template <typename Type, UNSIGNED_TYPE Dimension>
+            template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
             Matrix<Type, Dimension, Dimension> rotate_about_axis (Type radians, Vector<Type, Dimension> v) {
                 Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
                 static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
@@ -155,76 +155,31 @@ namespace ms {
             
         }
         
-        template <typename Type>
+        template <typename Type = float>
         Vector<Type, 3> get_position (const Matrix<Type, 4, 4> & transformation) {
             return (transformation * Vector<Type, 4>(Type(0), Type(0), Type(0), Type(1))).xyz();
         }
         
-        template <typename Type>
+        template <typename Type = float>
         void set_position (Matrix<Type, 4, 4> & transformation, const Vector<Type, 3> & position) {
             transformation[12] = position[0];
             transformation[13] = position[1];
             transformation[14] = position[2];
         }
         
-        template <typename Type>
+        template <typename Type = float>
         Vector<Type, 3> up (const Matrix<Type, 4, 4> & transformation) {
             return Vector<Type, 3>{transformation[1], transformation[5], transformation[9]};
         }
         
-        template <typename Type>
+        template <typename Type = float>
         Vector<Type, 3> right (const Matrix<Type, 4, 4> & transformation) {
             return Vector<Type, 3>{transformation[0], transformation[4], transformation[8]};
         }
         
-        template <typename Type>
+        template <typename Type = float>
         Vector<Type, 3> back (const Matrix<Type, 4, 4> & transformation) {
             return Vector<Type, 3>{transformation[2], transformation[6], transformation[10]};
-        }
-        
-        //eased access to commonly used function
-        namespace transform4f {
-            
-            inline Vector<float, 3> up (const Matrix<float, 4, 4> & transformation) {
-                return Vector<float, 3>{transformation[1], transformation[5], transformation[9]};
-            }
-            
-            inline Vector<float, 3> right (const Matrix<float, 4, 4> & transformation) {
-                return Vector<float, 3>{transformation[0], transformation[4], transformation[8]};
-            }
-            
-            inline Vector<float, 3> back (const Matrix<float, 4, 4> & transformation) {
-                return Vector<float, 3>{transformation[2], transformation[6], transformation[10]};
-            }
-            
-            inline Matrix<float, 4, 4> translate (Vector<float, 3> translationFactors) {
-                Matrix<float, 4, 4> translation = Matrix<float, 4, 4>::identity();
-                translation[12] = translationFactors[0];
-                translation[13] = translationFactors[1];
-                translation[14] = translationFactors[2];
-                return translation;
-            }
-            
-            inline Matrix<float, 4, 4> scale (Vector<float, 3> scaleFactors) {
-                return math::transform::scale<float, 4>(scaleFactors);
-            }
-            
-            inline Matrix<float, 4, 4> rotate_about_x_radians (float radians) {
-                return transform::rotate_about_x_radians<float, 4>(radians);
-            }
-            
-            inline Matrix<float, 4, 4> rotate_about_y_radians (float radians) {
-                return transform::rotate_about_y_radians<float, 4>(radians);
-            }
-            
-            inline Matrix<float, 4, 4> rotate_about_z_radians (float radians) {
-                return transform::rotate_about_z_radians<float, 4>(radians);
-            }
-            
-            inline Matrix<float, 4, 4> look_at (const Vector<float, 3> & eyePosition, const Vector<float, 3> & originPosition, const Vector<float, 3> & upVector) {
-                return transform::look_at(eyePosition, originPosition, upVector);
-            }
-            
         }
         
     }

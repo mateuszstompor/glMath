@@ -21,9 +21,6 @@ namespace ms {
         namespace spco {
             
             template <typename Type>
-            struct DegreesSpherical;
-            
-            template <typename Type>
             struct RadiansSpherical;
             
         }
@@ -36,17 +33,16 @@ namespace ms {
             
         public:
             
-            Vector				();
-            Vector				(Type value);
-            Vector				(const Vector & v);
-            Vector				(const Vector<Type, Dimension - 1> & v, Type value);
-            Vector				(const Type array [Dimension]);
-            Vector				(Type x, Type y);
-            Vector				(Type x, Type y, Type z);
-            Vector				(Type x, Type y, Type z, Type w);
-            Vector				(Type x, Type y, Type z, Type w, Type p);
-            Vector				(const spco::DegreesSpherical<Type> & sphericalCoordinates);
-            Vector				(const spco::RadiansSpherical<Type> & sphericalCoordinates);
+                                        Vector				();
+                                        Vector				(Type value);
+                                        Vector				(const Vector & v);
+                                        Vector				(const Vector<Type, Dimension - 1> & v, Type value);
+                                        Vector				(const Type array [Dimension]);
+                                        Vector				(Type x, Type y);
+                                        Vector				(Type x, Type y, Type z);
+                                        Vector				(Type x, Type y, Type z, Type w);
+                                        Vector				(Type x, Type y, Type z, Type w, Type p);
+                                        Vector				(const spco::RadiansSpherical<Type> & sphericalCoordinates);
             
             Vector &					operator	=		(const Vector & v);
             bool						operator	==		(const Vector & v) const;
@@ -174,11 +170,6 @@ template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(const Vector & v) {
     std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
     return *this;
-}
-
-template <typename Type, UNSIGNED_TYPE Dimension>
-ms::math::Vector<Type, Dimension> :: Vector (const spco::DegreesSpherical <Type> & sphericalCoordinates) : Vector( spco::RadiansSpherical <Type> ( sphericalCoordinates ) ) {
-    static_assert(Dimension == 3, "Spherical system requires dimension of three");
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>

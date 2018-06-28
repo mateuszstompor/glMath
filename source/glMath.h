@@ -18,8 +18,7 @@
 #include "internal/matrix4f.h"
 #include "internal/matrix3f.h"
 #include "internal/transformations.h"
-#include "internal/sc_radians.h"
-#include "internal/sc_degrees.h"
+#include "internal/spherical_coordinates_radians.h"
 #include "internal/projections.h"
 
 #include "geometry/frustum_viewport.h"

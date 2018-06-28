@@ -456,69 +456,6 @@ void VectorTest::testMatrixMult() {
 	
 }
 
-void VectorTest::testSphericalCoordinatesConversionDegrees() {
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, ms::math::degrees<float>(0), 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(180, ms::math::degrees<float>(M_PI), 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(90, ms::math::degrees<float>(M_PI / 2.0), 0.001);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, ms::math::radians<float>(0), 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI / 2.0, ms::math::radians<float>(90), 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI, ms::math::radians<float>(180), 0.001);
-
-	math::spco::DegreesSpherical<float> co;
-	math::Vector<float, 3> vec1;
-
-	co.radius = 5.0f;
-	co.azimuthAngle = 60.0f;
-	co.inclination = 30.0f;
-
-	vec1 = math::Vector<float, 3>(co);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.25, vec1[0], 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(2.165063509, vec1[1], 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(4.330127019, vec1[2], 0.001);
-
-
-
-	co.radius = 1.0f;
-	co.azimuthAngle = 0;
-	co.inclination = 0.0f;
-
-	vec1 = math::Vector<float, 3>(co);
-
-	CPPUNIT_ASSERT(vec1[0] == 0);
-	CPPUNIT_ASSERT(vec1[1] == 0);
-	CPPUNIT_ASSERT(vec1[2] == 1);
-
-	CPPUNIT_ASSERT(vec1.x() == 0);
-	CPPUNIT_ASSERT(vec1.y() == 0);
-	CPPUNIT_ASSERT(vec1.z() == 1);
-
-	co = math::spco::DegreesSpherical<float>(vec1);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, co.radius, 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, co.azimuthAngle, 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, co.inclination, 0.001);
-
-	vec1[0] = 3.0f;
-	vec1[1] = 0.0f;
-	vec1[2] = 0.0f;
-
-	co = math::spco::DegreesSpherical<float>(vec1);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(3, co.radius, 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, co.azimuthAngle, 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(90, co.inclination, 0.001);
-
-	math::spco::RadiansSpherical<float> co2(co);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(3, co2.radius, 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, co2.azimuthAngle, 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI / 2, co2.inclination, 0.001);
-	
-}
-
 void VectorTest::testSphericalCoordinatesConversionRadians() {
 	
 	math::spco::RadiansSpherical<float> co;
@@ -552,11 +489,6 @@ void VectorTest::testSphericalCoordinatesConversionRadians() {
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(3, co.radius, 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, co.azimuthAngle, 0.001);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI / 2, co.inclination, 0.001);
-
-	math::spco::DegreesSpherical<float> co2(co);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(3, co2.radius, 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, co2.azimuthAngle, 0.001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(90, co2.inclination, 0.001);
 
 }
 
