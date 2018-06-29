@@ -1,5 +1,5 @@
 CXX = g++
-CXX_FLAGS = -Wall -Werror -std=c++14
+CXX_FLAGS = -Wall -Werror -std=c++14 -I.
 BUILD_FOLDER = build
 MEMORY_DEBUG_FLAGS = -m32 -g -fno-inline -fno-omit-frame-pointer
 
@@ -67,4 +67,5 @@ mem_check: link
 clean:
 	rm -rf ./$(BUILD_FOLDER)
 	rm -f *.x
+	rm -f *.o
 	rm -rf *.dSYM
