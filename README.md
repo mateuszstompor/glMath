@@ -17,7 +17,18 @@ Because classes which belong to project are implemented as templates there is no
 Only thing which has to be done in order to use library is to include main header file.
 
 ## How to use?
-Clone repository, copy files from include directory to your project and import umbrella file named glMath.h
+Clone repository, copy files from include directory to your project and import umbrella file named glMath.h.
+Alternatively, it is possible to use CMake in order to install project.
+
+## Installation
+If you would like to install the library once and for all I suggest using CMake and run the snippet placed below.
+```c
+$ git clone https://github.com/mateuszstompor/glMath.git
+$ cd glMath
+$ mkdir build && cd build
+$ cmake ..
+$ make install
+```
 
 ## Data structures
 <p>Each data structure is implemented as template class, so user can decide which underlying type he/she wants to use.</p>

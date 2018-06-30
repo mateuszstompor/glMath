@@ -25,3 +25,4 @@
 #include "geometry/orthographic_viewport.h"
 #include "geometry/bounding_box.h"
 #include "geometry/plane.h"
+#include "geometry/size.h"

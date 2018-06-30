@@ -160,7 +160,7 @@ void VectorTest::testPerformance() {
 	auto time13 = measure_time<std::chrono::milliseconds>([&](){
 
 		for(long i = 0; i < 10000000; ++i) {
-			CPPUNIT_ASSERT(vec1 != vec1);
+			CPPUNIT_ASSERT(vec1 == vec1);
 		}
 
 	});
@@ -170,7 +170,7 @@ void VectorTest::testPerformance() {
 	auto time14 = measure_time<std::chrono::milliseconds>([&](){
 
 		for(long i = 0; i < 10000000; ++i) {
-			CPPUNIT_ASSERT(vec3 != vec3);
+			CPPUNIT_ASSERT(vec3 == vec3);
 		}
 
 	});
