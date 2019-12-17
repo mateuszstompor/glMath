@@ -15,95 +15,67 @@
 #include "common.h"
 
 namespace ms {
-    
     namespace math {
-        
         namespace spco {
-            
             template <typename Type>
             struct RadiansSpherical;
-            
         }
-        
         template <typename Type, UNSIGNED_TYPE Dimension>
         class Vector {
-            
             template <typename T, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
             friend class Matrix;
-            
         public:
-            
-                                        Vector				();
-                                        Vector				(Type value);
-                                        Vector				(const Vector & v);
-                                        Vector				(const Vector<Type, Dimension - 1> & v, Type value);
-                                        Vector				(const Type array [Dimension]);
-                                        Vector				(Type x, Type y);
-                                        Vector				(Type x, Type y, Type z);
-                                        Vector				(Type x, Type y, Type z, Type w);
-                                        Vector				(Type x, Type y, Type z, Type w, Type p);
-                                        Vector				(const spco::RadiansSpherical<Type> & sphericalCoordinates);
-            
-            Vector &					operator	=		(const Vector & v);
-            bool						operator	==		(const Vector & v) const;
-            bool						operator	!=		(const Vector & v) const;
-            Vector						operator	+		(const Vector & v) const;
-            Vector & 					operator 	+= 		(const Vector & v);
-            Vector 						operator 	- 		(const Vector & v) const;
-            Vector & 					operator 	-= 		(const Vector & v);
-            Vector 						operator 	-		() const;
-            
-            Vector 						operator 	/ 		(Type value) const;
-            Vector& 					operator 	/= 		(Type value);
-            
-            Vector 						operator 	* 		(Type value) const;
-            Vector& 					operator 	*= 		(Type value);
-            
+                                        Vector              ();
+                                        Vector              (Type value);
+                                        Vector              (const Vector & v);
+                                        Vector              (const Vector<Type, Dimension - 1> & v, Type value);
+                                        Vector              (const Type array [Dimension]);
+                                        Vector              (Type x, Type y);
+                                        Vector              (Type x, Type y, Type z);
+                                        Vector              (Type x, Type y, Type z, Type w);
+                                        Vector              (Type x, Type y, Type z, Type w, Type p);
+                                        Vector              (const spco::RadiansSpherical<Type> & sphericalCoordinates);
+            Vector &                    operator    =       (const Vector & v);
+            bool                        operator    ==      (const Vector & v) const;
+            bool                        operator    !=      (const Vector & v) const;
+            Vector                      operator    +       (const Vector & v) const;
+            Vector &                    operator    +=      (const Vector & v);
+            Vector                      operator    -       (const Vector & v) const;
+            Vector &                    operator    -=      (const Vector & v);
+            Vector                      operator    -       () const;
+            Vector                      operator    /       (Type value) const;
+            Vector &                    operator    /=      (Type value);
+            Vector                      operator    *       (Type value) const;
+            Vector &                    operator    *=      (Type value);
             template <UNSIGNED_TYPE Columns>
-            Vector<Type, Columns>		operator	*		(const Matrix<Type, Dimension, Columns> &) const;
-            
+            Vector<Type, Columns>       operator    *       (const Matrix<Type, Dimension, Columns> &) const;
             template <UNSIGNED_TYPE Columns>
-            Vector<Type, Columns> &		operator	*=		(const Matrix<Type, Dimension, Columns> &);
-            
-            constexpr Type & 			operator 	[] 		(size_t position);
-            constexpr Type const & 		operator 	[] 		(size_t position) const;
-            
-            Type 						dot					(const Vector & v) const;
-            constexpr Type 				dot_xyz				(const Vector & v) const;
-            Vector 						cross				(const Vector & v) const;
-            
-            Type	 					length				() const;
-            Type	 					length2				() const;
-            
-            Vector &	 				normalize			();
-            Vector						normalized			() const;
-            
-            std::string 				to_string			() const;
-            
-            constexpr Type *		 	c_array				();
-            constexpr const Type * 		c_array				() const;
-            
-            constexpr Type const &		x					() const;
-            constexpr Type &			x					();
-            
-            constexpr Type const &		y					() const;
-            constexpr Type &			y					();
-            
-            constexpr Type const &		z					() const;
-            constexpr Type &			z					();
-            
-            constexpr Type const &		w					() const;
-            constexpr Type &			w					();
-            
-            Vector<Type, 3>				xyz					() const;
-            Vector<Type, 2> 			xy					() const;
-            
-            Type 						components [Dimension];
-            
+            Vector<Type, Columns> &     operator    *=      (const Matrix<Type, Dimension, Columns> &);
+            constexpr Type &            operator    []      (size_t position);
+            constexpr Type const &      operator    []      (size_t position) const;
+            Type                        dot                 (const Vector & v) const;
+            constexpr Type              dot_xyz             (const Vector & v) const;
+            Vector                      cross               (const Vector & v) const;
+            Type                        length              () const;
+            Type                        length2             () const;
+            Vector &                    normalize           ();
+            Vector                      normalized          () const;
+            std::string                 to_string           () const;
+            constexpr Type *            c_array             ();
+            constexpr const Type *      c_array             () const;
+            constexpr Type const &      x                   () const;
+            constexpr Type &            x                   ();
+            constexpr Type const &      y                   () const;
+            constexpr Type &            y                   ();
+            constexpr Type const &      z                   () const;
+            constexpr Type &            z                   ();
+            constexpr Type const &      w                   () const;
+            constexpr Type &            w                   ();
+            Vector<Type, 3>             xyz                 () const;
+            Vector<Type, 2>             xy                  ()const;
+            Type                        components [Dimension];
         };
-        
     }
-    
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -117,18 +89,18 @@ ms::math::Vector<Type, Dimension>::Vector(Type value) : Vector() {
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(const Vector & v) : Vector() {
-    std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
+    std::memcpy(components, v.components, Dimension * sizeof(Type));
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector (const Vector<Type, Dimension - 1> & v, Type value) : Vector() {
-    std::memcpy((*this).components, v.components, (Dimension - 1) * sizeof(Type));
-    (*this).components[Dimension - 1] = value;
+    std::memcpy(components, v.components, (Dimension - 1) * sizeof(Type));
+    components[Dimension - 1] = value;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>::Vector(const Type array [Dimension]) : Vector() {
-    std::memcpy((*this).components, array, Dimension * sizeof(Type));
+    std::memcpy(components, array, Dimension * sizeof(Type));
 }
 
 
@@ -168,95 +140,83 @@ ms::math::Vector<Type, Dimension>::Vector (Type x, Type y, Type z, Type w, Type 
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension>& ms::math::Vector<Type, Dimension>::operator=(const Vector & v) {
-    std::memcpy((*this).components, v.components, Dimension * sizeof(Type));
+    std::memcpy(components, v.components, Dimension * sizeof(Type));
     return *this;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type> & sphericalCoordinates) : Vector() {
     static_assert(Dimension == 3, "Spherical system requires dimension of three");
-    (*this).components[0] = sphericalCoordinates.radius * cos(sphericalCoordinates.azimuthAngle)	* sin(sphericalCoordinates.inclination);
-    (*this).components[1] = sphericalCoordinates.radius * sin(sphericalCoordinates.azimuthAngle) 	* sin(sphericalCoordinates.inclination);
-    (*this).components[2] = sphericalCoordinates.radius * cos(sphericalCoordinates.inclination);
+    components[0] = sphericalCoordinates.radius * cos(sphericalCoordinates.azimuthAngle) * sin(sphericalCoordinates.inclination);
+    components[1] = sphericalCoordinates.radius * sin(sphericalCoordinates.azimuthAngle) * sin(sphericalCoordinates.inclination);
+    components[2] = sphericalCoordinates.radius * cos(sphericalCoordinates.inclination);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 bool ms::math::Vector<Type, Dimension>::operator == (const Vector & v) const {
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        if (v.components[i] != (*this).components[i])
+        if (v.components[i] != components[i])
             return false;
     return true;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 bool ms::math::Vector<Type, Dimension>::operator != (const Vector & v) const {
-    return !( *this == v );
+    return !(*this == v);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 Type ms::math::Vector<Type, Dimension>::dot(const Vector & v) const {
-    Type dotProduct = Type(0.0);
-    
+    Type dotProduct = Type{0.0};
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        dotProduct += this->components[i] * v.components[i];
-    
+        dotProduct += components[i] * v.components[i];
     return dotProduct;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type ms::math::Vector<Type, Dimension>::dot_xyz (const Vector & v) const {
     static_assert(Dimension >= 3, "dot_xyz requires vector of dimension at least 3");
-    return this->components[0] * v.components[0] + this->components[1] * v.components[1] + this->components[2] * v.components[2];
+    return components[0] * v.components[0] + components[1] * v.components[1] + components[2] * v.components[2];
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::cross(const Vector & v) const {
     static_assert(Dimension == 3, "Cross product exists only for dimension of three");
     Vector vec;
-    vec[0] = this->components[1] * v.components[2] - this->components[2] * v.components[1];
-    vec[1] = this->components[2] * v.components[0] - this->components[0] * v.components[2];
-    vec[2] = this->components[0] * v.components[1] - this->components[1] * v.components[0];
+    vec[0] = components[1] * v.components[2] - components[2] * v.components[1];
+    vec[1] = components[2] * v.components[0] - components[0] * v.components[2];
+    vec[2] = components[0] * v.components[1] - components[1] * v.components[0];
     return vec;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator /= (Type value) {
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        (*this).components[i] /= value;
-    
+        components[i] /= value;
     return *this;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator / (Type value) const {
     Vector vec;
-    
-    for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        vec.components[i] = (*this).components[i] / value;
-    
+    for(UNSIGNED_TYPE i{0}; i < Dimension; ++i)
+        vec.components[i] = components[i] / value;
     return vec;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator *= (Type value) {
-    
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        (*this).components[i] *= value;
-    
+        components[i] *= value;
     return *this;
-    
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator * (Type value) const {
-    
     Vector vec;
-    
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        vec.components[i] = (*this).components[i] * value;
-    
+        vec.components[i] = components[i] * value;
     return vec;
-    
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -266,7 +226,7 @@ ms::math::Vector<Type, Columns> ms::math::Vector<Type, Dimension> :: operator * 
     for(UNSIGNED_TYPE row = 0; row < Dimension; ++row) {
         result.components[row] = 0.0;
         for(UNSIGNED_TYPE column = 0; column < Columns; ++column)
-            result.components[row] += (*this).components[column] * m.components[Dimension * column + row];
+            result.components[row] += components[column] * m.components[Dimension * column + row];
     }
     return result;
 }
@@ -274,20 +234,19 @@ ms::math::Vector<Type, Columns> ms::math::Vector<Type, Dimension> :: operator * 
 template <typename Type, UNSIGNED_TYPE Dimension>
 template <UNSIGNED_TYPE Columns>
 ms::math::Vector<Type, Columns> & ms::math::Vector<Type, Dimension> :: operator *= (const Matrix<Type, Dimension, Columns> & m) {
-    Vector<Type, Columns> result;
-    result = (*this) * m;
-    (*this) = result;
-    return (*this);
+    auto result = *this * m;
+    *this = result;
+    return *this;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type& ms::math::Vector<Type, Dimension>::operator [] (size_t position) {
-    return (*this).components[position];
+    return components[position];
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr const Type& ms::math::Vector<Type, Dimension>::operator [] (size_t position) const {
-    return (*this).components[position];
+    return components[position];
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
@@ -298,52 +257,40 @@ ms::math::Vector<Type, Dimension> operator * (Type value, const ms::math::Vector
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator + (const Vector & v) const {
-    Vector vec;
-    
+    Vector vec{};
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        vec.components[i] = (*this).components[i] + v.components[i];
-    
+        vec.components[i] = components[i] + v.components[i];
     return vec;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension>::operator - (const Vector & v) const {
     Vector vec;
-    
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        vec.components[i] = (*this).components[i] - v.components[i];
-    
+        vec.components[i] = components[i] - v.components[i];
     return vec;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator += (const Vector & v) {
-    
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        (*this).components[i] += v.components[i];
-    
+        components[i] += v.components[i];
     return *this;
-    
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::operator -= (const Vector & v) {
-    
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i)
-        this->components[i] -= v.components[i];
-    
+        components[i] -= v.components[i];
     return *this;
-    
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 Type ms::math::Vector<Type, Dimension>::length() const {
-    Type length = Type(0.0);
-    
+    Type length {0.0};
     for(UNSIGNED_TYPE i = 0; i < Dimension; ++i) {
-        length += (*this).components[i] * (*this).components[i];
+        length += components[i] * components[i];
     }
-    
     return sqrt(length);
 }
 
@@ -362,7 +309,7 @@ ms::math::Vector<Type, Dimension> & ms::math::Vector<Type, Dimension>::normalize
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension> :: normalized() const {
-    Vector vec(*this);
+    Vector vec{*this};
     vec.normalize();
     return vec;
 }
@@ -370,10 +317,8 @@ ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension> :: normalize
 template <typename Type, UNSIGNED_TYPE Dimension>
 std::string ms::math::Vector<Type, Dimension>::to_string() const {
     std::ostringstream output;
-    
     for (UNSIGNED_TYPE i = 0; i < Dimension; ++i)
         output << components[i] << " ";
-    
     return output.str();
 }
 
@@ -390,65 +335,65 @@ constexpr Type * ms::math::Vector<Type, Dimension>::c_array() {
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type const & ms::math::Vector<Type, Dimension>::x () const {
     static_assert(Dimension > 0, "Dimension needs to be greater than zero");
-    return *this->components;
+    return *components;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type & ms::math::Vector<Type, Dimension>::x () {
     static_assert(Dimension > 0, "Dimension needs to be greater than zero");
-    return *this->components;
+    return *components;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type const & ms::math::Vector<Type, Dimension>::y () const {
     static_assert(Dimension > 1, "Dimension needs to be greater than one");
-    return *(this->components + 1);
+    return *(components + 1);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type & ms::math::Vector<Type, Dimension>::y () {
     static_assert(Dimension > 1, "Dimension needs to be greater than one");
-    return *(this->components + 1);
+    return *(components + 1);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type const & ms::math::Vector<Type, Dimension>::z () const  {
     static_assert(Dimension > 2, "Dimension needs to be greater than two");
-    return *(this->components + 2);
+    return *(components + 2);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type & ms::math::Vector<Type, Dimension>::z ()  {
     static_assert(Dimension > 2, "Dimension needs to be greater than two");
-    return *(this->components + 2);
+    return *(components + 2);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type const & ms::math::Vector<Type, Dimension>::w () const  {
     static_assert(Dimension > 3, "Dimension needs to be greater than three");
-    return *(this->components + 3);
+    return *(components + 3);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 constexpr Type & ms::math::Vector<Type, Dimension>::w () {
     static_assert(Dimension > 3, "Dimension needs to be greater than three");
-    return *(this->components + 3);
+    return *(components + 3);
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, 3> ms::math::Vector<Type, Dimension>::xyz () const {
-    return Vector<Type, 3>{this->x(), this->y(), this->z()};
+    return Vector<Type, 3>{x(), y(), z()};
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, Dimension> ms::math::Vector<Type, Dimension> :: operator - () const {
     Vector v;
     for (size_t i = 0; i < Dimension; ++i)
-        v.components[i] = -this->components[i];
+        v.components[i] = -components[i];
     return v;
 }
 
 template <typename Type, UNSIGNED_TYPE Dimension>
 ms::math::Vector<Type, 2> ms::math::Vector<Type, Dimension>::xy () const {
-    return Vector<Type, 2>{this->x(), this->y()};
+    return Vector<Type, 2>{x(), y()};
 }

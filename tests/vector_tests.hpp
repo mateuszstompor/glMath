@@ -71,9 +71,24 @@ TEST_F(VectorTestFixture, Equals) {
     ASSERT_FALSE(vec2 == vec1);
 }
 
-TEST_F(VectorTestFixture, Length) {
-    Vector<float, 4> vec1(3, 3, 3, 3);
-    ASSERT_EQ(vec1.length(), 6);
+TEST_F(VectorTestFixture, Length2D) {
+    Vector<float, 2> vec{1, 0};
+    ASSERT_EQ(vec.length(), 1);
+}
+
+TEST_F(VectorTestFixture, Length3D) {
+    Vector<float, 3> vec(0, 3, 0);
+    ASSERT_EQ(vec.length(), 3);
+}
+
+TEST_F(VectorTestFixture, Length4D) {
+    Vector<float, 4> vec(3, 3, 3, 3);
+    ASSERT_EQ(vec.length(), 6);
+}
+
+TEST_F(VectorTestFixture, Length5D) {
+    Vector<float, 5> vec(3, 0, 0, 0, 0);
+    ASSERT_EQ(vec.length(), 3);
 }
 
 TEST_F(VectorTestFixture, Addition) {

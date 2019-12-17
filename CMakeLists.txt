@@ -15,7 +15,8 @@ install(DIRECTORY glMath
 
 IF (BUILD_TESTING)
     find_package(GTest REQUIRED Threads REQUIRED)
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Werror")
+    include_directories(glMath)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Werror -g")
     include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR})
     add_executable(glMath_tests ${CMAKE_SOURCE_DIR}/tests/main.cpp)
     target_sources(glMath_tests PRIVATE tests)
