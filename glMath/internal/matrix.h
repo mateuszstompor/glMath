@@ -61,8 +61,8 @@ namespace ms {
             Matrix & 					operator *= 		(Type value);
             Matrix	 					operator *	 		(Type value) const;
             
-            bool	 					operator ==	 		(const Matrix & m);
-            bool	 					operator !=	 		(const Matrix & m);
+            bool	 					operator ==	 		(const Matrix & m) const;
+            bool	 					operator !=	 		(const Matrix & m) const;
             
             Matrix<Type, Columns, Rows> transposition 		() const;
             
@@ -200,12 +200,12 @@ ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: o
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-bool ms::math::Matrix<Type, Rows, Columns> :: operator == (const Matrix & m) {
+bool ms::math::Matrix<Type, Rows, Columns> :: operator == (const Matrix & m) const {
     return !((*this) != m);
 }
 
 template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
-bool ms::math::Matrix<Type, Rows, Columns> :: operator != (const Matrix & m) {
+bool ms::math::Matrix<Type, Rows, Columns> :: operator != (const Matrix & m) const {
     for(UNSIGNED_TYPE i = 0; i < Rows * Columns; ++i) {
         if (m.components[i] != (*this).components[i])
             return true;

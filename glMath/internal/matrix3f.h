@@ -49,8 +49,8 @@ namespace ms {
             inline Matrix & 					operator *= 		(float);
             inline Matrix	 					operator *	 		(float) const;
             
-            inline bool	 						operator ==	 		(const Matrix &);
-            inline bool	 						operator !=	 		(const Matrix &);
+            inline bool	 						operator ==	 		(const Matrix &) const;
+            inline bool	 						operator !=	 		(const Matrix &) const;
             
             inline constexpr float & 			operator []			(UNSIGNED_TYPE);
             inline constexpr const float & 		operator []			(UNSIGNED_TYPE) const;
@@ -247,11 +247,11 @@ ms::math::Matrix<float, 3, 3> ms::math::Matrix<float, 3, 3> :: operator * (float
     return result;
 }
 
-bool ms::math::Matrix<float, 3, 3> :: operator == (const Matrix & m) {
+bool ms::math::Matrix<float, 3, 3> :: operator == (const Matrix & m) const {
     return !((*this) != m);
 }
 
-bool ms::math::Matrix<float, 3, 3> :: operator != (const Matrix & m) {
+bool ms::math::Matrix<float, 3, 3> :: operator != (const Matrix & m) const {
     for(UNSIGNED_TYPE i = 0; i < 9; ++i) {
         if (m.components[i] != (*this).components[i])
             return true;
