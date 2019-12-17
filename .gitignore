@@ -33,3 +33,6 @@ xcuserdata/
 *.exe
 *.out
 *.app
+
+# Clion
+.idea
