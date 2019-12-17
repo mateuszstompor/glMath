@@ -29,40 +29,25 @@
 // points {a, b, c, d} - plane front
 // points {g, e, f, h} - plane back
 
-namespace ms {
-    
-    namespace math {
-        
-        enum class BoxPlane {
-            front, back,
-            left, right,
-            top, bottom
-        };
-        
-        template <typename Type>
-        struct BoxCorners {
-            
-            using vec3T = Vector<Type, 3>;
-            
-            //corners
-            vec3T a, b, c, d, e, f, g, h;
-            
-        };
-        
-        template <typename Type>
-        struct BoxPlanes {
-            
-            Plane<Type>     front;
-            Plane<Type>     back;
-            
-            Plane<Type>     top;
-            Plane<Type>     bottom;
-            
-            Plane<Type>     left;
-            Plane<Type>     right;
-            
-        };
-        
-    }
-    
+namespace ms::math {
+    enum class BoxPlane {
+        front, back,
+        left, right,
+        top, bottom
+    };
+    template <typename Type>
+    struct BoxCorners {
+        using vec3T = Vector<Type, 3>;
+        //corners
+        vec3T a, b, c, d, e, f, g, h;
+    };
+    template <typename Type>
+    struct BoxPlanes {
+        Plane<Type>     front;
+        Plane<Type>     back;
+        Plane<Type>     top;
+        Plane<Type>     bottom;
+        Plane<Type>     left;
+        Plane<Type>     right;
+    };
 }

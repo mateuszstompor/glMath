@@ -13,61 +13,40 @@
 #include "../internal/definitions.h"
 #include "../geometry/bounding_box.h"
 
-namespace ms {
-    
-    namespace math {
-        
-        template <typename Type>
-        class Plane {
-            
-        protected:
-            
-            typedef Vector<Type, 3> vec3T;
-            typedef Vector<Type, 4> vec4T;
-            
-        public:
-            
-            enum class RelativePosition {
-                in_front,
-                intersects,
-                behind
-            };
-            Plane	();
-            
-            Plane	(const vec3T & normal,
-                     const vec3T & origin);
-            
-            //																						//
-            // checks if vector from origin to second point and normal vector are perpendicular		//
-            //																						//
-            
-            bool						is_in_front		(BoundingBox<Type> const & boundingBox) const;
-            
-            RelativePosition			get_position	(Matrix<Type, 4, 4> const & m, BoundingBox<Type> const & boundingBox) const;
-            RelativePosition			get_position	(BoundingBox<Type> const & boundingBox) const;
-            constexpr vec3T const &		get_normal		() const;
-            constexpr vec3T const &		get_origin		() const;
-            constexpr vec4T const &		get_normal4		() const;
-            constexpr vec4T const &		get_origin4		() const;
-            
-            //clockwise
-            static Plane from_points(vec3T const & firstPoint, vec3T const & origin, vec3T const & secondPoint);
-            static Plane from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint);
-            
-        private:
-            
-            // duplication speed up calculations a lot
-            Vector<Type, 3>  	normal;
-            Vector<Type, 4>  	normal4;
-            
-            //	origin of normal vector	//
-            Vector<Type, 3>  	originPoint;
-            Vector<Type, 4>  	originPoint4;
-            
+namespace ms::math {
+    template <typename Type>
+    class Plane {
+    protected:
+        typedef Vector<Type, 3> vec3T;
+        typedef Vector<Type, 4> vec4T;
+    public:
+        enum class RelativePosition {
+            in_front,
+            intersects,
+            behind
         };
-        
-    }
-    
+                                    Plane   ();
+                                    Plane   (const vec3T & normal,
+                                             const vec3T & origin);
+        bool                        is_in_front     (BoundingBox<Type> const & boundingBox) const;
+        RelativePosition            get_position    (Matrix<Type, 4, 4> const & m,
+                                                     BoundingBox<Type> const & boundingBox) const;
+        RelativePosition            get_position    (BoundingBox<Type> const & boundingBox) const;
+        constexpr vec3T const &     get_normal      () const;
+        constexpr vec3T const &     get_origin      () const;
+        constexpr vec4T const &     get_normal4     () const;
+        constexpr vec4T const &     get_origin4     () const;
+        // Clockwise
+        static Plane from_points(vec3T const & firstPoint, vec3T const & origin, vec3T const & secondPoint);
+        static Plane from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint);
+    private:
+        // Duplication speed up calculations a lot
+        Vector<Type, 3>  	normal;
+        Vector<Type, 4>  	normal4;
+        // Origin of normal vector
+        Vector<Type, 3>  	originPoint;
+        Vector<Type, 4>  	originPoint4;
+    };
 }
 
 template <typename Type>
@@ -88,36 +67,24 @@ bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & boundingBox) 
 
 template <typename Type>
 typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (const Matrix<Type, 4, 4> & m, const BoundingBox<Type> & boundingBox) const {
-    bool inFront = true;
-    bool behind = true;
-    bool result = true;
-    
+    bool inFront{true}, behind{true}, result;
     for(int i{0}; i < 8 && (behind || inFront); ++i) {
         result = ((m * boundingBox.corners[i]) -= originPoint4).dot_xyz(normal4) > 0;
-        
         inFront = inFront && result;
         behind = behind && !result;
     }
-    
-    return (inFront || behind) == false ? RelativePosition::intersects :
-    (inFront == false ? RelativePosition::behind : RelativePosition::in_front);
+    return !(inFront || behind) ? RelativePosition::intersects : (!inFront ? RelativePosition::behind : RelativePosition::in_front);
 }
 
 template <typename Type>
 typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (BoundingBox<Type> const & boundingBox) const {
-    bool isInFront = true;
-    bool isBehind = true;
-    bool result = true;
-    
+    bool isInFront{true}, isBehind{true}, result;
     for(int i = 0; i < 8 && (isBehind || isInFront); ++i) {
         result = (boundingBox.corners[i] - originPoint4).dot_xyz(normal4) > 0;
-        
         isInFront = isInFront && result;
         isBehind = isBehind && !result;
     }
-    
-    return isInFront == false && isBehind == false ? RelativePosition::intersects :
-    (isInFront == false ? RelativePosition::behind : RelativePosition::in_front);
+    return !isInFront && !isBehind ? RelativePosition::intersects : (!isInFront ? RelativePosition::behind : RelativePosition::in_front);
 }
 
 template <typename Type>

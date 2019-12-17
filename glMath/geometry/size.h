@@ -8,16 +8,10 @@
 
 #pragma once
 
-namespace ms {
-    
-    namespace math {
-        
-        template<typename T = float>
-        struct Size {
-            T width;
-            T height;
-        };
-        
-    }
-    
+namespace ms::math {
+    template<typename T = float>
+    struct Size {
+        T width;
+        T height;
+    };
 }

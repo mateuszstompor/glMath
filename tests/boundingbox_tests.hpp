@@ -16,13 +16,13 @@ class BoundingBoxTestFixture: public ::testing::Test {
 };
 
 TEST_F(BoundingBoxTestFixture, Dimensions) {
-    ASSERT_NEAR(2.0, boundingBox.get_width_x(), 0.00001);
-    ASSERT_NEAR(2.0, boundingBox.get_height_y(), 0.00001);
-    ASSERT_NEAR(2.0, boundingBox.get_depth_z(), 0.00001);
+    ASSERT_FLOAT_EQ(2.0, boundingBox.get_width_x());
+    ASSERT_FLOAT_EQ(2.0, boundingBox.get_height_y());
+    ASSERT_FLOAT_EQ(2.0, boundingBox.get_depth_z());
 }
 
 TEST_F(BoundingBoxTestFixture, OriginLocation) {
-    ASSERT_NEAR(0, boundingBox.get_origin().x(), 0.00001);
-    ASSERT_NEAR(0, boundingBox.get_origin().y(), 0.00001);
-    ASSERT_NEAR(0, boundingBox.get_origin().z(), 0.00001);
+    ASSERT_FLOAT_EQ(0, boundingBox.get_origin().x());
+    ASSERT_FLOAT_EQ(0, boundingBox.get_origin().y());
+    ASSERT_FLOAT_EQ(0, boundingBox.get_origin().z());
 }
