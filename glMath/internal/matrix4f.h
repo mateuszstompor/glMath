@@ -375,7 +375,7 @@ constexpr float * ms::math::Matrix<float, 4, 4> :: c_array() {
 }
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> ::operator * (const Matrix<float, 4, 4> & m) const {
-    Matrix <float, 4, 4> result;
+    Matrix <float, 4, 4> result{};
     
     result.components[0] =
     this->components[0] * m.components[0] +

@@ -165,10 +165,10 @@ bool ms::math::Vector<Type, Dimension>::operator != (const Vector & v) const {
 
 template <typename Type, std::uint8_t Dimension>
 Type ms::math::Vector<Type, Dimension>::dot(const Vector & v) const {
-    Type dotProduct = Type{0.0};
+    Type dot = Type{0.0};
     for(std::uint8_t i = 0; i < Dimension; ++i)
-        dotProduct += components[i] * v.components[i];
-    return dotProduct;
+        dot += components[i] * v.components[i];
+    return dot;
 }
 
 template <typename Type, std::uint8_t Dimension>

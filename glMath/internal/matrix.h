@@ -15,71 +15,43 @@
 
 #include "common.h"
 
-namespace ms {
-    
-    namespace math {
-        
+namespace ms::math {
+    template <typename T, std::uint8_t Dimension>
+    class Vector;
+    template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
+    class Matrix {
         template <typename T, std::uint8_t Dimension>
-        class Vector;
-        
-        template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
-        class Matrix {
-            
-            template <typename T, std::uint8_t Dimension>
-            friend class Vector;
-            
-        public:
-            
-            //static functions
-            
-            static Matrix 				identity			();
-            static Matrix 				diagonal			(Type value);
-            
-            
-        public:
-            
-                                        Matrix				();
-                                        Matrix				(Type value);
-                                        Matrix				(const Matrix & m);
-                                        Matrix				(const Type array [Rows * Columns]);
-            
-            Matrix &					operator =			(const Matrix & m);
-            
-            Matrix 						operator - 			(const Matrix & m) const;
-            Matrix & 					operator -= 		(const Matrix & m);
-            
-            Matrix 						operator + 			(const Matrix & m) const;
-            Matrix & 					operator += 		(const Matrix & m);
-            
-            Matrix & 					operator *= 		(const Matrix & m);
-            
-            template <std::uint8_t C>
-            Matrix<Type, Rows, C> 		operator * 			(const Matrix<Type, Columns, C> & m) const;
-            
-            Vector<Type, Rows>			operator *			(const Vector<Type, Columns> &) const;
-            
-            Matrix & 					operator *= 		(Type value);
-            Matrix	 					operator *	 		(Type value) const;
-            
-            bool	 					operator ==	 		(const Matrix & m) const;
-            bool	 					operator !=	 		(const Matrix & m) const;
-            
-            Matrix<Type, Columns, Rows> transposition 		() const;
-            
-            constexpr Type & 			operator []			(std::uint8_t index);
-            constexpr const Type & 		operator []			(std::uint8_t index) const;
-            
-            std::string 				to_string			() const;
-            
-            constexpr Type *		 	c_array				();
-            constexpr const Type * 		c_array				() const;
-            
-            Type 						components [Rows * Columns];
-            
-        };
-        
-    }
-    
+        friend class Vector;
+    public:
+        //static functions
+        static Matrix               identity            ();
+        static Matrix               diagonal            (Type value);
+    public:
+                                    Matrix              () = default;
+                                    Matrix              (Type value);
+                                    Matrix              (const Matrix & m);
+                                    Matrix              (const Type array [Rows * Columns]);
+        Matrix &                    operator =          (const Matrix & m);
+        Matrix                      operator -          (const Matrix & m) const;
+        Matrix &                    operator -=         (const Matrix & m);
+        Matrix                      operator +          (const Matrix & m) const;
+        Matrix &                    operator +=         (const Matrix & m);
+        Matrix &                    operator *=         (const Matrix & m);
+        template <std::uint8_t C>
+        Matrix<Type, Rows, C>       operator *          (const Matrix<Type, Columns, C> & m) const;
+        Vector<Type, Rows>          operator *          (const Vector<Type, Columns> &) const;
+        Matrix &                    operator *=         (Type value);
+        Matrix                      operator *          (Type value) const;
+        bool                        operator ==         (const Matrix & m) const;
+        bool                        operator !=         (const Matrix & m) const;
+        Matrix<Type, Columns, Rows> transposition       () const;
+        constexpr Type &            operator []         (std::uint8_t index);
+        constexpr const Type &      operator []         (std::uint8_t index) const;
+        std::string                 to_string           () const;
+        constexpr Type *            c_array             ();
+        constexpr const Type *      c_array             () const;
+        Type                        components [Rows * Columns];
+    };
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
@@ -98,27 +70,24 @@ ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: d
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
-ms::math::Matrix<Type, Rows, Columns> :: Matrix() { }
-
-template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 ms::math::Matrix<Type, Rows, Columns> :: Matrix(Type value) : Matrix() {
     for(std::uint8_t i = 0; i < Rows * Columns; ++i)
-        (*this).components[i] = value;
+        components[i] = value;
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 ms::math::Matrix<Type, Rows, Columns> :: Matrix(const Matrix & m) : Matrix() {
-    std::memcpy((*this).components, m.components, sizeof(Type) * Rows * Columns);
+    std::memcpy(components, m.components, sizeof(Type) * Rows * Columns);
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 ms::math::Matrix<Type, Rows, Columns> :: Matrix(const Type array [Rows * Columns]) : Matrix() {
-    std::memcpy((*this).components, array, sizeof(Type) * Rows * Columns);
+    std::memcpy(components, array, sizeof(Type) * Rows * Columns);
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator = (const Matrix & m) {
-    std::memcpy((*this).components, m.components, sizeof(Type) * Rows * Columns);
+    std::memcpy(components, m.components, sizeof(Type) * Rows * Columns);
     return (*this);
 }
 
@@ -126,14 +95,14 @@ template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: operator - (const Matrix & m) const {
     Matrix result;
     for(std::uint8_t i = 0; i < Rows * Columns; ++i)
-        result[i] = this->components[i] - m.components[i];
+        result[i] = components[i] - m.components[i];
     return result;
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator -= (const Matrix & m) {
     for(std::uint8_t i = 0; i < Rows * Columns; ++i)
-        this->components -= m.components[i];
+        components -= m.components[i];
     return *this;
 }
 
@@ -141,14 +110,14 @@ template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: operator + (const Matrix & m) const {
     Matrix result;
     for(std::uint8_t i = 0; i < Rows * Columns; ++i)
-        result[i] = this->components[i] + m.components[i];
+        result[i] = components[i] + m.components[i];
     return result;
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 ms::math::Matrix<Type, Rows, Columns> & ms::math::Matrix<Type, Rows, Columns> :: operator += (const Matrix & m) {
     for(std::uint8_t i = 0; i < Rows * Columns; ++i)
-        this->components += m.components[i];
+        components += m.components[i];
     return *this;
 }
 
@@ -169,7 +138,6 @@ ms::math::Matrix<Type, Rows, C> ms::math::Matrix<Type, Rows, Columns> :: operato
             for (std::uint8_t i = 0; i < Columns; ++i)
                 result.components[Rows * innerIterator + outerIterator] += this->components[Rows*i + outerIterator ] * m.components[Rows*innerIterator + i];
         }
-    
     return result;
 }
 
@@ -201,16 +169,12 @@ ms::math::Matrix<Type, Rows, Columns> ms::math::Matrix<Type, Rows, Columns> :: o
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 bool ms::math::Matrix<Type, Rows, Columns> :: operator == (const Matrix & m) const {
-    return !((*this) != m);
+    return std::equal(std::begin(components), std::end(components), std::begin(m.components));
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 bool ms::math::Matrix<Type, Rows, Columns> :: operator != (const Matrix & m) const {
-    for(std::uint8_t i = 0; i < Rows * Columns; ++i) {
-        if (m.components[i] != (*this).components[i])
-            return true;
-    }
-    return false;
+    return !(*this == m);
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
@@ -224,21 +188,20 @@ ms::math::Matrix<Type, Columns, Rows> ms::math::Matrix<Type, Rows, Columns> :: t
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 constexpr Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (std::uint8_t index) {
-    return this->components[index];
+    return components[index];
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 constexpr const Type & ms::math::Matrix<Type, Rows, Columns> :: operator [] (std::uint8_t index) const {
-    return this->components[index];
+    return components[index];
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 std::string ms::math::Matrix<Type, Rows, Columns> :: to_string() const {
     std::ostringstream output;
     for (std::uint8_t row = 0; row < Rows; ++row) {
-        for (std::uint8_t column = 0; column < Columns; ++column) {
+        for (std::uint8_t column = 0; column < Columns; ++column)
             output << std::setprecision(2) << components[column * Rows + row] << " ";
-        }
         output << '\n';
     }
     return output.str();
@@ -246,10 +209,10 @@ std::string ms::math::Matrix<Type, Rows, Columns> :: to_string() const {
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 constexpr const Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() const {
-    return this->components;
+    return components;
 }
 
 template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
 constexpr Type * ms::math::Matrix<Type, Rows, Columns> :: c_array() {
-    return this->components;
+    return components;
 }
