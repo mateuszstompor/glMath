@@ -14,43 +14,43 @@ namespace ms::math {
     template<>
     class Vector<float, 2> {
     public:
-                                            Vector				() = default;
-        inline 								Vector				(const Vector & v);
-        inline 								Vector				(const Vector<float, 1> & v, float value);
-        inline 								Vector				(const float array [2]);
-        inline 								Vector				(float x, float y);
+                                            Vector              () = default;
+        inline                              Vector              (const Vector & v);
+        inline                              Vector              (const Vector<float, 1> & v, float value);
+        inline                              Vector              (const float array [2]);
+        inline                              Vector              (float x, float y);
                                             ~Vector             () = default;
-        inline Vector &						operator	=		(const Vector & v);
-        inline bool							operator	==		(const Vector & v) const;
-        inline bool							operator	!=		(const Vector & v) const;
-        inline Vector						operator	+		(const Vector & v) const;
-        inline Vector & 					operator 	+= 		(const Vector & v);
-        inline Vector 						operator 	- 		(const Vector & v) const;
-        inline Vector & 					operator 	-= 		(const Vector & v);
-        inline Vector						operator	-		() const;
-        inline Vector 						operator 	/ 		(float value) const;
-        inline Vector& 						operator 	/= 		(float value);
-        inline Vector 						operator 	* 		(float value) const;
-        inline Vector& 						operator 	*= 		(float value);
+        inline Vector &                     operator    =       (const Vector & v);
+        inline bool                         operator    ==      (const Vector & v) const;
+        inline bool                         operator    !=      (const Vector & v) const;
+        inline Vector                       operator    +       (const Vector & v) const;
+        inline Vector &                     operator    +=      (const Vector & v);
+        inline Vector                       operator    -       (const Vector & v) const;
+        inline Vector &                     operator    -=      (const Vector & v);
+        inline Vector                       operator    -       () const;
+        inline Vector                       operator    /       (float value) const;
+        inline Vector&                      operator    /=      (float value);
+        inline Vector                       operator    *       (float value) const;
+        inline Vector&                      operator    *=      (float value);
         template <std::uint8_t Columns>
-        Vector<float, Columns>				operator	*		(const Matrix<float, 2, Columns> &) const;
+        Vector<float, Columns>              operator    *       (const Matrix<float, 2, Columns> &) const;
         template <std::uint8_t Columns>
-        inline Vector<float, Columns> &		operator	*=		(const Matrix<float, 2, Columns> &);
-        inline constexpr float & 			operator 	[] 		(size_t position);
-        inline constexpr float const & 		operator 	[] 		(size_t position) const;
-        inline float 						dot					(const Vector & v) const;
-        inline float	 					length				() const;
-        inline float	 					length2				() const;
-        inline Vector &	 					normalize			();
-        inline Vector						normalized			() const;
-        inline std::string 					to_string			() const;
-        inline constexpr float *		 	c_array				();
-        inline constexpr const float * 		c_array				() const;
-        inline constexpr float const &		x					() const;
-        inline constexpr float &			x					();
-        inline constexpr float const &		y					() const;
-        inline constexpr float &			y					();
-        float 								components [2];
+        inline Vector<float, Columns> &     operator    *=      (const Matrix<float, 2, Columns> &);
+        inline constexpr float &            operator    []      (size_t position);
+        inline constexpr float const &      operator    []      (size_t position) const;
+        inline float                        dot                 (const Vector & v) const;
+        inline float                        length              () const;
+        inline float                        length2             () const;
+        inline Vector &                     normalize           ();
+        inline Vector                       normalized          () const;
+        inline std::string                  to_string           () const;
+        inline constexpr float *            c_array             ();
+        inline constexpr const float *      c_array             () const;
+        inline constexpr float const &      x                   () const;
+        inline constexpr float &            x                   ();
+        inline constexpr float const &      y                   () const;
+        inline constexpr float &            y                   ();
+        float                               components [2];
     };
 }
 
