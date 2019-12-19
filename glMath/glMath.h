@@ -11,6 +11,7 @@
 #include "internal/definitions.h"
 #include "internal/vector2f.h"
 #include "internal/vector3f.h"
+#include "internal/ray.h"
 #include "internal/vector4f.h"
 #include "internal/matrix.h"
 #include "internal/vector.h"

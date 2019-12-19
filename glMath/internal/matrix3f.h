@@ -39,7 +39,7 @@ namespace ms {
             inline Matrix & 					operator *= 		(const Matrix &);
             inline Matrix &						operator =			(const Matrix &);
             
-            template <UNSIGNED_TYPE C>
+            template <std::uint8_t C>
             inline Matrix<float, 3, C> 			operator * 			(const Matrix<float, 3, C> &) const;
             
             inline Matrix<float, 3, 3> 			operator * 			(const Matrix<float, 3, 3> &) const;
@@ -52,8 +52,8 @@ namespace ms {
             inline bool	 						operator ==	 		(const Matrix &) const;
             inline bool	 						operator !=	 		(const Matrix &) const;
             
-            inline constexpr float & 			operator []			(UNSIGNED_TYPE);
-            inline constexpr const float & 		operator []			(UNSIGNED_TYPE) const;
+            inline constexpr float & 			operator []			(std::uint8_t);
+            inline constexpr const float & 		operator []			(std::uint8_t) const;
             
             inline Matrix                       transposition       () const;
             inline std::string 					to_string			() const;
@@ -185,14 +185,14 @@ ms::math::Matrix<float, 3, 3> & ms::math::Matrix<float, 3, 3> :: operator *= (co
     return (*this);
 }
 
-template <UNSIGNED_TYPE C>
+template <std::uint8_t C>
 ms::math::Matrix<float, 3, C> ms::math::Matrix<float, 3, 3> :: operator * (const Matrix<float, 3, C> & m) const {
     Matrix <float, 3, C> result;
     
-    for(UNSIGNED_TYPE outerIterator = 0; outerIterator < 3; ++outerIterator)
-        for (UNSIGNED_TYPE innerIterator = 0; innerIterator < C; ++innerIterator) {
+    for(std::uint8_t outerIterator = 0; outerIterator < 3; ++outerIterator)
+        for (std::uint8_t innerIterator = 0; innerIterator < C; ++innerIterator) {
             result.components[3 * innerIterator + outerIterator] = 0;
-            for (UNSIGNED_TYPE i = 0; i < 3; ++i)
+            for (std::uint8_t i = 0; i < 3; ++i)
                 result.components[3 * innerIterator + outerIterator] += this->components[3*i + outerIterator ] * m.components[3*innerIterator + i];
         }
     
@@ -252,7 +252,7 @@ bool ms::math::Matrix<float, 3, 3> :: operator == (const Matrix & m) const {
 }
 
 bool ms::math::Matrix<float, 3, 3> :: operator != (const Matrix & m) const {
-    for(UNSIGNED_TYPE i = 0; i < 9; ++i) {
+    for(std::uint8_t i = 0; i < 9; ++i) {
         if (m.components[i] != (*this).components[i])
             return true;
     }
@@ -261,17 +261,17 @@ bool ms::math::Matrix<float, 3, 3> :: operator != (const Matrix & m) const {
 
 ms::math::Matrix<float, 3, 3> ms::math::Matrix<float, 3, 3> :: transposition () const {
     Matrix mat;
-    for (UNSIGNED_TYPE row = 0; row < 3; ++row)
-        for (UNSIGNED_TYPE column = 0; column < 3; ++column)
+    for (std::uint8_t row = 0; row < 3; ++row)
+        for (std::uint8_t column = 0; column < 3; ++column)
             mat.components[row * 3 + column] = this->components[row + column * 3];
     return mat;
 }
 
-constexpr float & ms::math::Matrix<float, 3, 3> :: operator [] (UNSIGNED_TYPE index) {
+constexpr float & ms::math::Matrix<float, 3, 3> :: operator [] (std::uint8_t index) {
     return this->components[index];
 }
 
-constexpr const float & ms::math::Matrix<float, 3, 3> :: operator [] (UNSIGNED_TYPE index) const {
+constexpr const float & ms::math::Matrix<float, 3, 3> :: operator [] (std::uint8_t index) const {
     return this->components[index];
 }
 

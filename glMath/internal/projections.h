@@ -12,7 +12,7 @@ namespace ms {
     
     namespace math {
         
-        template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+        template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
         class Matrix;
         
         namespace projection {

@@ -1,7 +1,12 @@
 //
-// Created by Mateusz Stompór on 17/12/2019.
+//  main.cpp
+//  glMath
+//
+//  Created by Mateusz Stompór on 17/12/2019.
+//  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
+#include "ray_tests.hpp"
 #include "plane_tests.hpp"
 #include "matrix_tests.hpp"
 #include "vector_tests.hpp"

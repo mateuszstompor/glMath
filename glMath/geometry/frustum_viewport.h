@@ -35,7 +35,7 @@
 namespace ms::math {
     template <typename Type>
     class FrustumViewport {
-        template <typename T, UNSIGNED_TYPE Dimension>
+        template <typename T, std::uint8_t Dimension>
         friend class Vector;
         template <typename T>
         friend class Plane;

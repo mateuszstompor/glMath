@@ -39,7 +39,7 @@ namespace ms {
             inline Matrix & 					operator *= 		(const Matrix & m);
             inline Matrix &						operator =			(const Matrix & m);
             
-            template <UNSIGNED_TYPE C>
+            template <std::uint8_t C>
             inline Matrix<float, 4, C> 			operator * 			(const Matrix<float, 4, C> &) const;
             
             inline Matrix<float, 4, 4> 			operator * 			(const Matrix<float, 4, 4> & m) const;
@@ -52,8 +52,8 @@ namespace ms {
             inline bool	 						operator ==	 		(const Matrix & m) const;
             inline bool	 						operator !=	 		(const Matrix & m) const;
             
-            inline constexpr float & 			operator []		    (UNSIGNED_TYPE index);
-            inline constexpr const float & 		operator []			(UNSIGNED_TYPE index) const;
+            inline constexpr float & 			operator []		    (std::uint8_t index);
+            inline constexpr const float & 		operator []			(std::uint8_t index) const;
             
             inline Matrix                       transposition       () const;
             inline std::string 					to_string			() const;
@@ -239,14 +239,14 @@ ms::math::Matrix<float, 4, 4> & ms::math::Matrix<float, 4, 4> :: operator *= (co
     return (*this);
 }
 
-template <UNSIGNED_TYPE C>
+template <std::uint8_t C>
 ms::math::Matrix<float, 4, C> ms::math::Matrix<float, 4, 4> :: operator * (const Matrix<float, 4, C> & m) const {
     Matrix <float, 4, C> result;
     
-    for(UNSIGNED_TYPE outerIterator = 0; outerIterator < 4; ++outerIterator)
-        for (UNSIGNED_TYPE innerIterator = 0; innerIterator < C; ++innerIterator) {
+    for(std::uint8_t outerIterator = 0; outerIterator < 4; ++outerIterator)
+        for (std::uint8_t innerIterator = 0; innerIterator < C; ++innerIterator) {
             result.components[4 * innerIterator + outerIterator] = 0;
-            for (UNSIGNED_TYPE i = 0; i < 4; ++i)
+            for (std::uint8_t i = 0; i < 4; ++i)
                 result.components[4 * innerIterator + outerIterator] += this->components[4*i + outerIterator ] * m.components[4*innerIterator + i];
         }
     
@@ -332,7 +332,7 @@ bool ms::math::Matrix<float, 4, 4> :: operator == (const Matrix & m) const {
 }
 
 bool ms::math::Matrix<float, 4, 4> :: operator != (const Matrix & m) const {
-    for(UNSIGNED_TYPE i = 0; i < 16; ++i) {
+    for(std::uint8_t i = 0; i < 16; ++i) {
         if (m.components[i] != components[i])
             return true;
     }
@@ -341,24 +341,24 @@ bool ms::math::Matrix<float, 4, 4> :: operator != (const Matrix & m) const {
 
 ms::math::Matrix<float, 4, 4> ms::math::Matrix<float, 4, 4> :: transposition () const {
     Matrix mat;
-    for (UNSIGNED_TYPE row = 0; row < 4; ++row)
-        for (UNSIGNED_TYPE column = 0; column < 4; ++column)
+    for (std::uint8_t row = 0; row < 4; ++row)
+        for (std::uint8_t column = 0; column < 4; ++column)
             mat.components[row * 4 + column] = this->components[row + column * 4];
     return mat;
 }
 
-constexpr float & ms::math::Matrix<float, 4, 4> :: operator [] (UNSIGNED_TYPE index) {
+constexpr float & ms::math::Matrix<float, 4, 4> :: operator [] (std::uint8_t index) {
     return this->components[index];
 }
 
-constexpr const float & ms::math::Matrix<float, 4, 4> :: operator [] (UNSIGNED_TYPE index) const {
+constexpr const float & ms::math::Matrix<float, 4, 4> :: operator [] (std::uint8_t index) const {
     return this->components[index];
 }
 
 std::string ms::math::Matrix<float, 4, 4> :: to_string() const {
     std::ostringstream output;
-    for (UNSIGNED_TYPE row = 0; row < 4; ++row) {
-        for (UNSIGNED_TYPE column = 0; column < 4; ++column) {
+    for (std::uint8_t row = 0; row < 4; ++row) {
+        for (std::uint8_t column = 0; column < 4; ++column) {
             output << std::setprecision(2) << components[column * 4 + row] << " ";
         }
         output << '\n';

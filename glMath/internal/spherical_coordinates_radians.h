@@ -16,7 +16,7 @@ namespace ms {
     
     namespace math {
         
-        template <typename T, UNSIGNED_TYPE Dimension>
+        template <typename T, std::uint8_t Dimension>
         class Vector;
         
         //spherical coordinates

@@ -1,5 +1,9 @@
 //
-// Created by Mateusz Stompór on 17/12/2019.
+//  boundingbox_tests.hpp
+//  glMath
+//
+//  Created by Mateusz Stompór on 17/12/2019.
+//  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
 #pragma once

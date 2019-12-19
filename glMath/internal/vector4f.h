@@ -45,10 +45,10 @@ namespace ms {
             
             inline Vector<float, 5>				expanded			(float value) const;
             
-            template <UNSIGNED_TYPE Columns>
+            template <std::uint8_t Columns>
             Vector<float, Columns>				operator	*		(const Matrix<float, 4, Columns> &) const;
             
-            template <UNSIGNED_TYPE Columns>
+            template <std::uint8_t Columns>
             inline Vector<float, Columns> &		operator	*=		(const Matrix<float, 4, Columns> &);
             
             inline constexpr float & 			operator 	[] 		(size_t position);
@@ -172,19 +172,19 @@ ms::math::Vector<float, 4> ms::math::Vector<float, 4>::operator * (float value) 
     return Vector(this->components[0] * value, this->components[1] * value, this->components[2] * value, this->components[3] * value);
 }
 
-template <UNSIGNED_TYPE Columns>
+template <std::uint8_t Columns>
 ms::math::Vector<float, Columns> ms::math::Vector<float, 4> :: operator * (const Matrix<float, 4, Columns> & m) const {
     Vector<float, Columns> result;
-    for(UNSIGNED_TYPE row = 0; row < 4; ++row) {
+    for(std::uint8_t row = 0; row < 4; ++row) {
         result.components[row] = 0.0;
-        for(UNSIGNED_TYPE column = 0; column < Columns; ++column)
+        for(std::uint8_t column = 0; column < Columns; ++column)
             result.components[row] += (*this).components[column] * m.components[4 * column + row];
     }
     return result;
 }
 
 
-template <UNSIGNED_TYPE Columns>
+template <std::uint8_t Columns>
 ms::math::Vector<float, Columns> & ms::math::Vector<float, 4> :: operator *= (const Matrix<float, 4, Columns> & m) {
     Vector<float, Columns> result;
     result = (*this) * m;

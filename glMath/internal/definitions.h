@@ -11,9 +11,9 @@
 #pragma once
 
 namespace ms::math {
-    template <typename T, UNSIGNED_TYPE Dimension>
+    template <typename T, std::uint8_t Dimension>
     class Vector;
-    template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+    template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
     class Matrix;
     template <typename Type>
     class FrustumViewport;

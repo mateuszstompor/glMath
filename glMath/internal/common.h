@@ -24,10 +24,6 @@
 #endif
 
 
-namespace ms::math {
-    #define UNSIGNED_TYPE std::uint8_t
-}
-
 namespace ms {
     template <typename Type>
     inline bool equal(Type value, Type actualValue, Type precision) {

@@ -9,16 +9,16 @@
 #pragma once
 
 namespace ms::math {
-    template <typename Type, UNSIGNED_TYPE Rows, UNSIGNED_TYPE Columns>
+    template <typename Type, std::uint8_t Rows, std::uint8_t Columns>
     class Matrix;
-    template <typename T, UNSIGNED_TYPE Dimension>
+    template <typename T, std::uint8_t Dimension>
     class Vector;
     namespace transform {
-        template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
+        template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> scale (Vector<Type, (Dimension - 1) > scaleFactors) {
             static_assert(	Dimension	>=	2, "Matrix needs to at least two - dimensional" );
             Matrix<Type, Dimension, Dimension> scale = Matrix<Type, Dimension, Dimension>::identity();
-            for (UNSIGNED_TYPE i = 0; i < Dimension - 1; ++i)
+            for (std::uint8_t i = 0; i < Dimension - 1; ++i)
                 scale[i * Dimension + i] = scaleFactors[i];
             return scale;
         }
@@ -58,15 +58,15 @@ namespace ms::math {
             auto up = Vector<Type, 3>(direction[0], direction[1], direction[2] * Type(2.0)).cross(direction);
             return look_at(eyePosition, eyePosition + direction, up);
         }
-        template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
+        template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> translate (Vector<Type, (Dimension - 1) > translationFactors) {
             static_assert(	Dimension	>=	2		, "Matrix needs to at least two - dimensional" );
             Matrix<Type, Dimension, Dimension> translation = Matrix<Type, Dimension, Dimension>::identity();
-            for (UNSIGNED_TYPE i = 0; i < Dimension - 1; ++i)
+            for (std::uint8_t i = 0; i < Dimension - 1; ++i)
                 translation[(Dimension - 1) * Dimension + i] = translationFactors[i];
             return translation;
         }
-        template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
+        template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> rotate_about_x_radians (Type radians) {
             Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
             static_assert(Dimension==3||Dimension==4, "Matrix needs to at three or four - dimensional" );
@@ -77,7 +77,7 @@ namespace ms::math {
             return rotation;
         }
 
-        template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
+        template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> rotate_about_y_radians (Type radians) {
             Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
             static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
@@ -88,7 +88,7 @@ namespace ms::math {
             return rotation;
         }
 
-        template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
+        template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> rotate_about_z_radians (Type radians) {
             Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
 
@@ -101,7 +101,7 @@ namespace ms::math {
             return rotation;
         }
         // VECTOR NEEDS TO BE NORMALIZED
-        template <typename Type = float, UNSIGNED_TYPE Dimension = 4>
+        template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> rotate_about_axis (Type radians, Vector<Type, Dimension> v) {
             Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
             static_assert(Dimension == 3 || Dimension   ==  4, "Matrix needs to at three or four - dimensional" );
