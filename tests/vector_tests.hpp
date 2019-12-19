@@ -232,24 +232,24 @@ TEST_F(VectorTestFixture, MatrixMultiplication) {
 TEST_F(VectorTestFixture, SphericalCoordinatesConversionRadians) {
     spco::RadiansSpherical<float> co;
     co.radius = 5.0f;
-    co.azimuthAngle = M_PI / 3;
+    co.azimuth_angle = M_PI / 3;
     co.inclination = M_PI / 6;
     Vector<float, 3> vec1(co);
     ASSERT_FLOAT_EQ(1.25, vec1[0]);
     ASSERT_FLOAT_EQ(2.165063509, vec1[1]);
     ASSERT_FLOAT_EQ(4.330127019, vec1[2]);
     co.radius = 1.0f;
-    co.azimuthAngle = 0;
+    co.azimuth_angle = 0;
     co.inclination = 0.0f;
     vec1 = Vector<float, 3>(co);
     ASSERT_FLOAT_EQ(1, co.radius);
-    ASSERT_FLOAT_EQ(0, co.azimuthAngle);
+    ASSERT_FLOAT_EQ(0, co.azimuth_angle);
     ASSERT_FLOAT_EQ(0, co.inclination);
     vec1[0] = 3.0f;
     vec1[1] = 0.0f;
     vec1[2] = 0.0f;
     co = spco::RadiansSpherical<float>(vec1);
     ASSERT_FLOAT_EQ(3, co.radius);
-    ASSERT_FLOAT_EQ(0, co.azimuthAngle);
+    ASSERT_FLOAT_EQ(0, co.azimuth_angle);
     ASSERT_FLOAT_EQ(M_PI / 2, co.inclination);
 }

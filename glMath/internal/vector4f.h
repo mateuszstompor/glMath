@@ -85,8 +85,8 @@ ms::math::Vector<float, 4> & ms::math::Vector<float, 4>::operator=(const Vector 
 }
 
 ms::math::Vector<float, 4> :: Vector (const spco::RadiansSpherical <float> & sphericalCoordinates) {
-    components[0] = sphericalCoordinates.radius * std::cos(sphericalCoordinates.azimuthAngle) * std::sin(sphericalCoordinates.inclination);
-    components[1] = sphericalCoordinates.radius * std::sin(sphericalCoordinates.azimuthAngle) * std::sin(sphericalCoordinates.inclination);
+    components[0] = sphericalCoordinates.radius * std::cos(sphericalCoordinates.azimuth_angle) * std::sin(sphericalCoordinates.inclination);
+    components[1] = sphericalCoordinates.radius * std::sin(sphericalCoordinates.azimuth_angle) * std::sin(sphericalCoordinates.inclination);
     components[2] = sphericalCoordinates.radius * std::cos(sphericalCoordinates.inclination);
     components[3] = 1.0f;
 }

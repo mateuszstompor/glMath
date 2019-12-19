@@ -13,6 +13,7 @@
 #include <cstring>
 
 #include "common.h"
+#include "matrix.h"
 
 namespace ms::math {
     namespace spco {
