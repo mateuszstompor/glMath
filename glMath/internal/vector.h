@@ -152,10 +152,7 @@ ms::math::Vector<Type, Dimension> :: Vector (const spco::RadiansSpherical <Type>
 
 template <typename Type, std::uint8_t Dimension>
 bool ms::math::Vector<Type, Dimension>::operator == (const Vector & v) const {
-    for(std::uint8_t i = 0; i < Dimension; ++i)
-        if (v.components[i] != components[i])
-            return false;
-    return true;
+    return std::equal(std::begin(components), std::end(components), std::begin(v.components));
 }
 
 template <typename Type, std::uint8_t Dimension>
