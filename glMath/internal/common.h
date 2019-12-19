@@ -27,10 +27,7 @@
 namespace ms {
     template <typename Type>
     inline bool equal(Type value, Type actualValue, Type precision) {
-        if(actualValue < (value - precision) || actualValue > (value + precision)) {
-            return false;
-        }
-        return true;
+        return !(actualValue < (value - precision) || actualValue > (value + precision));
     }
     template <typename Type>
     inline void assert_equal(Type value, Type actualValue, Type precision) {

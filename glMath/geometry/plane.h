@@ -25,20 +25,26 @@ namespace ms::math {
             intersects,
             behind
         };
-                                    Plane   ();
-                                    Plane   (const vec3T & normal,
-                                             const vec3T & origin);
-        bool                        is_in_front     (BoundingBox<Type> const & boundingBox) const;
-        RelativePosition            get_position    (Matrix<Type, 4, 4> const & m,
-                                                     BoundingBox<Type> const & boundingBox) const;
-        RelativePosition            get_position    (BoundingBox<Type> const & boundingBox) const;
-        constexpr vec3T const &     get_normal      () const;
-        constexpr vec3T const &     get_origin      () const;
-        constexpr vec4T const &     get_normal4     () const;
-        constexpr vec4T const &     get_origin4     () const;
+                                    Plane               ();
+                                    Plane               (const vec3T & normal,
+                                                         const vec3T & origin);
+        bool                        is_in_front         (BoundingBox<Type> const & boundingBox) const;
+        RelativePosition            get_position        (Matrix<Type, 4, 4> const & m,
+                                                         BoundingBox<Type> const & boundingBox) const;
+        RelativePosition            get_position        (BoundingBox<Type> const & boundingBox) const;
+        constexpr vec3T const &     get_normal          () const;
+        constexpr vec3T const &     get_origin          () const;
+        constexpr vec4T const &     get_normal4         () const;
+        constexpr vec4T const &     get_origin4         () const;
+        std::optional<Type>         intersection        (Ray<Type, 3> ray, Type epsilon);
+        std::optional<vec3T>        intersection_point  (Ray<Type, 3> ray);
         // Clockwise
-        static Plane from_points(vec3T const & firstPoint, vec3T const & origin, vec3T const & secondPoint);
-        static Plane from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint);
+        static Plane                from_points         (vec3T const & firstPoint,
+                                                         vec3T const & origin,
+                                                         vec3T const & secondPoint);
+        static Plane                from_points         (vec3T && firstPoint,
+                                                         vec3T && origin,
+                                                         vec3T && secondPoint);
     private:
         // Duplication speed up calculations a lot
         Vector<Type, 3>  	normal;
@@ -116,9 +122,28 @@ ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T const & firstPo
 }
 
 template <typename Type>
-ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint) {
+ms::math::Plane<Type> ms::math::Plane<Type>::from_points(vec3T && firstPoint, vec3T && origin, vec3T && secondPoint) {
     firstPoint -= origin;
     secondPoint -= origin;
     auto normal = firstPoint.cross(secondPoint).normalize();
     return ms::math::Plane<Type>(std::move(normal), std::move(origin));
+}
+
+template <typename Type>
+std::optional<typename ms::math::Vector<Type, 3>> ms::math::Plane<Type>::intersection_point (ms::math::Ray<Type, 3> ray) {
+    auto intersection_variable = intersection(ray, std::numeric_limits<Type>::epsilon());
+    if (intersection_variable.has_value()) {
+        return ray.direction * *intersection_variable;
+    }
+    return std::nullopt;
+}
+
+template <typename Type>
+std::optional<Type> ms::math::Plane<Type>::intersection (Ray<Type, 3> ray, Type epsilon) {
+    auto ndotrn = ray.direction.dot(normal);
+    if (std::abs(ndotrn) < epsilon) {
+        // add some epsilon
+        return std::nullopt;
+    }
+    return (ray.origin - originPoint).dot(ray.direction) / ndotrn;
 }

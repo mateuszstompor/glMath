@@ -46,3 +46,17 @@ TEST_F(PlaneTestFixture, CreationFromThreePoints) {
     ASSERT_FLOAT_EQ(1.0f, plane.get_normal().y());
     ASSERT_FLOAT_EQ(0.0f, plane.get_normal().z());
 }
+
+TEST_F(PlaneTestFixture, IntersectionPointRayIntersecting) {
+    auto plane = Plane<float>{vec3{-1.0f, 0.0f, 0.0f}, vec3{2.0f, 0.0f, 0.0f}};
+    Ray<float,3> ray{vec3{0.0f, 0.0f, 0.0f}, vec3{1.0f, 0.0f, 0.0f}};
+    std::optional<vec3> intersection_point = plane.intersection_point(ray);
+    ASSERT_EQ(intersection_point, vec3(2.0f, 0.0f, 0.0f));
+}
+
+TEST_F(PlaneTestFixture, IntersectionPointRayParallel) {
+    auto plane = Plane<float>{vec3{-1.0f, 0.0f, 0.0f}, vec3{2.0f, 0.0f, 0.0f}};
+    Ray<float,3> ray{vec3{1.0f, 1.0f, 0.0f}, vec3{0.0f, 1.0f, 0.0f}};
+    std::optional<vec3> intersection_point = plane.intersection_point(ray);
+    ASSERT_EQ(intersection_point, std::nullopt);
+}
