@@ -24,6 +24,6 @@ TEST_F(RayTestFixture, OriginInitialization) {
 
 TEST_F(RayTestFixture, DirectionInitialization) {
     Ray<float, 3> ray(vec3(1, 2, 3), vec3(1, 0, 0));
-    vec3 expected_direction {1, 2, 3};
+    vec3 expected_direction {1, 0, 0};
     ASSERT_EQ(expected_direction, ray.direction);
 }
