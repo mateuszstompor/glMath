@@ -6,9 +6,10 @@
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
 //
 
-#include "common.h"
-
 #pragma once
+
+#include "common.h"
+#include "../geometry/plane.h"
 
 namespace ms::math {
     template <typename T, std::uint8_t Dimension>
@@ -35,4 +36,10 @@ namespace ms::math {
     typedef ms::math::Vector<double, 3>         vec3d;
     typedef ms::math::Vector<double, 4>         vec4d;
     typedef ms::math::FrustumViewport<float>    frustum4f;
+    // Ray
+    typedef ms::math::Ray<float, 3>             ray3f;
+    typedef ms::math::Ray<float, 4>             ray4f;
+    // Plane
+    typedef ms::math::Plane<float>              planef;
+    typedef ms::math::Plane<double>             planed;
 }

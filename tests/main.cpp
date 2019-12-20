@@ -7,6 +7,7 @@
 //
 
 #include "ray_tests.hpp"
+#include "sphere_tests.h"
 #include "plane_tests.hpp"
 #include "matrix_tests.hpp"
 #include "vector_tests.hpp"

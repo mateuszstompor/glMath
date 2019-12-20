@@ -24,6 +24,7 @@
 
 #include "geometry/size.h"
 #include "geometry/plane.h"
+#include "geometry/sphere.h"
 #include "geometry/bounding_box.h"
 #include "geometry/frustum_viewport.h"
 #include "geometry/orthographic_viewport.h"
