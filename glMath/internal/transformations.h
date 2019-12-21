@@ -16,54 +16,51 @@ namespace ms::math {
     namespace transform {
         template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> scale (Vector<Type, (Dimension - 1) > scaleFactors) {
-            static_assert(	Dimension	>=	2, "Matrix needs to at least two - dimensional" );
+            static_assert(Dimension>=2, "Matrix needs to at least two - dimensional");
             Matrix<Type, Dimension, Dimension> scale = Matrix<Type, Dimension, Dimension>::identity();
             for (std::uint8_t i = 0; i < Dimension - 1; ++i)
                 scale[i * Dimension + i] = scaleFactors[i];
             return scale;
         }
         template<typename Type = float>
-        Matrix<Type, 4, 4> look_at (const Vector<Type, 3> & eyePosition, const Vector<Type, 3> & originPosition, const Vector<Type, 3> & upVector) {
-            auto z = (originPosition - eyePosition).normalized();
-            auto y = upVector.normalized();
+        Matrix<Type, 4, 4> look_at (const Vector<Type, 3> & eye_position,
+                                    const Vector<Type, 3> & origin,
+                                    const Vector<Type, 3> & up_vector) {
+            auto z = (origin - eye_position).normalized();
+            auto y = up_vector.normalized();
             auto x = z.cross(y).normalized();
             Matrix<Type, 4, 4> m;
             m[0]    = x[0];
             m[4]    = x[1];
             m[8]    = x[2];
-            m[12]   = -x.dot(eyePosition);
-
+            m[12]   = -x.dot(eye_position);
             m[1]    = y[0];
             m[5]    = y[1];
             m[9]    = y[2];
-            m[13]   = -y.dot(eyePosition);
-
+            m[13]   = -y.dot(eye_position);
             m[2]    = -z[0];
             m[6]    = -z[1];
             m[10]   = -z[2];
-            m[14]   = -z.dot(eyePosition);
-
+            m[14]   = -z.dot(eye_position);
             m[3]    = Type(0.0);
             m[7]    = Type(0.0);
             m[11]   = Type(0.0);
             m[15]   = Type(1.0);
-
             return m;
         }
-
         // TODO OPTIMIZE IT
         // Use when you do not need to have up vector specified precisely
         template<typename Type = float>
-        Matrix<Type, 4, 4> directional_look (const Vector<Type, 3> & direction, const Vector<Type, 3> & eyePosition = Vector<Type, 3>(Type(0.0), Type(0.0), Type(0.0)))  {
+        Matrix<Type, 4, 4> directional_look (const Vector<Type, 3> & direction, const Vector<Type, 3> & eye_position = Vector<Type, 3>(Type(0.0), Type(0.0), Type(0.0)))  {
             auto up = Vector<Type, 3>(direction[0], direction[1], direction[2] * Type(2.0)).cross(direction);
-            return look_at(eyePosition, eyePosition + direction, up);
+            return look_at(eye_position, eye_position + direction, up);
         }
         template <typename Type = float, std::uint8_t Dimension = 4>
-        Matrix<Type, Dimension, Dimension> translate (Vector<Type, (Dimension - 1) > translationFactors) {
+        Matrix<Type, Dimension, Dimension> translate (Vector<Type, (Dimension - 1) > translation_factors) {
             static_assert(	Dimension	>=	2		, "Matrix needs to at least two - dimensional" );
             Matrix<Type, Dimension, Dimension> translation = Matrix<Type, Dimension, Dimension>::identity();
             for (std::uint8_t i = 0; i < Dimension - 1; ++i)
-                translation[(Dimension - 1) * Dimension + i] = translationFactors[i];
+                translation[(Dimension - 1) * Dimension + i] = translation_factors[i];
             return translation;
         }
         template <typename Type = float, std::uint8_t Dimension = 4>
@@ -76,7 +73,6 @@ namespace ms::math {
             rotation[2 * Dimension + 2] =   std::cos(radians);
             return rotation;
         }
-
         template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> rotate_about_y_radians (Type radians) {
             Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
@@ -87,13 +83,10 @@ namespace ms::math {
             rotation[2 * Dimension + 2] = std::cos(radians);
             return rotation;
         }
-
         template <typename Type = float, std::uint8_t Dimension = 4>
         Matrix<Type, Dimension, Dimension> rotate_about_z_radians (Type radians) {
             Matrix<Type, Dimension, Dimension> rotation = Matrix<Type, Dimension, Dimension>::identity();
-
-            static_assert(	Dimension	==	3	||	Dimension	==	4, "Matrix needs to at three or four - dimensional" );
-
+            static_assert(Dimension==3||Dimension==4, "Matrix needs to at three or four - dimensional");
             rotation[0]             =   std::cos(radians);
             rotation[1]             =   std::sin(radians);
             rotation[Dimension]     =   -std::sin(radians);
@@ -122,7 +115,7 @@ namespace ms::math {
     }
     template <typename Type = float>
     Vector<Type, 3> get_position (const Matrix<Type, 4, 4> & transformation) {
-        return (transformation * Vector<Type, 4>(Type(0), Type(0), Type(0), Type(1))).xyz();
+        return (transformation * Vector<Type, 4>(Type{0}, Type{0}, Type{0}, Type{1})).xyz();
     }
     template <typename Type = float>
     void set_position (Matrix<Type, 4, 4> & transformation, const Vector<Type, 3> & position) {

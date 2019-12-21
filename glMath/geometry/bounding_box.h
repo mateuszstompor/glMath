@@ -46,9 +46,9 @@ namespace ms::math {
         constexpr vec3T const &     get_origin      () const;
     private:
         Type width_x, height_y, depth_z;
-        Type minX, maxX;
-        Type minY, maxY;
-        Type minZ, maxZ;
+        Type min_x, max_x;
+        Type min_y, max_y;
+        Type min_z, max_z;
         vec3T origin;
         // Corners
         std::vector<vec4T> corners{ };
@@ -56,7 +56,7 @@ namespace ms::math {
 }
 
 template <typename Type>
-ms::math::BoundingBox<Type>::BoundingBox(Type x, Type X, Type y, Type Y, Type z, Type Z) : minX{x}, maxX{X}, minY{y}, maxY{Y}, minZ{z}, maxZ{Z} {
+ms::math::BoundingBox<Type>::BoundingBox(Type x, Type X, Type y, Type Y, Type z, Type Z) : min_x{x}, max_x{X}, min_y{y}, max_y{Y}, min_z{z}, max_z{Z} {
     corners.resize(8);
     corners[0] = vec4T{x, y, z, 1.0f};
     corners[1] = vec4T{x, y, Z, 1.0f};

@@ -72,13 +72,13 @@ bool ms::math::Plane<Type>::is_in_front (BoundingBox<Type> const & bounding_box)
 
 template <typename Type>
 typename ms::math::Plane<Type>::RelativePosition ms::math::Plane<Type>::get_position (const Matrix<Type, 4, 4> & m, const BoundingBox<Type> & bounding_box) const {
-    bool inFront{true}, behind{true}, result;
-    for(auto i{0}; i < 8 && (behind || inFront); ++i) {
+    bool in_front{true}, behind{true}, result;
+    for(auto i{0}; i < 8 && (behind || in_front); ++i) {
         result = ((m * bounding_box.corners[i]) -= origin4).dot_xyz(normal4) > 0;
-        inFront = inFront && result;
+        in_front = in_front && result;
         behind = behind && !result;
     }
-    return !(inFront || behind) ? RelativePosition::intersects : (!inFront ? RelativePosition::behind : RelativePosition::in_front);
+    return !(in_front || behind) ? RelativePosition::intersects : (!in_front ? RelativePosition::behind : RelativePosition::in_front);
 }
 
 template <typename Type>
