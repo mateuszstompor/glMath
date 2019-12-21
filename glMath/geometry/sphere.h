@@ -29,10 +29,10 @@ std::vector<T> ms::math::Sphere<T>::intersection_distances (Ray<T, 3> const & ra
     T a {ray.direction.length2()};
     T b {2 * oc.dot(ray.direction)};
     T c {oc.length2() - radius * radius};
-    T discriminant = b*b - 4*a*c;
+    T discriminant = b*b - T{4} * a * c;
     if (discriminant >= 0) {
-        T denominant {2 * a};
-        T delta {sqrt(b * b - 4 * a * c)};
+        T denominant {T{2} * a};
+        T delta (sqrt(b * b - 4.0 * a * c));
         T first = (-b - delta)/denominant;
         T second = (-b + delta)/denominant;
         result.push_back(first);
