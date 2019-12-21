@@ -5,6 +5,7 @@
 #pragma once
 
 #include <array>
+#include <optional>
 #include "../internal/ray.h"
 
 namespace ms::math {

@@ -9,6 +9,7 @@
 #pragma once
 
 #include <utility>
+#include <optional>
 
 #include "triangle.h"
 #include "bounding_box.h"
