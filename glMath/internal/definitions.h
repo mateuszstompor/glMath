@@ -10,6 +10,7 @@
 
 #include "common.h"
 #include "../geometry/plane.h"
+#include "../geometry/triangle.h"
 
 namespace ms::math {
     template <typename T, std::uint8_t Dimension>
@@ -42,4 +43,7 @@ namespace ms::math {
     // Plane
     typedef ms::math::Plane<float>              planef;
     typedef ms::math::Plane<double>             planed;
+    // Triangle
+    typedef ms::math::Triangle<float, 3>        triangle3f;
+    typedef ms::math::Triangle<double, 3>       triangle3d;
 }

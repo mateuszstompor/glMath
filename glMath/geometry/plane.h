@@ -10,8 +10,9 @@
 
 #include <utility>
 
+#include "triangle.h"
+#include "bounding_box.h"
 #include "../internal/definitions.h"
-#include "../geometry/bounding_box.h"
 
 namespace ms::math {
     template <typename Type>
@@ -36,7 +37,7 @@ namespace ms::math {
         constexpr vec3T const &     get_origin              () const;
         constexpr vec4T const &     get_normal4             () const;
         constexpr vec4T const &     get_origin4             () const;
-        std::optional<Type>         intersection_distance   (Ray<Type, 3> ray, Type epsilon);
+        std::optional<Type>         intersection_distance   (Ray<Type, 3> ray);
         std::optional<vec3T>        intersection_point      (Ray<Type, 3> ray);
         // Clockwise
         static Plane                from_points             (vec3T const & first_point,
@@ -112,7 +113,7 @@ constexpr ms::math::Vector<Type, 4> const & ms::math::Plane<Type>::get_origin4 (
 }
 
 template <typename Type>
-ms::math::Plane<Type> ms::math::Plane<Type> :: from_points(vec3T const & first_point, vec3T const & origin, vec3T const & second_point) {
+ms::math::Plane<Type> ms::math::Plane<Type>::from_points(vec3T const & first_point, vec3T const & origin, vec3T const & second_point) {
     auto first = first_point - origin;
     auto second = second_point - origin;
     auto normal = first.cross(second).normalize();
@@ -129,16 +130,16 @@ ms::math::Plane<Type> ms::math::Plane<Type>::from_points(vec3T && first_point, v
 
 template <typename Type>
 std::optional<typename ms::math::Vector<Type, 3>> ms::math::Plane<Type>::intersection_point (ms::math::Ray<Type, 3> ray) {
-    auto intersection_variable = intersection_distance(ray, std::numeric_limits<Type>::epsilon());
+    auto intersection_variable = intersection_distance(ray);
     if (intersection_variable)
         return ray.origin + ray.direction * *intersection_variable;
     return std::nullopt;
 }
 
 template <typename Type>
-std::optional<Type> ms::math::Plane<Type>::intersection_distance (Ray<Type, 3> ray, Type epsilon) {
+std::optional<Type> ms::math::Plane<Type>::intersection_distance (Ray<Type, 3> ray) {
     auto dot = ray.direction.dot(normal);
-    if (std::abs(dot) < epsilon)
+    if (std::abs(dot) < std::numeric_limits<Type>::epsilon())
         return { };
     return (ray.origin - origin).dot(ray.direction) / dot;
 }
