@@ -1,0 +1,16 @@
+dist: trusty
+
+services:
+  - docker
+
+install:
+  - docker build -f ./tests/environment/Dockerfile  -t glmath_tests .
+
+git:
+  quiet: true
+
+jobs:
+  include:
+    - stage: "Tests"
+      name: "Google unit tests"
+      script: docker run -ti glmath_tests
