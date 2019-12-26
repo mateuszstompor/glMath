@@ -1,6 +1,6 @@
 //
-//  boundingBox.h
-//  ngin
+//  bounding_box.h
+//  glMath
 //
 //  Created by Mateusz Stompór on 31/03/2018.
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
@@ -12,8 +12,8 @@
 #include <vector>
 #include <iostream>
 
-#include "../internal/definitions.h"
 #include "../internal/common.h"
+#include "../internal/definitions.h"
 
 //
 //               e-------f

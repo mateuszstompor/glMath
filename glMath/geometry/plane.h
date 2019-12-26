@@ -11,9 +11,9 @@
 #include <utility>
 #include <optional>
 
-#include "triangle.h"
 #include "bounding_box.h"
 #include "../internal/definitions.h"
+#include "geometry/triangle/surface_normal.h"
 
 namespace ms::math {
     template <typename Type>

@@ -1,5 +1,9 @@
 //
-// Created by Mateusz Stompór on 19/12/2019.
+//  sphere.h
+//  glMath
+//
+//  Created by Mateusz Stompór on 19/12/2019.
+//  Copyright © 2019 Mateusz Stompór. All rights reserved.
 //
 
 #pragma once

@@ -10,7 +10,9 @@
 
 #include "common.h"
 #include "../geometry/plane.h"
-#include "../geometry/triangle.h"
+#include "../geometry/vertex.h"
+#include "geometry/triangle/vertex_normal.h"
+#include "geometry/triangle/surface_normal.h"
 
 namespace ms::math {
     template <typename T, std::uint8_t Dimension>
@@ -43,7 +45,12 @@ namespace ms::math {
     // Plane
     typedef ms::math::Plane<float>              planef;
     typedef ms::math::Plane<double>             planed;
+    // Vertex
+    typedef ms::math::Vertex<float, 3>          vertex3f;
+    typedef ms::math::Vertex<double, 3>         vertex3d;
     // Triangle
-    typedef ms::math::Triangle<float, 3>        triangle3f;
-    typedef ms::math::Triangle<double, 3>       triangle3d;
+    typedef ms::math::triangle::surface::Triangle<float, 3>        triangle3f;
+    typedef ms::math::triangle::surface::Triangle<double, 3>       triangle3d;
+    typedef ms::math::triangle::vertex::Triangle<float, 3>         vtriangle3f;
+    typedef ms::math::triangle::vertex::Triangle<double, 3>        vtriangle3d;
 }

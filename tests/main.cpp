@@ -12,8 +12,9 @@
 #include "matrix_tests.hpp"
 #include "vector_tests.hpp"
 #include "frustum_tests.hpp"
-#include "triangle_tests.hpp"
 #include "boundingbox_tests.hpp"
+#include "vertex_triangle_tests.hpp"
+#include "surface_triangle_tests.hpp"
 
 int main(int argc, char* argv[]) {
     ::testing::InitGoogleTest(&argc, argv);

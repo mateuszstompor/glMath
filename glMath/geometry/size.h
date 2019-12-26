@@ -1,6 +1,6 @@
 //
-//  size.hpp
-//  ngin
+//  size.h
+//  glMath
 //
 //  Created by Mateusz Stompór on 05/06/2018.
 //  Copyright © 2018 Mateusz Stompór. All rights reserved.
