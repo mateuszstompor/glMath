@@ -9,29 +9,28 @@
     </a>
 </p>
 
-<p>Repository contains math operations and data structures used by graphics engines and optimized for OpenGL.
-Project is integrated with Travis.</p>
+The repository contains math tools required to develop a graphics engine.
+It has been used for both online and offline rendering projects.
+Examples of algebraic tools are `matrices`, `vectors`, `plane` and geometric primitives like `spheres` or `triangles`.
+Has a definition of `ray` and implements most commonly used intersection methods.
+Is capable of detecting in-sight bounding boxes in regard to a defined camera. 
+It is distributed in form of a header-only library, optimized for storing matrices in column-wise order.
+All classes which belong to the project are implemented as templates, there is no need of compilation.
+The only thing required to use resources of the library is to include the main header file `glMath.h`.
+
+## Compatibility
+Project has been tested with the most popular compilers, such as clang, gcc and vsc. Uses C++17 standard.
+It was tested on:
+* clang(ver. 5.0)
+* gcc(ver. 5.0)
+* vs compiler from year 2015
 
 ## Requirements
-Project is compatible with the most popular compilers, such as clang, gcc and vsc.
-It was tested on:
-<ul>
-  <li>clang(ver. 5.0)</li>
-  <li>gcc(ver. 5.0)</li>
-  <li>vs compiler from year 2015</li>
-</ul>
-
-## How to build
-Because classes which belong to project are implemented as templates there is no need of compilation.
-The only thing which has to be done in order to use library is to include main header file.
-
-## How to use?
-Clone repository, copy files from include directory to your project and import umbrella file named glMath.h.
-Alternatively, it is possible to use CMake in order to install project.
+* cmake (ver. 3.9+)
 
 ## Installation
-If you would like to install the library once and for all I suggest using CMake and run the snippet placed below.
-```c
+To install the library locally execute the snipped below:
+```bash
 $ git clone https://github.com/mateuszstompor/glMath.git
 $ cd glMath
 $ mkdir build && cd build
@@ -40,27 +39,40 @@ $ make install
 ```
 
 ## Data structures
-<p>Each data structure is implemented as template class, so user can decide which underlying type he/she wants to use.</p>
-<ul>
-    <li>Vector</li>
-    <li>Spherical Coordinates</li>
-    <li>Matrix</li>
-    <li>Ray</li>
-    <li>Plane</li>
-    <li>Sphere</li>
-    <li>Triangle</li>
-    <li>Bounding Box</li>
-    <li>Structures used for representation of viewport, such as frustum and box viewport</li>
-</ul>
+Each data structure is implemented as a template class. 
+The user can decide which type shall be used for calculations.
+
+Most important algebraic structures:
+* `Vector` (n-dimensional) with optimization for 2, 3 and 4 dimensions
+* `Matrix` (n-dimensional) with optimization for 2, 3 and 4 dimensions
+* `Ray` (n-dimensional)
+* `Spherical Coordinates` defined with three primary angles
+* `Plane` (3 or 4 dimensional)
+
+Most important structures for defining geometry of an object:
+* `Sphere`
+* `Triangle` both with a normal vector defined for the face as a whole or for each vertex
+* `Vertex`
+
+Structures used for defining viewport and objects in camera's sight:
+* `BoundingBox`
+* `OrthographicViewport`
+* `FrustumViewport`
 
 ## Testing
-
-In order to build testing image execute
+The recommended way of executing tests is by running a container with all required dependencies. 
+Firstly, build the image:
 ```bash
-docker build -f ./tests/environment/Dockerfile  -t glmath_tests .
+$ docker build -f ./tests/environment/Dockerfile  -t glmath_tests .
 ```
 
-Instantiate the container and run the tests' executable
+Instantiate the container and run the tests' executable:
 ```bash
-docker run -ti glmath_tests
+$ docker run -ti glmath_tests
 ```
+
+## General thoughts
+I treat the project as a playground where I learn about maths backing 3D project. 
+There are many other project which may have similar capabilities.
+The purpose is to reinvent the wheel and let myself and anyone else get deep understanding of what's going on under the hood of an engine.
+ 
